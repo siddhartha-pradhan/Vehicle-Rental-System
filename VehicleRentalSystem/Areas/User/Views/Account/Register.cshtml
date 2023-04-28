@@ -1,0 +1,100 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "User Registration";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-7">
+        <form id="form" method="post" enctype="multipart/form-data">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div class="form-floating col-12 my-2">
+                <input asp-for="FullName" class="form-control" autocomplete="username" aria-required="true" />
+                <label asp-for="FullName" class="ps-2"></label>
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="form-floating col-6 my-2">
+                    <input asp-for="Address" class="form-control" aria-required="true" />
+                    <label asp-for="Address" class="ps-4"></label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-floating col-6 my-2">
+                    <input asp-for="State" class="form-control" aria-required="true" />
+                    <label asp-for="State" class="ps-4"></label>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="form-floating col-6 my-2">
+                    <input asp-for="PhoneNumber" class="form-control" aria-required="true" />
+                    <label asp-for="PhoneNumber" class="ps-4"></label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-floating col-6 my-2">
+                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Email" class="ps-4"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="form-floating col-6 my-2">
+                    <input asp-for="Password" id="initial" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Password" class="ps-4"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form col-6 my-4">
+                    <input type="checkbox" id="password" onclick="showpasswordinitial(this);" />
+                    Show Password
+                    <script type="text/javascript">
+                        function showpasswordinitial(check_box) {
+                            var spass = document.getElementById("initial");
+                            if (check_box.checked)
+                                spass.setAttribute("type", "text");
+                            else
+                                spass.setAttribute("type", "password");
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="form-floating col-6 my-2">
+                    <input asp-for="ConfirmPassword" id="final" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="ConfirmPassword" class="ps-4"></label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form col-6 my-4">
+                    <input type="checkbox" id="passcode" onclick="showpasswordfinal(this);" />
+                    Show Password
+                    <script type="text/javascript">
+                        function showpasswordfinal(check_box) {
+                            var spass = document.getElementById("final");
+                            if (check_box.checked)
+                                spass.setAttribute("type", "text");
+                            else
+                                spass.setAttribute("type", "password");
+                        }
+                    </script>
+                </div>
+            </div>
+                
+            <div class="form-group row">
+                <div class="form col-6 my-2">
+                    <label class="mb-1">Profile Image</label>
+                    <input asp-for="Image" type="file"  placeholder="Profile Image" class="form-control" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                </div>
+                <div class="form-floating col-6 mt-3 my-2">
+                    <button id="registerSubmit" type="submit" class="w-100 mt-3 btn btn-primary">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}
+

@@ -1,4 +1,5 @@
 using VehicleRentalSystem.Infrastructure.Dependency;
+using VehicleRentalSystem.Infrastructure.Persistence.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,4 +40,16 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{Area=User}/{controller=Home}/{action=Index}/{id?}");
 
+SeedDatabase();
+
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+
+        dbInitializer.Initialize();
+    }
+}

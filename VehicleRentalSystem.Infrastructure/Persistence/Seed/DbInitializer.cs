@@ -48,6 +48,8 @@ public class DbInitializer : IDbInitializer
             NormalizedEmail = "ANUJ.PRADHAN.IX@GMAIL.COM",
             UserName = "anuj.pradhan.ix+admin@gmail.com",
             NormalizedUserName = "ANUJ.PRADHAN.IX@GMAIL.COM",
+            Address = "Harold Street",
+            State = "State Somewhere",
             PhoneNumber = "9803364638",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,

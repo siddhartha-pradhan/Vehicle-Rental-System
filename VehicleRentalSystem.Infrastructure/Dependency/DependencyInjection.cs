@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VehicleRentalSystem.Application.Interfaces.Repositories;
 using VehicleRentalSystem.Application.Interfaces.Services;
+using VehicleRentalSystem.Domain.Constants;
 using VehicleRentalSystem.Infrastructure.Implementation.Repositories;
 using VehicleRentalSystem.Infrastructure.Implementation.Services;
 using VehicleRentalSystem.Infrastructure.Persistence;
@@ -32,6 +33,8 @@ public static class DependencyInjection
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
         });
+
+        services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 
         services.AddScoped<IDbInitializer, DbInitializer>();
 
