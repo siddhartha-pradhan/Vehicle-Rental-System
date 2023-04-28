@@ -12,4 +12,9 @@ public class RentalRepository : Repository<Rental>, IRentalRepository
     {
         _dbContext = dbContext;
     }
+
+    public void Delete(Rental rental)
+    {
+        _dbContext.Rentals.Remove(rental);
+    }
 }

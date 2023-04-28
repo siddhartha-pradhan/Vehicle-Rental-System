@@ -25,7 +25,7 @@ public class RentalService : IRentalService
 
         if(rental != null) 
         {
-            _unitOfWork.Rental.Remove(rental);
+            _unitOfWork.Rental.Delete(rental);
             _unitOfWork.Save();
         }
     }

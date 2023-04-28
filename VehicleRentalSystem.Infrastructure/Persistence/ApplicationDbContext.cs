@@ -23,7 +23,7 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Offer> Offers { get; set; }
 
-    public DbSet<Rental> Rental { get; set; }
+    public DbSet<Rental> Rentals { get; set; }
 
     public DbSet<Staff> Staffs { get; set; }
 
