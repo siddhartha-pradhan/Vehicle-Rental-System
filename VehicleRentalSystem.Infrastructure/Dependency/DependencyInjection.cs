@@ -41,10 +41,12 @@ public static class DependencyInjection
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         services.AddTransient<IAppUserService, AppUserService>();
+        services.AddTransient<IBrandService, BrandService>();
         services.AddTransient<ICustomerService, CustomerService>();
         services.AddTransient<IDamageRequestService, DamageRequestService>();
         services.AddTransient<IEmailSender, EmailSenderService>();
         services.AddTransient<IFileTransferService, FileTransferService>();
+        services.AddTransient<IImageService, ImageService>();
         services.AddTransient<IOfferService, OfferService>();
         services.AddTransient<IRentalService, RentalService>();
         services.AddTransient<IStaffService, StaffService>();

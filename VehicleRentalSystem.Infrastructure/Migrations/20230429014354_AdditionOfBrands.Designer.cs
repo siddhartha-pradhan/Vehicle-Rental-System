@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleRentalSystem.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using VehicleRentalSystem.Infrastructure.Persistence;
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230429014354_AdditionOfBrands")]
+    partial class AdditionOfBrands
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -367,10 +369,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ProfileImage")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -562,6 +560,11 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<Guid?>("OfferId")
                         .HasColumnType("uniqueidentifier");
 
@@ -743,13 +746,11 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VehicleRentalSystem.Domain.Entities.Offer", "Offer")
+                    b.HasOne("VehicleRentalSystem.Domain.Entities.Offer", null)
                         .WithMany("Vehicles")
                         .HasForeignKey("OfferId");
 
                     b.Navigation("Brand");
-
-                    b.Navigation("Offer");
                 });
 
             modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Brand", b =>

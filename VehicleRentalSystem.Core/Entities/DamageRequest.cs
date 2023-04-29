@@ -22,6 +22,8 @@ public class DamageRequest
     [Required]
     public bool IsPaid { get; set; } = false;
 
+    public string? PaymentStatus { get; set; }
+
     public string? ApprovedBy { get; set; }
 
     [Required]

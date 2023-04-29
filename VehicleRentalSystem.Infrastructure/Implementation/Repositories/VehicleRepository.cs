@@ -36,7 +36,6 @@ public class VehicleRepository : Repository<Vehicle>, IVehicleRepository
         
         if (item != null)
         {
-            item.Name = vehicle.Name; 
             item.Model = vehicle.Model;
             item.Brand = vehicle.Brand;
             item.Color = vehicle.Color;

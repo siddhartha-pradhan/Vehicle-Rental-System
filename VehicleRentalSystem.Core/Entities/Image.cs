@@ -7,6 +7,8 @@ public class Image
 {
     public Guid Id { get; set; }
 
+    public byte[] ProfileImage { get; set; }
+
     public string ImageURL { get; set; }
 
     public Guid VehicleId { get; set; }

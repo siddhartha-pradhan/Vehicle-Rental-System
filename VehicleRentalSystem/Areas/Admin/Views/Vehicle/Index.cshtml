@@ -1,0 +1,62 @@
+﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+
+@model List<VehicleViewModel>
+
+@{
+    ViewData["Title"] = "Vehicle";
+}
+
+<partial name="_Notification" />
+
+<div class="container-fluid">
+    <h1>Brands</h1>
+    <div class="row mb-3">
+        <div class="col-6">
+            <h2 class="text-dark">List of Vehicles</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-dark" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Add a new Vehicle</a>
+        </div>
+    </div>
+
+    <div class="p-2 border rounded">
+        <table id="tableData" class="table table-striped table-bordered" style="width:100%">
+            <thead class="mt-2">
+                <tr class="table-info">
+                    <th class="text-center">Model</th>
+                    <th class="text-center">Brand</th>
+                    <th class="text-center">Color</th>
+                    <th class="text-center">Price per Day</th>
+                    <th class="text-center">Availability</th>
+                    <th class="text-center">offer</th>
+                    <th class="text-center">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Model</td>
+                        <td>@item.Brand</td>
+                        <td>@item.Color</td>
+                        <td>@item.PricePerDay</td>
+                        <td>@item.Availablility</td>
+                        <td>@item.Offer</td>
+                        <td>
+                            <a href="@Url.Action("Details", "Vehicle", new { id = item.Id })" class="btn btn-dark btn-sm"><i class="fa-solid fa-circle-info"></i></a>
+                            <a href="@Url.Action("Upsert", "Vehicle", new { id = item.Id })" class="btn btn-dark btn-sm"><i class="fa fa-cogs"></i></a>
+                            <a href="@Url.Action("Delete", "Vehicle", new { id = item.Id })" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> 
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#tableData").DataTable();
+    </script>
+}
+

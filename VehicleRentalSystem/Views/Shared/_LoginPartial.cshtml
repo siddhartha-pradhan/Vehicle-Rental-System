@@ -1,13 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using VehicleRentalSystem.Application.Interfaces.Services;
 
+@inject IAppUserService UserService
 @inject UserManager<IdentityUser> UserManager
 @inject SignInManager<IdentityUser> SignInManager
+
+@{
+    var username = UserManager.GetUserAsync(User).Result.UserName;
+    var name = UserService.GetUserName(username);
+}
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Hello @UserManager.GetUserName(User)</a>
+            <a class="nav-link text-dark" href="#">
+                Hello @name !!
+            </a>
         </li>
         <li class="nav-item">
             <form method="post" class="form-inline" asp-area="User" asp-controller="Account" asp-action="LogOut">

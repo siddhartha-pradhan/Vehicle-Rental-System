@@ -19,5 +19,7 @@ public interface IRepository<T> where T : class
     void AddRange(List<T> entity);
 
     void Remove(T entity);
+
+    void RemoveRange(List<T> entity);
 }
 

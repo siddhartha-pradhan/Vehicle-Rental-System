@@ -30,7 +30,7 @@ public class VehicleService : IVehicleService
         }
     }
 
-    public List<Vehicle> GetAllVehicle()
+    public List<Vehicle> GetAllVehicles()
     {
         return _unitOfWork.Vehicle.GetAll();
     }

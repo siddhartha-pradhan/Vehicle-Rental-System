@@ -15,6 +15,8 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<AppUser> AppUsers { get; set; }
 
+    public DbSet<Brand> Brands { get; set; }
+
     public DbSet<Customer> Customers { get; set; }
 
     public DbSet<DamageRequest> DamageRequests { get; set; }

@@ -12,15 +12,7 @@ public class Vehicle : BaseEntity
 
     [Required]
     [MaxLength(50)]
-    public string Name { get; set; }
-
-    [Required]
-    [MaxLength(50)]
     public string Model { get; set; }
-
-    [Required]
-    [MaxLength(50)]
-    public string Brand { get; set; }
 
     [Required]
     [MaxLength(50)]
@@ -42,10 +34,21 @@ public class Vehicle : BaseEntity
     [MaxLength(500)]
     public string Features { get; set; }
 
+    [Required]
+    [Display(Name = "Brand")]
+    public Guid BrandId { get; set; }
+
+    public Guid? OfferId { get; set; }
+
     public bool IsAvailable { get; set; } = true;
 
-    
     public List<Image> Images { get; set; }
+
+    [ForeignKey("BrandId")]
+    public Brand? Brand { get; set; }
+
+    [ForeignKey("OfferId")]
+    public Offer? Offer { get; set; }
 
     [ValidateNever]
     public virtual ICollection<Rental>? Rental { get; set; }

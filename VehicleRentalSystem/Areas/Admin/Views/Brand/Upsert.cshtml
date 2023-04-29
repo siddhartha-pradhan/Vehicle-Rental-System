@@ -1,0 +1,108 @@
+﻿@using VehicleRentalSystem.Domain.Entities;
+
+@model Brand
+
+@{
+    ViewData["Title"] = "Brand";
+    var title = "Add a new brand to our collection";
+}
+
+<div class="container-fluid">
+    <h1>Brands</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row mb-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.Id != Guid.Empty)
+            {
+                title = "Edit an existing brand";
+            }
+            <div class="col-6">
+                <h2 class="text-dark">@title</h2>
+            </div>
+            <div class="col-8 pt-4">
+                <div class="form-group row">
+                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ImageURL"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input type="file" id="uploadImage" onchange="readURL(this);" placeholder="Profile Image" name="image" class="ms-2 form-control" accept="image/png, image/gif, image/jpeg" />
+                        <span asp-validation-for="ImageURL" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row border border-primary mt-4 ml-4" style="min-height: 230px; width: 225px; margin: auto">
+                        @if (Model.Image != null)
+                        {
+                            <img id="previewImage" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))" style="width: 220px; height: 230px;" />
+                        }
+                        else
+                        {
+                            <img id="previewImage" style="width: 220px; height: 230px;" />
+                        }
+                    </div>
+                </div>
+                <input asp-for="CreatedDate" class="form-control" type="hidden" />
+                <input asp-for="LastModifiedDate" class="form-control" type="hidden" />
+                <input asp-for="DeletedDate" class="form-control" type="hidden" />
+                <div class="form-group row">
+                    <div class="col-8 offset-4">
+                        @if (Model.Id != Guid.Empty)
+                        {
+                            <partial name="_UpdateAndBackToList" model="Model.Id" />
+                        }
+                        else
+                        {
+                            <partial name="_CreateAndBackToList" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#previewImage')
+                        .attr('src', e.target.result)
+                        .width(225)
+                        .height(225);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

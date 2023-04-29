@@ -6,7 +6,7 @@ public interface IVehicleService
 {
     Vehicle GetVehicle(Guid Id);
 
-    List<Vehicle> GetAllVehicle();
+    List<Vehicle> GetAllVehicles();
 
     void AddVehicle(Vehicle vehicle);
 

@@ -40,7 +40,7 @@ public class AccountController : Controller
         _fileService = fileService;
     }
 
-    #region Razor Pages
+    #region Razor Views
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> Register(string returnUrl = null)

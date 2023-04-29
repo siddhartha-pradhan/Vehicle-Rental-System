@@ -37,9 +37,25 @@ public class FileTransferService : IFileTransferService
         {
             fileName = $"[Vehicle - {finalString}] {name} - Image";
         }
-        else
+        else if (type == Constants.User)
         {
             fileName = $"[{role} - {finalString}] {name} - Image";
+        }
+        else if (type == Constants.Brand)
+        {
+            fileName = $"[Brand - {finalString}] {name} - Image";
+        }
+        else if (type == Constants.Vehicle)
+        {
+            fileName = $"[Vehicle - {finalString}] {name} - Image";
+        }
+        else if (type == Constants.Citizenship)
+        {
+            fileName = $"[Citizenship - {finalString}] {name} - Image";
+        }
+        else if (type == Constants.Licenses)
+        {
+            fileName = $"[License - {finalString}] {name} - Image";
         }
 
         var uploads = Path.Combine(wwwRootPath, path);

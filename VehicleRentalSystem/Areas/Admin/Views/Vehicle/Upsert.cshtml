@@ -1,0 +1,127 @@
+﻿@using VehicleRentalSystem.Domain.Entities;
+
+@model Vehicle
+
+@{
+    ViewData["Title"] = "Vehicle";
+    var title = "Add a new brand to our collection";
+}
+
+<div class="container-fluid">
+    <h1>Brands</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row mb-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.Id != Guid.Empty)
+            {
+                title = "Edit an existing vehicle";
+            }
+            <div class="col-6">
+                <h2 class="text-dark">@title</h2>
+            </div>
+            <div class="col-8 pt-4">
+                <div class="form-group row">
+                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <div class="col-4">
+                        <label asp-for="Model"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Model" class="form-control" />
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <div class="col-4">
+                        <label asp-for="Color"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Color" class="form-control" />
+                        <span asp-validation-for="Color" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <div class="col-4">
+                        <label asp-for="PlateNumber"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="PlateNumber" class="form-control" />
+                        <span asp-validation-for="PlateNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <div class="col-4">
+                        <label asp-for="PricePerDay"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="PricePerDay" class="form-control" />
+                        <span asp-validation-for="PricePerDay" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Features"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <textarea asp-for="Features" class="form-control"></textarea>
+                        <span asp-validation-for="Features" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.BrandId" class="control-label mb-2"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        @Html.DropDownList("BrandId", null, "",htmlAttributes: new { @class = "form-control dropdown" })
+                        <span asp-validation-for="@Model.BrandId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Images"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input type="file" id="uploadImage" onchange="readURL(this);" placeholder="Profile Image" name="image" multiple="multiple" class="ms-2 form-control" accept="image/png, image/gif, image/jpeg" />
+                    </div>
+                </div>
+                <input asp-for="CreatedDate" class="form-control" type="hidden" />
+                <input asp-for="LastModifiedDate" class="form-control" type="hidden" />
+                <input asp-for="DeletedDate" class="form-control" type="hidden" />
+                <div class="form-group row">
+                    <div class="col-8 offset-4">
+                        @if (Model.Id != Guid.Empty)
+                        {
+                            <partial name="_UpdateAndBackToList" model="Model.Id" />
+                        }
+                        else
+                        {
+                            <partial name="_CreateAndBackToList" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+        });
+    </script>
+}

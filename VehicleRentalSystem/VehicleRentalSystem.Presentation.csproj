@@ -23,12 +23,13 @@
   <ItemGroup>
     <Folder Include="Areas\Account\Controllers\" />
     <Folder Include="Areas\Account\ViewModels\" />
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\ViewModels\" />
     <Folder Include="Areas\Customer\Controllers\" />
     <Folder Include="Areas\Customer\ViewModels\" />
     <Folder Include="Areas\Staff\Controllers\" />
     <Folder Include="Areas\Staff\ViewModels\" />
+    <Folder Include="wwwroot\images\brands\" />
+    <Folder Include="wwwroot\images\licenses\" />
+    <Folder Include="wwwroot\images\citizenships\" />
     <Folder Include="wwwroot\images\users\" />
     <Folder Include="wwwroot\images\vehicles\" />
   </ItemGroup>
