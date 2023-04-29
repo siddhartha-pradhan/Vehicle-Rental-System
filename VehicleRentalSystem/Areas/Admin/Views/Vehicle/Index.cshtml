@@ -8,14 +8,13 @@
 
 <partial name="_Notification" />
 
-<div class="container-fluid">
-    <h1>Brands</h1>
+<div class="container-fluid" style=" margin-top:13vh;">
     <div class="row mb-3">
         <div class="col-6">
-            <h2 class="text-dark">List of Vehicles</h2>
+            <h3 class="text-dark">List of Vehicles</h3>
         </div>
         <div class="col-6 text-end">
-            <a class="btn btn-dark" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Add a new Vehicle</a>
+            <a class="btn btn-primary" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Add a new Vehicle</a>
         </div>
     </div>
 
@@ -42,10 +41,10 @@
                         <td>@item.PricePerDay</td>
                         <td>@item.Availablility</td>
                         <td>@item.Offer</td>
-                        <td>
-                            <a href="@Url.Action("Details", "Vehicle", new { id = item.Id })" class="btn btn-dark btn-sm"><i class="fa-solid fa-circle-info"></i></a>
-                            <a href="@Url.Action("Upsert", "Vehicle", new { id = item.Id })" class="btn btn-dark btn-sm"><i class="fa fa-cogs"></i></a>
-                            <a href="@Url.Action("Delete", "Vehicle", new { id = item.Id })" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> 
+                        <td class="text-center">
+                                <a href="@Url.Action("Details", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
+                                <a href="@Url.Action("Upsert", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa fa-cogs"  style="color:#2eb82d;"></i></a>
+                            <a href="@Url.Action("Delete", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa fa-trash text-danger"></i></a> 
                         </td>
                     </tr>
                 }

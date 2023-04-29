@@ -70,7 +70,7 @@ public class VehicleController : Controller
     public IActionResult Details(Guid id)
     {
         var brands = _brandService.GetAllBrands();
-        var vehicles = _vehicleService.GetAllVehicles();
+        var vehicles = _vehicleService.GetAllVehicles().Where(x => x.Id == id).ToList();
         var offers = _offerService.GetAllOffers();
         var images = _imageService.GetAllImages();
         var users = _appUserService.GetAllUsers();
