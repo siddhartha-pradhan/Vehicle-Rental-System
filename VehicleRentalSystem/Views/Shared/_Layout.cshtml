@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom fixed-top box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vehicle Rental System</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -62,11 +62,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+   @* <footer class="border-top footer text-muted">
         <div class="container text-center">
             &copy; 2023 - Hajur ko Rental Store - <a asp-area="User" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -78,5 +78,41 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/gt87d8xmi9qqycaz7hv57wuyzd7nlsjusj1zcf8hu8hyve0q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <style>
+        .form-control:focus {
+        border-color: #7d43a3 !important;
+        box-shadow: 0 0 0 0.01rem #7d43a3 !important;
+        }
+        .btn-primary:hover{
+            background-color: #54387F;
+            border-color: #54387F;
+        }
+        .btn-primary{
+            background-color: #7d43a3;
+            border-color: #7d43a3;
+        }
+        /*.footer{
+            overflow: hidden;
+            background-color:  rgb(84 56 127 / 77%);
+        }
+        .footer .container{
+            color: white;
+        }*/
+        body{
+            background-color: #f8f4ff ;
+        }
+        .navbar{
+            background-color:  rgb(84 56 127 / 77%) !important;
+
+        }
+        .nav-link, .navbar-brand{
+            color: white !important;
+        }
+        .form-check-input:checked{
+            background-color: #7d43a3;
+            border-color: #7d43a3;
+        }
+    </style>
 </body>
 </html>
