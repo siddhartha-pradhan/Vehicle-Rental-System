@@ -4,94 +4,105 @@
     ViewData["Title"] = "User Registration";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-7">
+<div class="row align-items-center justify-content-around" style="height: 80vh; margin-top:9vh;">
+    <div class="d-flex justify-content-end align-items-end h-100 col-md-4">
+        <section>
+            <img src="/images/system/car.gif" style="margin-bottom:48px; "  />
+
+        </section>
+    </div>
+    <div class="col-md-5">
         <form id="form" method="post" enctype="multipart/form-data">
-            <h2>Create a new account.</h2>
+            <h2 class="mt-5">Create a new account.</h2>
             <hr />
-            <div class="form-floating col-12 my-2">
-                <input asp-for="FullName" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="FullName" class="ps-2"></label>
+            <div class="col-12 my-3">
+                <input asp-for="FullName" class="form-control" autocomplete="username" aria-required="true" placeholder="Full Name"/>
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             <div class="form-group row">
-                <div class="form-floating col-6 my-2">
-                    <input asp-for="Address" class="form-control" aria-required="true" />
-                    <label asp-for="Address" class="ps-4"></label>
+                <div class="col-6 mb-3">
+                    <input asp-for="Address" class="form-control" aria-required="true" placeholder="Address" />
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
-                <div class="form-floating col-6 my-2">
-                    <input asp-for="State" class="form-control" aria-required="true" />
-                    <label asp-for="State" class="ps-4"></label>
+                <div class="col-6 mb-3">
+                    <input asp-for="State" class="form-control" aria-required="true" placeholder="State" />
                     <span asp-validation-for="State" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
-                <div class="form-floating col-6 my-2">
-                    <input asp-for="PhoneNumber" class="form-control" aria-required="true" />
-                    <label asp-for="PhoneNumber" class="ps-4"></label>
+                <div class="col-6 mb-3">
+                    <input asp-for="PhoneNumber" class="form-control" aria-required="true" placeholder="Phone Number" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
-                <div class="form-floating col-6 my-2">
-                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
-                    <label asp-for="Email" class="ps-4"></label>
+                <div class="col-6 mb-3">
+                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email"/>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
-                <div class="form-floating col-6 my-2">
-                    <input asp-for="Password" id="initial" class="form-control" autocomplete="new-password" aria-required="true" />
-                    <label asp-for="Password" class="ps-4"></label>
+                <div class="col-6 mb-3 position-relative">
+                    <input asp-for="Password" id="initial" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password"/>
+                    <div class="d-flex mb-2 justify-content-end  position-absolute" style="margin-top: -30px;margin-left: 215px;">
+                        <img src="~/images/system/eye-close.png" id="togglePassword" onclick="chngimg()"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+                        <script>
+                            console.log('~/images/system/eye-close.png');
+                            var toggle = false;
+                            function chngimg() {
+                                if (toggle === true) {
+                                    document.getElementById('togglePassword').src = '/images/system/eye-close.png'
+                                    document.getElementById('initial').setAttribute('type', "password");
+                                }
+                                else {
+                                    document.getElementById('togglePassword').src = '/images/system/eye.png'
+                                    document.getElementById('initial').setAttribute('type', "text");
+                                }
+                                toggle = !toggle; 
+                            }        
+
+                        </script>
+                    </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <div class="form col-6 my-4">
-                    <input type="checkbox" id="password" onclick="showpasswordinitial(this);" />
-                    Show Password
-                    <script type="text/javascript">
-                        function showpasswordinitial(check_box) {
-                            var spass = document.getElementById("initial");
-                            if (check_box.checked)
-                                spass.setAttribute("type", "text");
-                            else
-                                spass.setAttribute("type", "password");
-                        }
-                    </script>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="form-floating col-6 my-2">
-                    <input asp-for="ConfirmPassword" id="final" class="form-control" autocomplete="new-password" aria-required="true" />
-                    <label asp-for="ConfirmPassword" class="ps-4"></label>
+                <div class="col-6 mb-3">
+                    <input asp-for="ConfirmPassword" id="final" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
+                    <div class="d-flex mb-2 justify-content-end  position-absolute" style="margin-top: -30px;margin-left: 215px;">
+                        <img src="~/images/system/eye-close.png" id="togglePassword2" onclick="chngimg2()"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+                        <script>
+                            console.log('~/images/system/eye-close.png');
+                            var toggle = false;
+                            function chngimg2() {
+                                if (toggle === true) {
+                                    document.getElementById('togglePassword2').src = '/images/system/eye-close.png'
+                                    document.getElementById('final').setAttribute('type', "password");
+                                }
+                                else {
+                                    document.getElementById('togglePassword2').src = '/images/system/eye.png'
+                                    document.getElementById('final').setAttribute('type', "text");
+                                }
+                                toggle = !toggle; 
+                            }        
+
+                        </script>
+                    </div>
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-                <div class="form col-6 my-4">
-                    <input type="checkbox" id="passcode" onclick="showpasswordfinal(this);" />
-                    Show Password
-                    <script type="text/javascript">
-                        function showpasswordfinal(check_box) {
-                            var spass = document.getElementById("final");
-                            if (check_box.checked)
-                                spass.setAttribute("type", "text");
-                            else
-                                spass.setAttribute("type", "password");
-                        }
-                    </script>
                 </div>
             </div>
                 
             <div class="form-group row">
-                <div class="form col-6 my-2">
+                <div class="form col-12 mb-2">
                     <label class="mb-1">Profile Image</label>
                     <input asp-for="Image" type="file"  placeholder="Profile Image" class="form-control" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" />
                 </div>
-                <div class="form-floating col-6 mt-3 my-2">
-                    <button id="registerSubmit" type="submit" class="w-100 mt-3 btn btn-primary">Register</button>
-                </div>
+            </div>
+            <div class="mt-2">
+                <button id="registerSubmit" type="submit" class="w-100 mt-3 btn btn-primary">Register</button>
             </div>
         </form>
     </div>
+    
 </div>
 
 @section Scripts {

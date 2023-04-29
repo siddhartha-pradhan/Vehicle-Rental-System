@@ -29,6 +29,7 @@
     <Folder Include="Areas\Customer\ViewModels\" />
     <Folder Include="Areas\Staff\Controllers\" />
     <Folder Include="Areas\Staff\ViewModels\" />
+    <Folder Include="wwwroot\images\NewFolder\" />
     <Folder Include="wwwroot\images\users\" />
     <Folder Include="wwwroot\images\vehicles\" />
   </ItemGroup>
