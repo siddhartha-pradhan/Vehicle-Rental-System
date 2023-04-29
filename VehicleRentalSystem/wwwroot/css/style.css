@@ -1,0 +1,84 @@
+﻿.form-control:focus {
+    border-color: #7d43a3 !important;
+    box-shadow: 0 0 0 0.01rem #7d43a3 !important;
+}
+
+.btn-primary:hover {
+    background-color: #7448AC;
+    border-color: #7448AC;
+}
+
+.btn-primary {
+    background-color: #7d43a3;
+    border-color: #7d43a3;
+}
+/*.footer{
+            overflow: hidden;
+            background-color:  rgb(84 56 127 / 77%);
+        }
+        .footer .container{
+            color: white;
+        }*/
+body {
+    background-color: #f8f4ff;
+}
+
+.navbar {
+    background-color: rgb(116 72 145) !important;
+}
+
+.nav-link, .navbar-brand {
+    color: white !important;
+}
+
+.form-check-input:checked {
+    background-color: #7d43a3;
+    border-color: #7d43a3;
+}
+
+.table-info {
+    --bs-table-bg: #7d43a3 !important;
+    color: white;
+}
+
+#tableData_filter {
+    margin-bottom: 20px !important;
+}
+
+.fa, .fa-circle-info {
+    font-size: 18px;
+}
+
+.btn-green {
+    background-color: #2eb82d;
+    border: #2eb82d;
+    color: white;
+}
+
+.btn-green:hover {
+    background-color: #28a427;
+    border: #28a427;
+    color: white;
+}
+
+.btn-blue {
+    background-color: #0a4ad9;
+    border: #0a4ad9;
+    color: white;
+}
+
+.btn-blue:hover {
+    background-color: #053cb8;
+    border: #053cb8;
+    color: white;
+}
+
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #f3edfe;
+    opacity: 1;
+}
+
+.border-purple {
+    border: 1px solid #7d43a3;
+}

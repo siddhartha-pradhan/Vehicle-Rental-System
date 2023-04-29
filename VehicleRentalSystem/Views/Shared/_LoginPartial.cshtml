@@ -5,7 +5,8 @@
 @inject UserManager<IdentityUser> UserManager
 @inject SignInManager<IdentityUser> SignInManager
 
-@{
+@if(SignInManager.IsSignedIn(User)){
+
     var username = UserManager.GetUserAsync(User).Result.UserName;
     var name = UserService.GetUserName(username);
 }
@@ -15,7 +16,7 @@
     {
         <li class="nav-item">
             <a class="nav-link text-dark" href="#">
-                Hello @name !!
+                Hello  !!
             </a>
         </li>
         <li class="nav-item">

@@ -40,7 +40,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{Area=User}/{controller=Home}/{action=Index}/{id?}");
 
-SeedDatabase();
+//SeedDatabase();
 
 app.Run();
 
