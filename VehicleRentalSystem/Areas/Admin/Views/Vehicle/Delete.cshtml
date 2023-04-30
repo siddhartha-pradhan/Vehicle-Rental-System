@@ -7,13 +7,12 @@
     var title = "Delete an existing vehicle";
 }
 
-<div class="container-fluid">
-    <h1>Brands</h1>
+<div class="container-fluid"  style=" margin-top:10vh;">
     <form method="post">
         <div class="row mb-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-6">
-                <h2 class="text-dark">@title</h2>
+                <h3 class="text-dark">@title</h3>
             </div>
             <div class="col-8 pt-4">
                 <div class="form-group row">
@@ -100,10 +99,10 @@
                     <div class="col-8 offset-4">
                         <div class="row">
                             <div class="col">
-                                <button type="submit" class="btn btn-dark form-control">Delete</button>
+                                <button type="submit" class="btn btn-danger form-control">Delete</button>
                             </div>
                             <div class="col">
-                                <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                                <a asp-action="Index" class="btn btn-blue form-control">Cancel</a>
                             </div>
                         </div>
                     </div>

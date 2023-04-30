@@ -5,6 +5,15 @@
 @inject UserManager<IdentityUser> UserManager
 @inject SignInManager<IdentityUser> SignInManager
 
+<<<<<<< HEAD
+=======
+@if(SignInManager.IsSignedIn(User)){
+
+    var username = UserManager.GetUserAsync(User).Result.UserName;
+    var name = UserService.GetUserName(username);
+}
+
+>>>>>>> 6b0c59321350b3cbeda7da1fe1d310162df4feef
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -12,8 +21,13 @@
         var name = UserService.GetUserName(username);
         
         <li class="nav-item">
+<<<<<<< HEAD
             <a class="nav-link text-dark" asp-area="Account" asp-controller="Profile" asp-action="Profile">
                 Hi there @name !!
+=======
+            <a class="nav-link text-dark" href="#">
+                Hello  !!
+>>>>>>> 6b0c59321350b3cbeda7da1fe1d310162df4feef
             </a>
         </li>
         

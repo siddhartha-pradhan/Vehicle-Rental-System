@@ -4,11 +4,10 @@
 
 @{
     ViewData["Title"] = "Vehicle";
-    var title = "Add a new brand to our collection";
+    var title = "Add a new vehicle to our collection";
 }
 
-<div class="container-fluid">
-    <h1>Brands</h1>
+<div class="container-fluid" style=" margin-top:10vh;">
     <form method="post" enctype="multipart/form-data">
         <div class="row mb-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -17,7 +16,7 @@
                 title = "Edit an existing vehicle";
             }
             <div class="col-6">
-                <h2 class="text-dark">@title</h2>
+                <h3 class="text-dark">@title</h3>
             </div>
             <div class="col-8 pt-4">
                 <div class="form-group row">
@@ -92,7 +91,7 @@
                         <label asp-for="Images"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input type="file" id="uploadImage" onchange="readURL(this);" placeholder="Profile Image" name="image" multiple="multiple" class="ms-2 form-control" accept="image/png, image/gif, image/jpeg" />
+                        <input type="file" id="uploadImage" onchange="readURL(this);" placeholder="Profile Image" name="image" multiple="multiple" class="form-control" accept="image/png, image/gif, image/jpeg" />
                     </div>
                 </div>
                 <input asp-for="CreatedDate" class="form-control" type="hidden" />

@@ -7,8 +7,7 @@
     var title = "Add a new brand to our collection";
 }
 
-<div class="container-fluid">
-    <h1>Brands</h1>
+<div class="container-fluid" style=" margin-top:10vh;">
     <form method="post" enctype="multipart/form-data">
         <div class="row mb-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -17,11 +16,11 @@
                 title = "Edit an existing brand";
             }
             <div class="col-6">
-                <h2 class="text-dark">@title</h2>
+                <h3 class="text-dark">@title</h3>
             </div>
-            <div class="col-8 pt-4">
+            <div class="col-8 pt-4" >
                 <div class="form-group row">
-                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <input asp-for="Id" class="form-control" type="hidden" required/>
                     <div class="col-4">
                         <label asp-for="Name"></label>
                     </div>
@@ -44,19 +43,22 @@
                         <label asp-for="ImageURL"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input type="file" id="uploadImage" onchange="readURL(this);" placeholder="Profile Image" name="image" class="ms-2 form-control" accept="image/png, image/gif, image/jpeg" />
+                        <input type="file" id="uploadImage" onchange="readURL(this);" placeholder="Profile Image" name="image" class="form-control" accept="image/png, image/gif, image/jpeg" required/>
                         <span asp-validation-for="ImageURL" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="row border border-primary mt-4 ml-4" style="min-height: 230px; width: 225px; margin: auto">
+                <div class="form-group row mb-4">
+                    <div class="col-4">
+                        
+                    </div>
+                    <div class="col-8 px-2 row border-purple mt-4 ml-4" style="min-height: auto; width: 300px; margin-left: 12px; padding-left: 0px !important; padding-right: 0px !important;">
                         @if (Model.Image != null)
                         {
-                            <img id="previewImage" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))" style="width: 220px; height: 230px;" />
+                                <img id="previewImage" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))" style="width: 280px; height: auto ; margin:auto !important; padding-left: 0px !important; padding-right: 0px !important; " />
                         }
                         else
                         {
-                            <img id="previewImage" style="width: 220px; height: 230px;" />
+                            <img id="previewImage"  style="width: 300px; height: 170px; padding-left: 0px !important; padding-right: 0px !important; margin:auto;" />
                         }
                     </div>
                 </div>
