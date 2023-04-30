@@ -1,0 +1,60 @@
+﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+@model List<RentalDetailsViewModel>
+
+@{
+    ViewData["Title"] = "Requested Rents";
+}
+
+<h1>Requested Rents</h1>
+
+<partial name="_Notification" />
+
+<div class="row">
+	<form method="post">
+		@foreach (var item in Model)
+		{
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-4">
+							@foreach(var image in item.VehicleImages)
+							{
+								<div class="row mb-2">
+									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(@image.ProfileImage))">
+								</div>
+							}
+						</div>
+						<div class="col-8">
+							<div class="row">
+								<input asp-for="@item.Id" hidden/>
+							</div>
+							<div class="row">
+								Customer Name: @item.VehicleName
+							</div>
+								<div class="row">
+								Phone Number: @item.VehicleName
+							</div>
+							<div class="row">
+								Vehicle Name: @item.VehicleName
+							</div>
+							<div class="row">
+								Requested Date: @item.RequestedDate
+							</div>
+							<div class="row">
+								Start Date: @item.StartDate
+							</div>
+							<div class="row">
+								End Date: @item.EndDate
+							</div>
+							<div class="row">
+								Total Amount: @item.TotalAmount
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</form>
+    
+</div>
+
