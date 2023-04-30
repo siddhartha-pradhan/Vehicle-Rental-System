@@ -1,4 +1,6 @@
-﻿@using VehicleRentalSystem.Domain.Constants;
+﻿@using Microsoft.AspNetCore.Identity;
+@using VehicleRentalSystem.Domain.Constants;
+@inject SignInManager<IdentityUser> SignInManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +49,27 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Customer">Customers</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Staff">Staffs</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rental Stories</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Rental" asp-action="Requested">Requested Rents</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Rental" asp-action="Accepted">Accepted Rents</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Rental" asp-action="Returned">Returned Rents</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Rental" asp-action="Rejected">Rejected Rents</a>
+                                </div>
+                            </li>
+                        }
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Rents</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="User" asp-controller="History" asp-action="Requested">Requested Rents</a>
+                                    <a class="dropdown-item" asp-area="User" asp-controller="History" asp-action="Accepted">Accepted Rents</a>
+                                    <a class="dropdown-item" asp-area="User" asp-controller="History" asp-action="Returned">Returned Rents</a>
+                                    <a class="dropdown-item" asp-area="User" asp-controller="History" asp-action="Rejected">Rejected Rents</a>
                                 </div>
                             </li>
                         }

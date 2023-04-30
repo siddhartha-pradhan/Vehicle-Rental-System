@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleRentalSystem.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using VehicleRentalSystem.Infrastructure.Persistence;
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230430113327_StatusChanges")]
+    partial class StatusChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -470,6 +472,9 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCancelled")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsReturned")

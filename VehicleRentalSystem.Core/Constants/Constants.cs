@@ -3,9 +3,11 @@
 public class Constants
 {
     public const string Pending = "Pending";
+
+    public const string Requested = "Requested";
     public const string Approved = "Approved";
-    public const string Canceled = "Canceled";
     public const string Rejected = "Rejected";
+    public const string Returned = "Returned";
 
     public const string Admin = "Admin";
     public const string Staff = "Staff";
