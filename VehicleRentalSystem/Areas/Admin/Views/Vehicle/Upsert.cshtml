@@ -30,13 +30,29 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.BrandId" class="control-label mb-2"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        @Html.DropDownList("BrandId", null, "",htmlAttributes: new { @class = "form-control dropdown" })
+                        <span asp-validation-for="@Model.BrandId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <input asp-for="Id" class="form-control" type="hidden"/>
                     <div class="col-4">
                         <label asp-for="Color"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="Color" class="form-control" />
-                        <span asp-validation-for="Color" class="text-danger"></span>
+                        <select asp-for="Color" class="form-control" aria-required="true" placeholder="Select a color" >
+                            <option disabled selected>Select a color</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Black">Black</option>
+                            <option value="Black">Classic</option>
+                            <option value="Black">Red</option>
+                            <option value="Black">Top</option>
+                            <option value="Black">Custom</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -75,15 +91,6 @@
                     <div class="col-8 mb-4">
                         <textarea asp-for="Features" class="form-control"></textarea>
                         <span asp-validation-for="Features" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="@Model.BrandId" class="control-label mb-2"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        @Html.DropDownList("BrandId", null, "",htmlAttributes: new { @class = "form-control dropdown" })
-                        <span asp-validation-for="@Model.BrandId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
