@@ -6,7 +6,7 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = Constants.Admin)]
-public class StaffController : Controller
+public class CustomerController : Controller
 {
     #region Razor Views
     [HttpGet]

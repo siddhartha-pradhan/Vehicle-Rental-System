@@ -19,4 +19,6 @@ public class Constants
 
     public const string Offline = "Offline";
     public const string Online = "Online";
+
+    public const string Password = "Rental@123";
 }

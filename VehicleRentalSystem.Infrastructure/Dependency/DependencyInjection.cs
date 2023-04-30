@@ -49,7 +49,9 @@ public static class DependencyInjection
         services.AddTransient<IImageService, ImageService>();
         services.AddTransient<IOfferService, OfferService>();
         services.AddTransient<IRentalService, RentalService>();
+        services.AddTransient<IRoleService, RoleService>();
         services.AddTransient<IStaffService, StaffService>();
+        services.AddTransient<IUserRoleService, UserRoleService>();
         services.AddTransient<IVehicleService, VehicleService>();
 
         return services;

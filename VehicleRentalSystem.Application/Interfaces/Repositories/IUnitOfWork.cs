@@ -16,7 +16,11 @@ public interface IUnitOfWork
 
     IRentalRepository Rental { get; set; }
 
+    IRoleRepository Role { get; set; }
+
     IStaffRepository Staff { get; set; }
+
+    IUserRoleRepository UserRole { get; set; }
 
     IVehicleRepository Vehicle { get; set; }
 

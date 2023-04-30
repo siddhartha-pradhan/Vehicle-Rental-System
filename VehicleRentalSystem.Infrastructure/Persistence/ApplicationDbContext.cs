@@ -25,9 +25,13 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Offer> Offers { get; set; }
 
+    public DbSet<Role> Roles { get; set; }
+
     public DbSet<Rental> Rentals { get; set; }
 
     public DbSet<Staff> Staffs { get; set; }
+
+    public DbSet<UserRole> UserRoles { get; set; }
 
     public DbSet<Vehicle> Vehicles { get; set; }
 

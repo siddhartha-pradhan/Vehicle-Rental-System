@@ -17,7 +17,7 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("User/Home/Error");
+    app.UseExceptionHandler("/User/Home/Error");
 
     app.UseHsts();
 }
@@ -40,16 +40,11 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{Area=User}/{controller=Home}/{action=Index}/{id?}");
 
-SeedDatabase();
+using (var scope = app.Services.CreateScope())
+{
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+
+    dbInitializer.Initialize();
+}
 
 app.Run();
-
-void SeedDatabase()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-
-        dbInitializer.Initialize();
-    }
-}

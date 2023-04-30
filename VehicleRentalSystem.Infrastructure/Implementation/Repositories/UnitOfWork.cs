@@ -1,5 +1,6 @@
 ﻿using VehicleRentalSystem.Infrastructure.Persistence;
 using VehicleRentalSystem.Application.Interfaces.Repositories;
+using VehicleRentalSystem.Domain.Entities;
 
 namespace VehicleRentalSystem.Infrastructure.Implementation.Repositories;
 
@@ -15,9 +16,11 @@ public class UnitOfWork : IUnitOfWork
         Customer = new CustomerRepository(_dbContext);
         DamageRequest = new DamageRequestRepository(_dbContext);
         Image = new ImageRepository(_dbContext);
-        Offer = new OfferRepository(_dbContext);    
+        Offer = new OfferRepository(_dbContext);
+        Role = new RoleRepository(_dbContext);  
         Rental = new RentalRepository(_dbContext);
         Staff = new StaffRepository(_dbContext);
+        UserRole = new UserRoleRepository(_dbContext);
         Vehicle = new VehicleRepository(_dbContext);
     }
 
@@ -35,8 +38,12 @@ public class UnitOfWork : IUnitOfWork
 
     public IRentalRepository Rental { get; set; }
 
+    public IRoleRepository Role { get; set; }
+
     public IStaffRepository Staff { get; set; }
-    
+
+    public IUserRoleRepository UserRole { get; set; }
+
     public IVehicleRepository Vehicle { get; set; }
     
     public void Save()

@@ -1,0 +1,56 @@
+﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+@model List<UserViewModel>
+@{
+    ViewData["Title"] = "Staffs";
+}
+
+<partial name="_Notification" />
+
+<div class="container-fluid">
+    <h1>Staffs</h1>
+    <div class="row mb-3">
+        <div class="col-6">
+            <h2 class="text-dark">List of Staffs</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-dark" asp-action="Register"><i class="fa-solid fa-plus"></i> &nbsp; Add a new staff</a>
+        </div>
+    </div>
+
+    <div class="p-2 border rounded">
+        <table id="tableData" class="table table-striped table-bordered" style="width:100%">
+            <thead class="mt-2">
+                <tr class="table-info">
+                    <th class="text-center">Name of the Staff</th>
+                    <th class="text-center">Email Address</th>
+                    <th class="text-center">Address</th>
+                    <th class="text-center">State</th>
+                    <th class="text-center">Phone Number</th>
+                    <th class="text-center">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Email</td>
+                            <td>@item.Address</td>
+                            <td>@item.State</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>
+                                <a href="@Url.Action("Details", "User", new { id = item.UserId })" class="btn btn-dark btn-sm"><i class="fa-solid fa-circle-info"></i></a>
+                                <a href="@Url.Action("Delete", "User", new { id = item.UserId })" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> 
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#tableData").DataTable();
+    </script>
+}

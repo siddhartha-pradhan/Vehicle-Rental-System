@@ -1,0 +1,40 @@
+﻿@model ProfileViewModel
+
+@{
+	ViewData["Title"] = "Profile";
+	ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<partial name="_Notification" />
+
+<div class="container">
+	<h3>@ViewData["Title"]</h3>
+	<div class="row">
+		<form method="post" enctype="multipart/form-data">
+			<div class="form-group mb-3">
+				<label asp-for="Image" class="mb-2" style="width: 100%;"></label>
+				@if (Model.Image != null)
+				{
+					<img id="profilePicture" style="width:485px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))">
+				}
+				else
+				{
+					<img id="profilePicture" style="width:500px;height:350px; object-fit:cover" src="">
+				}
+				<label class="form-label mt-3">Upload a new picture</label>
+				<input asp-for="Image" name="UserImage" type="file" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+				<span asp-validation-for="Image" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3">
+				<label asp-for="Username" class="form-label"></label>
+				<input asp-for="Username" class="form-control" disabled />
+			</div>
+			<div class="form-floating mb-3">
+				<label asp-for="PhoneNumber" class="form-label"></label>
+				<input asp-for="PhoneNumber" class="form-control" />
+				<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+			</div>
+			<button id="update-profile-button" type="submit" class="w-100 btn btn-dark mt-3 mb-5">Save</button>
+		</form>
+	</div>
+</div>
