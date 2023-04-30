@@ -41,4 +41,10 @@ public class CustomerService : ICustomerService
     {
         return _unitOfWork.AppUser.Retrieve(Id);
     }
+
+    public void UpdateCustomer(Customer customer)
+    {
+        _unitOfWork.Customer.Update(customer);  
+        _unitOfWork.Save();
+    }
 }

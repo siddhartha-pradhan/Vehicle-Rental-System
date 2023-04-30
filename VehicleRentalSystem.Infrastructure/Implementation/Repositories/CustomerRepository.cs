@@ -12,4 +12,18 @@ public class CustomerRepository : Repository<Customer>, ICustomerRepository
 	{
         _dbContext = dbContext;
     }
+
+    public void Update(Customer customer)
+    {
+        var item = _dbContext.Customers.FirstOrDefault(x => x.Id == customer.Id);   
+
+        if (item != null)
+        {
+            item.CitizenshipNumber = customer.CitizenshipNumber;
+            item.CitizenshipURL = customer.CitizenshipURL;
+            item.LicenseNumber = customer.LicenseNumber;
+            item.LicenseURL = customer.LicenseURL;
+            item.ExpirationDate = customer.ExpirationDate;
+        }
+    }
 }

@@ -34,7 +34,7 @@
 						<label class="form-label mt-3">Upload a new picture</label>
 					</div>
 					<div class="col-8 row pt-3">
-						<input asp-for="Image" name="UserImage" type="file" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" style="padding-left:0px !important; " required />
+						<input asp-for="Image" name="UserImage" type="file" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" style="padding-left:0px !important; "/>
 						<span asp-validation-for="Image" class="text-danger"></span>
 					</div>
 				</div>

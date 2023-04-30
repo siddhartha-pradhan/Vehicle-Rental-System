@@ -13,8 +13,7 @@ public class DamageRequest
     public Guid RentalId { get; set; }
 
     [Required]
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal RepairCost { get; set; }
+    public double RepairCost { get; set; }
 
     [Required]
     public string DamageDescription { get; set; }

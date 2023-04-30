@@ -13,7 +13,7 @@ public class Rental
     public Guid VehicleId { get; set; }
 
     [Required]
-    public string CustomerId { get; set; }
+    public string UserId { get; set; }
 
     [Required]
     public DateTime StartDate { get; set; }
@@ -39,8 +39,8 @@ public class Rental
     public float TotalAmount { get; set; }
 
     [ValidateNever]
-    [ForeignKey("CustomerId")]
-    public AppUser AppUser { get; set; }
+    [ForeignKey("UserId")]
+    public AppUser? AppUser { get; set; }
 
     [ValidateNever]
     [ForeignKey("VehicleId")]

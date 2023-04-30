@@ -38,7 +38,7 @@
                 <input asp-for="Color" disabled />
             </div>
         </div>
-        <a class="nav-link" asp-area="User" asp-controller="Rental" asp-action="Rental">Rent this vehicle</a>
+        <a class="nav-link" asp-area="User" asp-controller="Rental" asp-action="Rental" asp-route-vehicleId="@Model.Id" >Rent this vehicle</a>
     </div>
 </form>
 
