@@ -1,8 +1,52 @@
-﻿@{
+﻿@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="pt-2 ml-4 pl-3">
+    <h1>Home Index</h1>
+</div>
+
+<partial name="_Notification" />
+
+<div class="container">
+    <div class="row">
+        @foreach(var item in Model.Brand)
+        {
+            <div class="col-lg-3 col-md-6">
+                <div class="row p-2">
+                    <img id="profilePicture" style="width:100px;height:100px; object-fit:cover" src="@item.Image">
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model.Vehicle)
+        {
+            <div class="col-lg-3 col-md-6">
+                <div class="row p-2">
+                    <div class="col-12 p-1" style="border: 1px solid black; border-radius: 5px;">
+                        <div class="container-item">
+                            <img id="profilePicture" style="width:100px;height:100px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(item.Image))">
+                        </div>
+                        <div class="col">
+                            <div class="row pl-2 pt-2">
+                                <p class="card-title h4 text-dark">@item.Name</p>
+                            </div>
+                            <div class="row p-lg-2">
+                                <b>@item.PricePerDay</b>
+                            </div>
+                        </div>
+                        <div>
+                            <a asp-action="Details" class="btn btn-dark form-control" asp-route-id="@item.Id">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

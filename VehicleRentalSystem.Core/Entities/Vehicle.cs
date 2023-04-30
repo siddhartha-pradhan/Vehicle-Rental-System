@@ -20,10 +20,12 @@ public class Vehicle : BaseEntity
 
     [Required]
     [MaxLength(50)]
+    [Display(Name = "Plate Number")]
     public string PlateNumber { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
+    [Display(Name = "Price per Day")]
     public decimal PricePerDay { get; set; }
 
     [Required]

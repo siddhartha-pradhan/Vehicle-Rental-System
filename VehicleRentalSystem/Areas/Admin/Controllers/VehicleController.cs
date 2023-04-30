@@ -198,7 +198,7 @@ public class VehicleController : Controller
                 {
                     VehicleId = vehicleId,
                     ProfileImage = _fileService.ImageByte(images[i]),
-                    ImageURL = _fileService.FilePath(images[i], Constants.Vehicle, item.Model, ""),
+                    ImageURL = _fileService.FilePath(images[i], Constants.Vehicle, $"{item.Model}", ""),
                 };
 
                 _imageService.AddImage(image);
