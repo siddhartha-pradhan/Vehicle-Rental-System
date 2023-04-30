@@ -18,4 +18,6 @@ public class GetVehicleViewModel
     public string Features { get; set; }
 
     public string Color { get; set; }
+
+    public string PlateNumber { get; set; }
 }

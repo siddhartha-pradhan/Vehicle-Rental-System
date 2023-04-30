@@ -67,7 +67,8 @@ public class HomeController : Controller
             PricePerDay = $"Rs {vehicle.PricePerDay}/day",
             Description = vehicle.Description,
             Features = vehicle.Features,
-            Color = vehicle.Color
+            Color = vehicle.Color,
+            PlateNumber = vehicle.PlateNumber
         };
 
         return View(result);

@@ -99,8 +99,8 @@
                 reader.onload = function (e) {
                     $('#previewImage')
                         .attr('src', e.target.result)
-                        .width(225)
-                        .height(225);
+                        .width(280)
+                        .height(auto);
                 };
 
                 reader.readAsDataURL(input.files[0]);
