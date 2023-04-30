@@ -29,6 +29,14 @@ public class CustomerService : ICustomerService
         return _unitOfWork.Customer.GetFirstOrDefault(x => x.Id == Id);
     }
 
+    public Customer GetUser(string Id)
+    {
+        var user = _unitOfWork.AppUser.Retrieve(Id);
+        var customer = _unitOfWork.Customer.GetAll().Where(x => x.UserId == user.Id).FirstOrDefault();
+
+        return customer;
+    }
+
     public AppUser GetUserCustomer(string Id)
     {
         return _unitOfWork.AppUser.Retrieve(Id);

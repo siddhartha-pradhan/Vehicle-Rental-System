@@ -13,7 +13,7 @@ public class Rental
     public Guid VehicleId { get; set; }
 
     [Required]
-    public Guid CustomerId { get; set; }
+    public string CustomerId { get; set; }
 
     [Required]
     public DateTime StartDate { get; set; }
@@ -40,7 +40,7 @@ public class Rental
 
     [ValidateNever]
     [ForeignKey("CustomerId")]
-    public Customer Customer { get; set; }
+    public AppUser AppUser { get; set; }
 
     [ValidateNever]
     [ForeignKey("VehicleId")]

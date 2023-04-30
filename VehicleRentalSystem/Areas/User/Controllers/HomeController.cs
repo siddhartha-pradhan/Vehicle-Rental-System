@@ -25,7 +25,7 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()
-  {
+    {
         var brands = _brandService.GetAllBrands()
             .Select(x => new BrandsViewModel()
             {
@@ -34,7 +34,7 @@ public class HomeController : Controller
                 Image = x.ImageURL,
             }).ToList();
 
-        var vehicles = (from vehicle in _vehicleService.GetAllVehicles()
+        var vehicles = (from vehicle in _vehicleService.GetAllVehicles().Where(x => x.IsAvailable)
                         join image in _imageService.GetAllImages()
                            on vehicle.Id equals image.VehicleId
                         select new VehiclesViewModel
@@ -52,6 +52,26 @@ public class HomeController : Controller
         };
 
         return View(details);
+    }
+
+    public IActionResult Detail(Guid id)
+    {
+        var vehicle = _vehicleService.GetVehicle(id);
+
+        var x = _imageService.GetVehicleImages(vehicle.Id);
+
+        var result = new GetVehicleViewModel
+        {
+            Name = $"{vehicle.Model} - {_brandService.GetBrand(vehicle.BrandId).Name}",
+            Images = _imageService.GetVehicleImages(vehicle.Id),
+            PricePerDay = $"Rs {vehicle.PricePerDay}/day",
+            Description = vehicle.Description,
+            Features = vehicle.Features,
+            Color = vehicle.Color
+        };
+
+        return View(result);
+
     }
 
     public IActionResult Privacy()

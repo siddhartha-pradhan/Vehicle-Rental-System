@@ -1,0 +1,44 @@
+﻿@model GetVehicleViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Vehicle Detail</h1>
+<form method="post">
+    <div class="container">
+        @foreach (var item in Model.Images)
+        {
+            <img id="profilePicture" style="width:100px;height:100px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(item.ProfileImage))">
+        }
+        <div class="container">
+            <input asp-for="Id" hidden />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePerDay"></label>
+                <input asp-for="PricePerDay" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Features"></label>
+                <input asp-for="Features" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Features"></label>
+                <input asp-for="Features" disabled />
+            </div>
+             <div class="form-group">
+                <label asp-for="Color"></label>
+                <input asp-for="Color" disabled />
+            </div>
+        </div>
+        <a class="nav-link" asp-area="User" asp-controller="Rental" asp-action="Rental">Rent this vehicle</a>
+    </div>
+</form>
+

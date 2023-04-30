@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Customer\Controllers\" />
-    <Folder Include="Areas\Customer\ViewModels\" />
-    <Folder Include="Areas\Staff\Controllers\" />
-    <Folder Include="Areas\Staff\ViewModels\" />
     <Folder Include="wwwroot\images\brands\" />
     <Folder Include="wwwroot\images\licenses\" />
     <Folder Include="wwwroot\images\citizenships\" />
