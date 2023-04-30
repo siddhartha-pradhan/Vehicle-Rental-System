@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Domain.Constants;
-using VehicleRentalSystem.Domain.Entities;
 using VehicleRentalSystem.Presentation.Areas.Account.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Account.Controllers;
@@ -73,6 +72,8 @@ public class ProfileController : Controller
             CitizenshipNumber = customer.CitizenshipNumber,
             LicenseNumber = customer.LicenseNumber,
             ExpirationDate = customer.ExpirationDate,
+            CitizenshipURL = customer.CitizenshipURL,
+            LicenseURL = customer.LicenseURL
         };
 
         return View(details);
@@ -152,8 +153,15 @@ public class ProfileController : Controller
         customer.CitizenshipNumber = model.CitizenshipNumber;
         customer.LicenseNumber = model.LicenseNumber;
         customer.ExpirationDate = model.ExpirationDate;
-        customer.CitizenshipURL = _fileService.FilePath(citizenship, Constants.Citizenship.ToLower(), user.FullName, "");
-        customer.LicenseURL = _fileService.FilePath(license, Constants.Citizenship.ToLower(), user.FullName, "");
+
+        if(license != null)
+        {
+            customer.LicenseURL = _fileService.FilePath(license, Constants.Licenses.ToLower(), user.FullName, "");
+        }
+        if(citizenship != null)
+        {
+            customer.CitizenshipURL = _fileService.FilePath(citizenship, Constants.Citizenship.ToLower(), user.FullName, "");
+        }
 
         _customerService.UpdateCustomer(customer);
 

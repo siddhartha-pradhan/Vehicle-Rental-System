@@ -23,19 +23,19 @@
     </div>
     <div class="form-group row">
         <input asp-for="LicenseURL" type="file"  name="license" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
-        <label class="custom-file-label">Choose your Resume</label>
+        <label class="custom-file-label">Choose your license</label>
     </div>
     <div class="form-group row">
         <input asp-for="CitizenshipNumber" type="file"  name="citizenship" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
-        <label class="custom-file-label">Choose your Resume</label>
+        <label class="custom-file-label">Choose your citizenship</label>
     </div>
     <button type="submit" class="w-100 btn btn-dark mt-3 mb-5">Save</button>
     @if(Model.LicenseURL != null)
     {
-        <a class="btn btn-outline-primary mb-2 w-100" href="@Model.LicenseURL" target="_blank">Certification</a>
+            <a class="btn btn-outline-primary mb-2 w-100" href="@Model.LicenseURL" target="_blank">LicenseURL</a>
     }
     @if (Model.CitizenshipURL != null)
     {
-        <a class="btn btn-outline-primary mb-2 w-100" href="@Model.CitizenshipURL" target="_blank">Certification</a>
+        <a class="btn btn-outline-primary mb-2 w-100" href="@Model.CitizenshipURL" target="_blank">CitizenshipURL</a>
     }
 </form>
