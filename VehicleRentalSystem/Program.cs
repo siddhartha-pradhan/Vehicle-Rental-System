@@ -40,15 +40,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{Area=User}/{controller=Home}/{action=Index}/{id?}");
 
-<<<<<<< HEAD
 using (var scope = app.Services.CreateScope())
-=======
-//SeedDatabase();
-
-app.Run();
-
-void SeedDatabase()
->>>>>>> 6b0c59321350b3cbeda7da1fe1d310162df4feef
 {
     var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
 
