@@ -11,4 +11,7 @@ public interface IRentalService
     void AddRental(Rental rental);
     
     void DeleteRental(Guid Id);
+
+    void CancelRent(Guid Id);
+
 }

@@ -58,12 +58,12 @@ public class HomeController : Controller
     {
         var vehicle = _vehicleService.GetVehicle(id);
 
-        var x = _imageService.GetVehicleImages(vehicle.Id);
-
         var result = new GetVehicleViewModel
         {
+            Id = id,
             Name = $"{vehicle.Model} - {_brandService.GetBrand(vehicle.BrandId).Name}",
-            Images = _imageService.GetVehicleImages(vehicle.Id),
+			PlateNumber = vehicle.PlateNumber,
+			Images = _imageService.GetVehicleImages(vehicle.Id),
             PricePerDay = $"Rs {vehicle.PricePerDay}/day",
             Description = vehicle.Description,
             Features = vehicle.Features,

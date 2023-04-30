@@ -6,7 +6,9 @@ public class GetVehicleViewModel
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    
+
+    public string PlateNumber { get; set; }    
+
     public List<Image> Images { get; set; }
 
     public string PricePerDay { get; set; }

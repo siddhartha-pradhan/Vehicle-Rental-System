@@ -49,11 +49,11 @@ public class FileTransferService : IFileTransferService
         {
             fileName = $"[Vehicle - {finalString}] {name} - Image";
         }
-        else if (type == Constants.Citizenship)
+        else if (type == Constants.Citizenship.ToLower())
         {
             fileName = $"[Citizenship - {finalString}] {name} - Image";
         }
-        else if (type == Constants.Licenses)
+        else if (type == Constants.Licenses.ToLower())
         {
             fileName = $"[License - {finalString}] {name} - Image";
         }

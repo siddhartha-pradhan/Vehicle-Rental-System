@@ -28,11 +28,11 @@ public class RentalViewModel
 
     public DateTime EndDate { get; set; }
 
-    public decimal ActualPrice { get; set; }
+    public double ActualPrice { get; set; }
     
-    public decimal TotalAmount { get; set; }
+    public double TotalAmount { get; set; }
 
-    public decimal PriceForRegularAndStaffs { get; set; }
+    public double PriceForRegularAndStaffs { get; set; }
 
-    public decimal PriceToBePaid { get; set; }
+    public double PriceToBePaid { get; set; }
 }

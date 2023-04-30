@@ -13,6 +13,13 @@ services.AddControllersWithViews();
 
 services.AddRazorPages().AddRazorRuntimeCompilation();
 
+services.ConfigureApplicationCookie(options =>
+{
+    options.LogoutPath = $"/User/Account/Logout";
+    options.LoginPath = $"/User/Account/Login";
+    options.AccessDeniedPath = $"/User/Account/AccessDenied";
+});
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

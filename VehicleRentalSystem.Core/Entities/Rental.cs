@@ -13,7 +13,9 @@ public class Rental
     public Guid VehicleId { get; set; }
 
     [Required]
-    public string CustomerId { get; set; }
+    public string UserId { get; set; }
+
+    public DateTime RequestedDate { get; set; } = DateTime.Now;
 
     [Required]
     public DateTime StartDate { get; set; }
@@ -23,24 +25,24 @@ public class Rental
 
     public DateTime? ReturnedDate { get; set; }
 
+    public DateTime? ActionDate { get; set; }
+
     public bool IsApproved { get; set; } = false;
 
     public bool IsReturned { get; set; } = false;
 
-    public bool IsCancelled { get; set; } = false;
-
-    public string RentalStatus { get; set; } = Constants.Constants.Pending;
+    public string RentalStatus { get; set; } = Constants.Constants.Requested;
 
     public string PaymentStatus { get; set; } = Constants.Constants.Pending;
 
-    public string? ApprovedBy { get; set; }
+    public string? ActionBy { get; set; }
 
     [Required]
     public float TotalAmount { get; set; }
 
     [ValidateNever]
-    [ForeignKey("CustomerId")]
-    public AppUser AppUser { get; set; }
+    [ForeignKey("UserId")]
+    public AppUser? AppUser { get; set; }
 
     [ValidateNever]
     [ForeignKey("VehicleId")]
