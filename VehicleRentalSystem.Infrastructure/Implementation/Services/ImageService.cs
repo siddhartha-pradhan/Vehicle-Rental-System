@@ -33,7 +33,7 @@ public class ImageService : IImageService
 
     public List<Image> GetVehicleImages(Guid vehicleId)
     {
-        var images = _unitOfWork.Image.GetAll().Where(x => x.Id == vehicleId)
+        var images = _unitOfWork.Image.GetAll().Where(x => x.VehicleId == vehicleId)
                     .Select(x => new Image
                     {
                         Id = x.Id,

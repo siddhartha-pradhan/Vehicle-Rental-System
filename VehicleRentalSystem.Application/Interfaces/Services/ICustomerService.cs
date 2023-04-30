@@ -6,6 +6,8 @@ public interface ICustomerService
 {
     Customer GetCustomer(Guid Id);
 
+    Customer GetUser(string Id);
+
     AppUser GetUserCustomer(string Id);
 
     List<Customer> GetAllCustomers();
