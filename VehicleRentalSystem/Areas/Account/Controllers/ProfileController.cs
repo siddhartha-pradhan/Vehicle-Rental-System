@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Domain.Constants;
+using VehicleRentalSystem.Domain.Entities;
+using VehicleRentalSystem.Infrastructure.Migrations;
 using VehicleRentalSystem.Presentation.Areas.Account.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Account.Controllers;
@@ -20,10 +22,10 @@ public class ProfileController : Controller
 	private readonly IEmailSender _emailSender;
 	private readonly IFileTransferService _fileService;
 
-	public ProfileController(UserManager<IdentityUser> userManager, 
-		SignInManager<IdentityUser> signInManager, 
-		IAppUserService appUserService, 
-		IWebHostEnvironment webHostEnvironment, 
+	public ProfileController(UserManager<IdentityUser> userManager,
+		SignInManager<IdentityUser> signInManager,
+		IAppUserService appUserService,
+		IWebHostEnvironment webHostEnvironment,
 		IEmailSender emailSender,
 		IFileTransferService fileService)
 	{
@@ -36,21 +38,14 @@ public class ProfileController : Controller
 	}
 
 	public IActionResult Profile()
-    {
+	{
 		var claimsIdentity = (ClaimsIdentity)User.Identity;
-
 		var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
 		var userId = claim.Value;
-
 		var user = _appUserService.GetUser(userId);
-
 		var userName = user.FullName;
-
 		var phoneNumber = user.PhoneNumber;
-		
 		var appUser = _appUserService.GetUser(user.Id);
-		
 		var image = appUser.Image;
 
 		var profile = new ProfileViewModel()
@@ -61,7 +56,14 @@ public class ProfileController : Controller
 		};
 
 		return View(profile);
-    }
+	}
+
+	public IActionResult Password()
+	{
+		var passwordViewModel = new PasswordViewModel();
+
+		return View(passwordViewModel);
+	}
 
 	[HttpPost]
 	public async Task<IActionResult> Profile(ProfileViewModel profile)
@@ -71,6 +73,7 @@ public class ProfileController : Controller
 		var role = roles.ToList().FirstOrDefault();
 		var appUser = _appUserService.GetUser(user.Id);
 		var file = Request.Form.Files.FirstOrDefault();
+
 		appUser.Image = _fileService.ImageByte(file);
 		appUser.ImageURL = _fileService.FilePath(file, Constants.User, appUser.FullName, role);
 
@@ -79,7 +82,7 @@ public class ProfileController : Controller
 		var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
 
-		if(profile.PhoneNumber != phoneNumber)
+		if (profile.PhoneNumber != phoneNumber)
 		{
 			await _userManager.SetPhoneNumberAsync(user, profile.PhoneNumber);
 		}
@@ -89,5 +92,26 @@ public class ProfileController : Controller
 		TempData["Success"] = "Profile Updated Successfully";
 
 		return RedirectToAction("Profile");
+	}
+
+	[HttpPost]
+	public async Task<IActionResult> Password(PasswordViewModel passwordViewModel)
+	{
+		var user = await _userManager.GetUserAsync(User);
+		var appUser = _appUserService.GetUser(user.Id);
+
+		await _userManager.ChangePasswordAsync(user, passwordViewModel.OldPassword, passwordViewModel.NewPassword);
+
+		await _signInManager.RefreshSignInAsync(user);
+
+		await _emailSender.SendEmailAsync(user.Email, "Password Change",
+					$"Dear {appUser.FullName},<br><br>Your password has been changed in our system. " +
+					$"<br>Please visit the store if it was not your action." +
+					$"<br><br>Regards,<br>Hajur ko Car Rental");
+
+		TempData["Success"] = "Password Successfully Updated";
+
+		return RedirectToAction("Password");
+
 	}
 }
