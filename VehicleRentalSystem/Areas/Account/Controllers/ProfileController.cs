@@ -6,7 +6,6 @@ using System.Security.Claims;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Domain.Constants;
 using VehicleRentalSystem.Domain.Entities;
-using VehicleRentalSystem.Infrastructure.Migrations;
 using VehicleRentalSystem.Presentation.Areas.Account.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Account.Controllers;

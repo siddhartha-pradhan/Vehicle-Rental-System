@@ -6,14 +6,13 @@
 
 <partial name="_Notification" />
 
-<div class="container-fluid">
-    <h1>Staffs</h1>
+<div class="container-fluid" style=" margin-top:13vh;">
     <div class="row mb-3">
         <div class="col-6">
-            <h2 class="text-dark">List of Staffs</h2>
+            <h3 class="text-dark">List of Staffs</h3>
         </div>
         <div class="col-6 text-end">
-            <a class="btn btn-dark" asp-action="Register"><i class="fa-solid fa-plus"></i> &nbsp; Add a new staff</a>
+            <a class="btn btn-primary" asp-action="Register"><i class="fa-solid fa-plus"></i> &nbsp; Add a new staff</a>
         </div>
     </div>
 
@@ -38,9 +37,9 @@
                             <td>@item.Address</td>
                             <td>@item.State</td>
                             <td>@item.PhoneNumber</td>
-                            <td>
-                                <a href="@Url.Action("Details", "User", new { id = item.UserId })" class="btn btn-dark btn-sm"><i class="fa-solid fa-circle-info"></i></a>
-                                <a href="@Url.Action("Delete", "User", new { id = item.UserId })" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> 
+                            <td class="text-center">
+                                <a href="@Url.Action("Details", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
+                                <a href="@Url.Action("Delete", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa fa-trash text-danger"></i></a> 
                             </td>
                         </tr>
                 }
