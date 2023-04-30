@@ -14,103 +14,151 @@ namespace VehicleRentalSystem.Presentation.Areas.Account.Controllers;
 [Area("Account")]
 public class ProfileController : Controller
 {
-	private readonly UserManager<IdentityUser> _userManager;
-	private readonly SignInManager<IdentityUser> _signInManager;
-	private readonly IAppUserService _appUserService;
-	private readonly IWebHostEnvironment _webHostEnvironment;
-	private readonly IEmailSender _emailSender;
-	private readonly IFileTransferService _fileService;
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly IAppUserService _appUserService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly IEmailSender _emailSender;
+    private readonly ICustomerService _customerService;
+    private readonly IFileTransferService _fileService;
 
-	public ProfileController(UserManager<IdentityUser> userManager,
-		SignInManager<IdentityUser> signInManager,
-		IAppUserService appUserService,
-		IWebHostEnvironment webHostEnvironment,
-		IEmailSender emailSender,
-		IFileTransferService fileService)
-	{
-		_userManager = userManager;
-		_signInManager = signInManager;
-		_appUserService = appUserService;
-		_webHostEnvironment = webHostEnvironment;
-		_emailSender = emailSender;
-		_fileService = fileService;
-	}
+    public ProfileController(UserManager<IdentityUser> userManager,
+        SignInManager<IdentityUser> signInManager,
+        IAppUserService appUserService,
+        IWebHostEnvironment webHostEnvironment,
+        IEmailSender emailSender,
+        ICustomerService customerService,
+        IFileTransferService fileService)
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
+        _appUserService = appUserService;
+        _webHostEnvironment = webHostEnvironment;
+        _customerService = customerService;
+        _emailSender = emailSender;
+        _fileService = fileService;
+    }
 
-	public IActionResult Profile()
-	{
-		var claimsIdentity = (ClaimsIdentity)User.Identity;
-		var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-		var userId = claim.Value;
-		var user = _appUserService.GetUser(userId);
-		var userName = user.FullName;
-		var phoneNumber = user.PhoneNumber;
-		var appUser = _appUserService.GetUser(user.Id);
-		var image = appUser.Image;
+    public IActionResult Profile()
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var userId = claim.Value;
+        var user = _appUserService.GetUser(userId);
+        var userName = user.FullName;
+        var phoneNumber = user.PhoneNumber;
+        var appUser = _appUserService.GetUser(user.Id);
+        var image = appUser.Image;
 
-		var profile = new ProfileViewModel()
-		{
-			Image = image,
-			PhoneNumber = phoneNumber,
-			Username = userName,
-		};
+        var profile = new ProfileViewModel()
+        {
+            Image = image,
+            PhoneNumber = phoneNumber,
+            Username = userName,
+        };
 
-		return View(profile);
-	}
+        return View(profile);
+    }
 
-	public IActionResult Password()
-	{
-		var passwordViewModel = new PasswordViewModel();
+    public IActionResult Documents()
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var userId = claim.Value;
+        var user = _appUserService.GetUser(userId);
+        var customer = _customerService.GetUser(userId);
 
-		return View(passwordViewModel);
-	}
+        var details = new DetailViewModel()
+        {
+            CitizenshipNumber = customer.CitizenshipNumber,
+            LicenseNumber = customer.LicenseNumber,
+            ExpirationDate = customer.ExpirationDate,
+        };
 
-	[HttpPost]
-	public async Task<IActionResult> Profile(ProfileViewModel profile)
-	{
-		var user = await _userManager.GetUserAsync(User);
-		var roles = await _userManager.GetRolesAsync(user);
-		var role = roles.ToList().FirstOrDefault();
-		var appUser = _appUserService.GetUser(user.Id);
-		var file = Request.Form.Files.FirstOrDefault();
+        return View(details);
 
-		appUser.Image = _fileService.ImageByte(file);
-		appUser.ImageURL = _fileService.FilePath(file, Constants.User, appUser.FullName, role);
+    }
 
-		await _userManager.UpdateAsync(user);
+    public IActionResult Password()
+    {
+        var passwordViewModel = new PasswordViewModel();
 
-		var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+        return View(passwordViewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Profile(ProfileViewModel profile)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        var roles = await _userManager.GetRolesAsync(user);
+        var role = roles.ToList().FirstOrDefault();
+        var appUser = _appUserService.GetUser(user.Id);
+        var file = Request.Form.Files.FirstOrDefault();
+
+        if (file != null)
+        {
+            appUser.Image = _fileService.ImageByte(file);
+            appUser.ImageURL = _fileService.FilePath(file, Constants.User, appUser.FullName, role);
+        }
 
 
-		if (profile.PhoneNumber != phoneNumber)
-		{
-			await _userManager.SetPhoneNumberAsync(user, profile.PhoneNumber);
-		}
+        await _userManager.UpdateAsync(user);
 
-		await _signInManager.RefreshSignInAsync(user);
+        var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-		TempData["Success"] = "Profile Updated Successfully";
 
-		return RedirectToAction("Profile");
-	}
+        if (profile.PhoneNumber != phoneNumber)
+        {
+            await _userManager.SetPhoneNumberAsync(user, profile.PhoneNumber);
+        }
 
-	[HttpPost]
-	public async Task<IActionResult> Password(PasswordViewModel passwordViewModel)
-	{
-		var user = await _userManager.GetUserAsync(User);
-		var appUser = _appUserService.GetUser(user.Id);
+        await _signInManager.RefreshSignInAsync(user);
 
-		await _userManager.ChangePasswordAsync(user, passwordViewModel.OldPassword, passwordViewModel.NewPassword);
+        TempData["Success"] = "Profile Updated Successfully";
 
-		await _signInManager.RefreshSignInAsync(user);
+        return RedirectToAction("Profile");
+    }
 
-		await _emailSender.SendEmailAsync(user.Email, "Password Change",
-					$"Dear {appUser.FullName},<br><br>Your password has been changed in our system. " +
-					$"<br>Please visit the store if it was not your action." +
-					$"<br><br>Regards,<br>Hajur ko Car Rental");
+    [HttpPost]
+    public async Task<IActionResult> Password(PasswordViewModel passwordViewModel)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        var appUser = _appUserService.GetUser(user.Id);
 
-		TempData["Success"] = "Password Successfully Updated";
+        await _userManager.ChangePasswordAsync(user, passwordViewModel.OldPassword, passwordViewModel.NewPassword);
 
-		return RedirectToAction("Password");
+        await _signInManager.RefreshSignInAsync(user);
 
-	}
+        await _emailSender.SendEmailAsync(user.Email, "Password Change",
+                    $"Dear {appUser.FullName},<br><br>Your password has been changed in our system. " +
+                    $"<br>Please visit the store if it was not your action." +
+                    $"<br><br>Regards,<br>Hajur ko Car Rental");
+
+        TempData["Success"] = "Password Successfully Updated";
+
+        return RedirectToAction("Password");
+
+    }
+
+    [HttpPost]
+    public IActionResult Documents(DetailViewModel model, IFormFile license, IFormFile citizenship)
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var userId = claim.Value;
+        var user = _appUserService.GetUser(userId);
+        var customer = _customerService.GetUser(userId);
+
+        customer.CitizenshipNumber = model.CitizenshipNumber;
+        customer.LicenseNumber = model.LicenseNumber;
+        customer.ExpirationDate = model.ExpirationDate;
+        customer.CitizenshipURL = _fileService.FilePath(citizenship, Constants.Citizenship.ToLower(), user.FullName, "");
+        customer.LicenseURL = _fileService.FilePath(license, Constants.Citizenship.ToLower(), user.FullName, "");
+
+        _customerService.UpdateCustomer(customer);
+
+        TempData["Success"] = "Documents Updated Successfully";
+
+        return RedirectToAction("Profile");
+    }
 }

@@ -58,21 +58,69 @@ public class RentalController : Controller
             CustomerName = user.FullName,
             CustomerAddress = user.Address,
             CustomerState = user.State,
+            PhoneNumber = user.PhoneNumber,
             ActualPrice = vehicle.PricePerDay,
         };
 
         if(role == Constants.Admin || role == Constants.Staff)
         {
-            rent.PriceForRegularAndStaffs = vehicle.PricePerDay - (25/100 * vehicle.PricePerDay);
+            rent.PriceForRegularAndStaffs = vehicle.PricePerDay - (0.25 * vehicle.PricePerDay);
         } 
         else if(role == Constants.Customer) 
         {
             var customer = _customerService.GetUser(user.Id);
 
-            rent.CustomerCitizenshipNumber = customer.CitizenshipNumber;
-            rent.CustomerLicenseNumber = customer.CitizenshipNumber;
+            rent.CustomerCitizenshipNumber = customer.CitizenshipNumber == null ? "No citizenship found" : customer.CitizenshipNumber;
+            rent.CustomerLicenseNumber = customer.LicenseNumber == null ? "No license found" : customer.LicenseNumber;
         }
 
         return View(rent);
+    }
+
+    [HttpPost]
+    public IActionResult Rental(RentalViewModel model)
+    {
+        var vehicle = _vehicleService.GetVehicle(model.VehicleId);
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var userId = claim.Value;
+        var user = _appUserService.GetUser(userId);
+        var role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
+        var price = 0.0;
+        var days = ((model.EndDate - model.StartDate).TotalDays);
+
+        if (role == Constants.Admin || role == Constants.Staff)
+        {
+            price = vehicle.PricePerDay - (0.25 * vehicle.PricePerDay);
+        }
+        else if (role == Constants.Customer)
+        {
+            var customer = _customerService.GetUser(user.Id);
+            
+            price = vehicle.PricePerDay;
+            
+            if(customer.LicenseURL == null || customer.CitizenshipURL == null)
+            {
+                TempData["Delete"] = "Please add your citizenship and license before renting a car";
+
+                return RedirectToAction("Documents", "Profile", new { area = "Account" });
+            }
+        }
+
+        var result = new Rental()
+        {
+            UserId = model.CustomerId,
+            VehicleId = model.VehicleId,
+            StartDate = model.StartDate,
+            EndDate = model.EndDate,
+            TotalAmount = (float)(days * price),
+        };
+
+        vehicle.IsAvailable = false;
+        _vehicleService.UpdateVehicle(vehicle);
+
+        _rentalService.AddRental(result);
+        TempData["Success"] = "Your rental request has been notified.";
+        return RedirectToAction("Index", "Home");
     }
 }

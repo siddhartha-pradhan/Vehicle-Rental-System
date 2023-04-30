@@ -357,8 +357,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<Guid>("RentalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("RepairCost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("RepairCost")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -417,8 +417,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -457,7 +457,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<string>("ApprovedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("EndDate")
@@ -489,6 +489,10 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<float>("TotalAmount")
                         .HasColumnType("real");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -497,6 +501,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.HasIndex("ApprovedBy");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("VehicleId");
 
@@ -582,8 +588,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("PricePerDay")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("PricePerDay")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -731,9 +737,13 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("ApprovedBy");
 
-                    b.HasOne("VehicleRentalSystem.Domain.Entities.Customer", "Customer")
+                    b.HasOne("VehicleRentalSystem.Domain.Entities.Customer", null)
                         .WithMany("Rental")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("VehicleRentalSystem.Domain.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -743,9 +753,9 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("ApproverUser");
+                    b.Navigation("AppUser");
 
-                    b.Navigation("Customer");
+                    b.Navigation("ApproverUser");
 
                     b.Navigation("Vehicle");
                 });

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
-    public partial class dbsetup : Migration
+    public partial class DbSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<double>(type: "float", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsExpired = table.Column<bool>(type: "bit", nullable: false),
@@ -110,7 +110,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PlateNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PricePerDay = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PricePerDay = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Features = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -316,7 +316,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -326,7 +326,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     RentalStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApprovedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    TotalAmount = table.Column<float>(type: "real", nullable: false)
+                    TotalAmount = table.Column<float>(type: "real", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -335,13 +336,18 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         name: "FK_Rentals_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Rentals_Users_ApprovedBy",
                         column: x => x.ApprovedBy,
                         principalTable: "Users",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Rentals_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Rentals_Vehicles_VehicleId",
                         column: x => x.VehicleId,
@@ -356,7 +362,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RentalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RepairCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RepairCost = table.Column<double>(type: "float", nullable: false),
                     DamageDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -414,6 +420,11 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 name: "IX_Rentals_CustomerId",
                 table: "Rentals",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rentals_UserId",
+                table: "Rentals",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rentals_VehicleId",

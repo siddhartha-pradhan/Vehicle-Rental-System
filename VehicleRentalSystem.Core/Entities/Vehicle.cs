@@ -24,9 +24,8 @@ public class Vehicle : BaseEntity
     public string PlateNumber { get; set; }
 
     [Required]
-    [Column(TypeName = "decimal(18,2)")]
     [Display(Name = "Price per Day")]
-    public decimal PricePerDay { get; set; }
+    public double PricePerDay { get; set; }
 
     [Required]
     [MaxLength(500)]

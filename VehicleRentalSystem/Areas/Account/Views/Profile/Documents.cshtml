@@ -1,0 +1,41 @@
+﻿@model DetailViewModel
+
+@{
+    ViewData["Title"] = "Documents";
+}
+
+<h1>Documents</h1>
+
+<partial name="_Notification" />
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <label asp-for="CitizenshipNumber"></label>
+        <input asp-for="CitizenshipNumber" />
+    </div>
+    <div class="row">
+        <label asp-for="LicenseNumber"></label>
+        <input asp-for="LicenseNumber" />
+    </div>
+    <div class="row">
+        <label asp-for="ExpirationDate"></label>
+        <input asp-for="ExpirationDate" />
+    </div>
+    <div class="form-group row">
+        <input asp-for="LicenseURL" type="file"  name="license" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
+        <label class="custom-file-label">Choose your Resume</label>
+    </div>
+    <div class="form-group row">
+        <input asp-for="CitizenshipNumber" type="file"  name="citizenship" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
+        <label class="custom-file-label">Choose your Resume</label>
+    </div>
+    <button type="submit" class="w-100 btn btn-dark mt-3 mb-5">Save</button>
+    @if(Model.LicenseURL != null)
+    {
+        <a class="btn btn-outline-primary mb-2 w-100" href="@Model.LicenseURL" target="_blank">Certification</a>
+    }
+    @if (Model.CitizenshipURL != null)
+    {
+        <a class="btn btn-outline-primary mb-2 w-100" href="@Model.CitizenshipURL" target="_blank">Certification</a>
+    }
+</form>
