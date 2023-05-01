@@ -12,7 +12,7 @@
             @foreach (var item in Model.Images)
             {
                 <div class="container justify-content-center d-flex mySlides fade">
-                    <img id="profilePicture" style="width:75%;height:350px; object-fit:cover; display: inline-block; vertical-align: middle;" src="data:image/*;base64,@(Convert.ToBase64String(item.ProfileImage))">
+                    <img id="profilePicture" style="width:500px;height:270px; object-fit:cover" asp-append-version="true" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
                 </div>
             }
             @if (Model.Images.Count > 1)

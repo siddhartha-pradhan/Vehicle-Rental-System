@@ -22,7 +22,7 @@
 							@*@foreach(var image in item.VehicleImages)
 							{
 								<div class="row mb-2">
-									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(@image.ProfileImage))">
+									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@image.ImageURL">
 								</div>
 							}*@
 						</div>

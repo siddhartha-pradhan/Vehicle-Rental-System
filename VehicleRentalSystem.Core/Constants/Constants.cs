@@ -23,4 +23,7 @@ public class Constants
     public const string Online = "Online";
 
     public const string Password = "Rental@123";
+
+    public const string Damages = "Damages";
+
 }

@@ -12,8 +12,8 @@ using VehicleRentalSystem.Infrastructure.Persistence;
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230430153934_dbsetup")]
-    partial class dbsetup
+    [Migration("20230501040948_DbSetup")]
+    partial class DbSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -352,9 +352,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
-
-                    b.Property<string>("PaymentStatus")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RentalId")
                         .HasColumnType("uniqueidentifier");

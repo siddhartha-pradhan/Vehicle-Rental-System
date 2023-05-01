@@ -19,7 +19,7 @@ public class Customer
 
     public string UserId { get; set; }
 
-    public bool? IsActive { get; set; } = true;
+    public bool IsActive { get; set; } = true;
 
     public bool? IsApproved { get; set; } = false;
 

@@ -81,7 +81,7 @@ public class RentalController : Controller
 		var brands = _brandService.GetAllBrands();
 		var images = _imageService.GetAllImages();
 
-		var rentals = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved).ToList();
+		var rentals = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.ReturnedDate == null).ToList();
 
 		var result = rentals.Select(x => new RentalDetailsViewModel
 		{
@@ -110,7 +110,7 @@ public class RentalController : Controller
 		var brands = _brandService.GetAllBrands();
 		var images = _imageService.GetAllImages();
 
-		var rentals = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Returned).ToList();
+		var rentals = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.ReturnedDate != null).ToList();
 
 		var result = rentals.Select(x => new RentalDetailsViewModel
 		{
@@ -185,5 +185,32 @@ public class RentalController : Controller
 
 		return RedirectToAction("Requested");
 
+	}
+
+	[HttpPost]
+	public IActionResult Accepted(Guid rentalId)
+	{
+		var rental = _rentalService.GetRental(rentalId);
+
+		rental.ReturnedDate = DateTime.Now;
+		rental.IsReturned = true;
+
+		var user = _appUserService.GetUser(rental.UserId);
+		var vehicle = _vehicleService.GetVehicle(rental.VehicleId);
+		var brand = _brandService.GetBrand(vehicle.BrandId).Name;
+
+		vehicle.IsAvailable = true;
+
+		TempData["Success"] = "Rent successfully returned";
+
+		_emailSender.SendEmailAsync(user.Email, "Successful Return",
+					$"Dear {user.FullName},<br><br>Your rent for the vehicle {vehicle.Model} - {brand} has been returned to the store. " +
+					$"<br>Kindly check your system for the return details." +
+					$"<br>Thank you for choosing us, hope to meet you soon." +
+					$"<br><br>Regards,<br>Hajur ko Car Rental");
+
+		_unitOfWork.Save();
+
+		return RedirectToAction("Accepted");
 	}
 }

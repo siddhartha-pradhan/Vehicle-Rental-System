@@ -57,6 +57,10 @@ public class FileTransferService : IFileTransferService
         {
             fileName = $"[License - {finalString}] {name} - Image";
         }
+        else if (type == Constants.Damages.ToLower())
+        {
+            fileName = $"[Damage - {finalString}] {name} - Image";
+        }
 
         var uploads = Path.Combine(wwwRootPath, path);
 
