@@ -75,19 +75,25 @@
                         <span class="text-info">Order Summary</span>
                     </h4>
                     <ul class="list-group mb-3" >
-                        <li class="list-group-item d-flex justify-content-between" style="background-color: #f3edfe;">
+                        <li class="list-group-item d-flex flex-column justify-content-between" style="background-color: #f3edfe;">
                             <div>
                                 <input asp-for="@Model.VehicleId" class="form-control" hidden/>
                                 <h6 class="my-2">Name: </h6>@Model.VehicleName
-                                <h6 class="my-2">Desc: </h6>@Model.VehicleDescription
-                                <h6 class="my-2">Features: </h6>@Model.VehicleFeatures
+                                <hr />
+                                <h6 class="my-2">Description: </h6>@Model.VehicleDescription
+                                <h6 class="mt-3 mb-2">Features: </h6>@Model.VehicleFeatures
                             </div>
+                            <hr>
+
+                            <div class="mt-2 d-flex w-full justify-content-between">
                                 <small class="text-muted">Actual Price: @Model.ActualPrice</small>
 
-                            @if (User.IsInRole(Constants.Staff) || User.IsInRole(Constants.Admin))
-                            {
-                            <span class="text-muted">Price for you: @Model.PriceForRegularAndStaffs</span>
-                            }
+                                @if (User.IsInRole(Constants.Staff) || User.IsInRole(Constants.Admin))
+                                {
+                                <span class="text-muted">Price for you: @Model.PriceForRegularAndStaffs</span>
+                                }
+                            </div>    
+                            
                         </li>
                     </ul>
                 </div>

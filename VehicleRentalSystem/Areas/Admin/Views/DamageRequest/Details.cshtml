@@ -6,89 +6,128 @@
 ViewData["Title"] = "Damage Requests Details";
 }
 
-<h1>Damage Request Details</h1>
 
-	<div class="row">
-    <div class="card">
-        <div class="col">
-            <img id="previewImage" src="@Model.DamageImage" style="width: 300px; height: auto;  margin: auto;" />
-        </div>
-        <div class="col">
-            
-            <div class="col-3">
-                <label asp-for="@Model.VehicleName"></label>
-            </div>
-            <div class="col-9">
-                @Model.VehicleName 
-            </div>
-            <div class="col-3">
-                <label asp-for="@Model.RequestDate">Damage Request Date</label>
-            </div>
-            <div class="col-9">
-                @Model.RequestDate
-            </div>
-            <div class="col-3">
-                <label asp-for="@Model.ApprovedDate">Vehicle Approved Date</label>
-            </div>
-            <div class="col-9">
-                @Model.ApprovedDate
-            </div>
-            <div class="col-3">
-                <label asp-for="@Model.CustomerName"></label>
-            </div>
-            <div class="col-9">
-                @Model.CustomerName
-            </div>
-            <div class="col-3">
-                <label asp-for="@Model.CustomerPhone"></label>
-            </div>
-            <div class="col-9">
-                @Model.CustomerPhone
-            </div>
-            <div class="col-3">
-                <label asp-for="@Model.ApproverName"></label>
-            </div>
-            <div class="col-9">
-                @Model.ApproverName
-            </div>
-            <div class="col-3">
-                <label asp-for="@Model.PaymentStatus"></label>
-            </div>
-            <div class="col-9">
-                @Model.PaymentStatus
-            </div>
-            <div class="col-3">
-                <label asp-for="@Model.RepairCost"></label>
-            </div>
-            <div class="col-9">
-                @Model.Cost
-            </div>
-        </div>
+<div class="row" style=" margin-top:10vh;">
+    <h3 class="mx-5 mb-4">Damage Request Details</h3>
 
-        @if(Model.PaymentStatus != "Paid"){
-            <form method="post">
-                <input asp-for="@Model.DamageId" hidden>
-                <div class="row">
-                    Staff Remarks
+    <div class="card mb-5 mx-5">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4">
+                    <img src="~/images/system/suv2.jpg" style="width:350px;height:250px; object-fit:cover; margin:auto" />
+                    @*<img id="previewImage" src="@Model.DamageImage" style="width: 300px; height: auto;  margin: auto;" />*@
                 </div>
-                <div class="col-3">
-                    <label> Update Repair Cost?</label>
-                    <input asp-for="RepairCost">
+                <div class="col-8">
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.VehicleName" class="fw-bold">Vehicle Name: </label>
+                        </div>
+                        <div class="col-9">
+                            @Model.VehicleName 
+                        </div>
+                    </div>
+                
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.RequestDate" class="fw-bold">Damage Request Date: </label>
+                        </div>
+                        <div class="col-9">
+                            @Model.RequestDate
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.ApprovedDate" class="fw-bold">Vehicle Approved Date: </label>
+                        </div>
+                        <div class="col-9">
+                            @Model.ApprovedDate
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.CustomerName" class="fw-bold">Customer Name</label>
+                        </div>
+                        <div class="col-9">
+                            @Model.CustomerName
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.CustomerPhone" class="fw-bold">Phone Number: </label>
+                        </div>
+                        <div class="col-9">
+                            @Model.CustomerPhone
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.ApproverName" class="fw-bold"> Approved By: </label>
+                        </div>
+                        <div class="col-9">
+                            @Model.ApproverName
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.PaymentStatus" class="fw-bold"> Payment Status: </label>
+                        </div>
+                        <div class="col-9">
+                            @Model.PaymentStatus
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <label asp-for="@Model.RepairCost" class="fw-bold">Repair Cost: </label>
+                        </div>
+                        <div class="col-9">
+                            @Model.Cost
+                        </div>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <label> Is it paid?</label>
-                    <select asp-for="PaymentStatus" class="form-control" aria-required="true" placeholder="Select a color" >
-                        <option disabled selected>Select a status</option>
-                        <option value="true">True</option>
-                        <option value="false">False</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-outline-info">Update</button>
-                </div>
-            </form>
-        }
-        
+            </div>
+             @if(Model.PaymentStatus != "Paid"){
+                <hr class="mt-4"/>
+             }
+
+            @if(Model.PaymentStatus != "Paid"){
+                <form method="post">
+                    <div class="row d-flex w-100 justify-content-end">
+                        <input asp-for="@Model.DamageId" hidden>
+                        <h4 class="mb-3"> Staff Remarks</h4>
+                        
+                        <div class="d-flex mb-3">
+                            <div class="col-4">
+                                <label class="fw-bold"> Update Repair Cost?</label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="RepairCost" class="form-control w-50">
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="col-4">
+                                <label class="fw-bold"> Is it paid?</label>
+                            </div>
+                            <div class="col-8">
+                                <select asp-for="PaymentStatus" class="form-control w-50" aria-required="true" placeholder="Select a color"  >
+                                    <option disabled selected>Select a status</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <div class="col-4">
+                            </div>
+                            <div class="col-8">
+                                <button type="submit" class="btn btn-green w-50">Update</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            }
+        </div>
     </div>
 </div>
+
 
