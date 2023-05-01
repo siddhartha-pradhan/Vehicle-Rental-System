@@ -12,20 +12,20 @@ public class DamageRequest
     [Required]
     public Guid RentalId { get; set; }
 
-    [Required]
-    public double RepairCost { get; set; }
+    public double? RepairCost { get; set; }
 
     [Required]
     public string DamageDescription { get; set; }
 
-    [Required]
     public bool IsPaid { get; set; } = false;
 
-    public string? PaymentStatus { get; set; }
+    public DateTime DamageRequestDate { get; set; } = DateTime.Now;
 
     public string? ApprovedBy { get; set; }
+	
+    public DateTime? ActionDate { get; set; }
 
-    [Required]
+	[Required]
     public bool IsApproved { get; set; } = false;
 
     public string ImageURL { get; set; }

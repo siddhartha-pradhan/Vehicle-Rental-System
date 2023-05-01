@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
-    public partial class dbsetup : Migration
+    public partial class DbSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -367,7 +367,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     RepairCost = table.Column<double>(type: "float", nullable: false),
                     DamageDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
-                    PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ApprovedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false)

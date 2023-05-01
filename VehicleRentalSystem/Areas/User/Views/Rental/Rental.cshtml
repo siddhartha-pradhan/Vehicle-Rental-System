@@ -51,6 +51,15 @@
                                 </div>
                                 <div class="col-9">
                                     <input asp-for="@Model.CustomerAddress" class="form-control" disabled/>
+                                    <span asp-validation-for="@Model.CustomerAddress" class="text-danger" disabled></span>
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">
+                                    <label asp-for="@Model.CustomerState"></label>
+                                </div>
+                                <div class="col-9">
+                                    <input asp-for="@Model.CustomerState" class="form-control" disabled/>
                                     <span asp-validation-for="@Model.CustomerState" class="text-danger" disabled></span>
                                 </div>
                             </div>

@@ -36,7 +36,7 @@
                     <div class="col-4">
                     </div>
                     <div class="col-8 row border border-primary mt-4 ml-4" style="min-height: auto; width: 300px; margin-left: 12px">
-                        <img id="previewImage" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))" style="width: 300px; height: auto; padding:15px;  margin: auto" />
+                        <img id="previewImage" src="@Model.ImageURL" style="width: 300px; height: auto; padding:15px;  margin: auto" />
                     </div>
                 </div>
                 <input asp-for="CreatedDate" class="form-control" type="hidden" />

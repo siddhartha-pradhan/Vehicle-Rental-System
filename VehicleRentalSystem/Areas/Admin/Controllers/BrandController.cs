@@ -54,6 +54,7 @@ public class BrandController : Controller
                           CreatedBy = user.FullName,
                           CreatedDate = brand.CreatedDate.ToString("dd/MM/yyyy"),
                           Image = brand.Image,
+                          ImageURL = brand.ImageURL,
                           IsActive = brand.IsActive,
                           LastModifiedBy = modifier != null ? modifier.FullName : "Not modified yet",
                           LastModifiedDate = modifier != null ? brand.LastModifiedDate?.ToString("dd/MM/yyyy") : "Not modified yet",
