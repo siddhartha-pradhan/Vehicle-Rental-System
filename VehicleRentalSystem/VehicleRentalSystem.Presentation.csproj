@@ -25,6 +25,7 @@
     <Folder Include="wwwroot\images\licenses\" />
     <Folder Include="wwwroot\images\citizenships\" />
     <Folder Include="wwwroot\images\damages\" />
+    <Folder Include="wwwroot\images\damages\" />
     <Folder Include="wwwroot\images\users\" />
     <Folder Include="wwwroot\images\vehicles\" />
   </ItemGroup>
