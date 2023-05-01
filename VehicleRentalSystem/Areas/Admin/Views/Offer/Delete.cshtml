@@ -1,0 +1,61 @@
+﻿@using VehicleRentalSystem.Domain.Entities;
+
+@model Offer
+
+@{
+    ViewData["Title"] = "Offer";
+    var title = "Delete an existing Offer";
+}
+
+<div class="container-fluid"  style=" margin-top:10vh;">
+    <form method="post">
+        <div class="row mb-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-6">
+                <h3 class="text-dark">@title</h3>
+            </div>
+            <div class="col-8 pt-4">
+                <div class="form-group row">
+                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Name" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Description" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Discount"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Discount" class="form-control" disabled/>
+                    </div>
+                </div>
+                <input asp-for="CreatedDate" class="form-control" type="hidden" />
+                <input asp-for="LastModifiedDate" class="form-control" type="hidden" />
+                <input asp-for="DeletedDate" class="form-control" type="hidden" />
+                <div class="form-group row">
+                    <div class="col-8 offset-4">
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-danger form-control">Delete</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-blue form-control">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

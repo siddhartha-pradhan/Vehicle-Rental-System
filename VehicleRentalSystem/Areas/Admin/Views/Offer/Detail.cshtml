@@ -1,0 +1,41 @@
+﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+
+@model OfferDetailViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Offer Detail</h1>
+
+<div class="row">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" disabled/>
+</div>
+<div class="row">
+    <label asp-for="StartDate"></label>
+    <input asp-for="StartDate" disabled/>
+</div>
+<div class="row">
+    <label asp-for="EndDate"></label>
+    <input asp-for="EndDate" disabled/>
+</div>
+<div class="row">
+    <label asp-for="Discount"></label>
+    <input asp-for="Discount" disabled/>
+</div>
+<div class="row">
+    <label asp-for="Description"></label>
+    <input asp-for="Description" disabled/>
+</div>
+
+<br />
+Offered Vehicles
+@foreach(var item in Model.Vehicles)
+{
+    <div class="row">
+        <label asp-for="@item.Model"></label>
+        <input asp-for="@item.Model" disabled/>
+    </div>
+}
+

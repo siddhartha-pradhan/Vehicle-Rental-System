@@ -37,6 +37,10 @@
                             <div class="row pl-2 ">
                                 <p class="card-title h4 text-dark">@item.Name</p>
                             </div>
+                            @if(item.Offer != "No offer")
+                            {
+                                <p class="card-title h4 text-dark">@item.Offer</p>
+                            }
                             <div class="row">
                                 <b>@item.PricePerDay</b>
                             </div>

@@ -12,16 +12,19 @@ public class HomeController : Controller
     private readonly IBrandService _brandService;
     private readonly IVehicleService _vehicleService;
     private readonly IImageService _imageService;
+    private readonly IOfferService _offerService;
 
     public HomeController(ILogger<HomeController> logger,
         IBrandService brandService,
         IVehicleService vehicleService,
-        IImageService imageService)
+        IImageService imageService,
+        IOfferService offerService)
     {
         _logger = logger;
         _brandService = brandService;
         _vehicleService = vehicleService;
         _imageService = imageService;
+        _offerService = offerService;
     }
 
     public IActionResult Index()
@@ -43,6 +46,7 @@ public class HomeController : Controller
                             Name = $"{vehicle.Model} {_brandService.GetBrand(vehicle.BrandId).Name}",
                             Image = image.ProfileImage,
 							ImageURL = image.ImageURL,
+                            Offer = vehicle.OfferId != null ? $"{_offerService.RetrieveOffer(vehicle.OfferId).Discount}% Offer" : "No offer",
 							PricePerDay = $"Rs {vehicle.PricePerDay}/day"
                         }).DistinctBy(x => x.Id).ToList();
 
