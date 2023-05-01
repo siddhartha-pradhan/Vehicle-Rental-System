@@ -8,127 +8,123 @@
 <h1>Rent a vehicle</h1>
 
 <form method="post">
-    <div class="container">
-        <div class="card">
-            <div class="card-header bg-dark text-light ml-0">
-                <div class="row container">
-                    <div class="col-6">
-                        <i class="fa fa-shopping-cart"></i> &nbsp;
-                        Rental Summary
+    <div class="container" style=" margin-top:3vh;"> 
+        <div class="col-6 px-3">
+            <h3>
+                <i class="fa fa-shopping-cart"></i> &nbsp;
+                Rental Summary
+            </h3>
+        </div>
+        <div class="d-flex w-100">
+            <div class=" p-3" style="width:60%;">
+                <div>
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-info">Customer Details:</span>
+                    </h4>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <input asp-for="@Model.CustomerId" class="form-control" hidden/>
+                            <label asp-for="@Model.CustomerName">Customer Name: </label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="@Model.CustomerName" class="form-control w-75" disabled/>
+                        </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label asp-for="@Model.PhoneNumber">Phone Number: </label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="@Model.PhoneNumber" class="form-control w-75" disabled/>
+                            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label asp-for="@Model.CustomerAddress"> Customer Address: </label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="@Model.CustomerAddress" class="form-control w-75" disabled/>
+                            <span asp-validation-for="@Model.CustomerState" class="text-danger" disabled></span>
+                        </div>
+                    </div>
+                    @if (User.IsInRole(Constants.Customer))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label asp-for="@Model.CustomerLicenseNumber">License Number: </label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="@Model.CustomerLicenseNumber" class="form-control w-75" disabled/>
+                                <span asp-validation-for="@Model.CustomerLicenseNumber" class="text-danger" disabled></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label asp-for="@Model.CustomerCitizenshipNumber">Citizenship Number:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="@Model.CustomerCitizenshipNumber" class="form-control w-75" disabled/>
+                                <span asp-validation-for="@Model.CustomerCitizenshipNumber" class="text-danger" disabled></span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="mt-4" style="width:82%;">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-info">Order Summary</span>
+                    </h4>
+                    <ul class="list-group mb-3" >
+                        <li class="list-group-item d-flex justify-content-between" style="background-color: #f3edfe;">
+                            <div>
+                                <input asp-for="@Model.VehicleId" class="form-control" hidden/>
+                                <h6 class="my-2">Name: </h6>@Model.VehicleName
+                                <h6 class="my-2">Desc: </h6>@Model.VehicleDescription
+                                <h6 class="my-2">Features: </h6>@Model.VehicleFeatures
+                            </div>
+                                <small class="text-muted">Actual Price: @Model.ActualPrice</small>
+
+                            @if (User.IsInRole(Constants.Staff) || User.IsInRole(Constants.Admin))
+                            {
+                            <span class="text-muted">Price for you: @Model.PriceForRegularAndStaffs</span>
+                            }
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="container rounded p-2">
-                    <div class="row">
-                        <div class="col-12 col-lg-6 pb-4">
-                            <div class="row">
-                                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="text-info">Customer Details:</span>
-                                </h4>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">
-                                    <input asp-for="@Model.CustomerId" class="form-control" hidden/>
-                                    <label asp-for="@Model.CustomerName"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input asp-for="@Model.CustomerName" class="form-control" disabled/>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">
-                                    <label asp-for="@Model.PhoneNumber"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input asp-for="@Model.PhoneNumber" class="form-control" disabled/>
-                                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">
-                                    <label asp-for="@Model.CustomerAddress"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input asp-for="@Model.CustomerAddress" class="form-control" disabled/>
-                                    <span asp-validation-for="@Model.CustomerAddress" class="text-danger" disabled></span>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">
-                                    <label asp-for="@Model.CustomerState"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input asp-for="@Model.CustomerState" class="form-control" disabled/>
-                                    <span asp-validation-for="@Model.CustomerState" class="text-danger" disabled></span>
-                                </div>
-                            </div>
-                             <div class="row my-1">
-                                <div class="col-3">
-                                    <label asp-for="@Model.StartDate"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input id="from-date" asp-for="@Model.StartDate" class="form-control" value="2023-04-01T12:00:00.000"/>
-                                    <span asp-validation-for="@Model.StartDate" class="text-danger" ></span>
-                                </div>
-                            </div>
-                             <div class="row my-1">
-                                <div class="col-3">
-                                    <label asp-for="@Model.EndDate"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input id="to-date" asp-for="@Model.EndDate" class="form-control" value="2023-04-01T12:00:00.000"/>
-                                    <span asp-validation-for="@Model.EndDate" class="text-danger" ></span>
-                                </div>
-                            </div>
-                            
+            <div class=" p-3" style="width: 40%;">
+                <div>
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-info">Select Date:</span>
+                    </h4>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label asp-for="@Model.StartDate"> Start Date:</label>
                         </div>
-                        @if (User.IsInRole(Constants.Customer)) 
-                        {
-                            <div class="row my-1">
-                                <div class="col-3">
-                                    <label asp-for="@Model.CustomerLicenseNumber"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input asp-for="@Model.CustomerLicenseNumber" class="form-control" disabled/>
-                                    <span asp-validation-for="@Model.CustomerLicenseNumber" class="text-danger" disabled></span>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">
-                                    <label asp-for="@Model.CustomerCitizenshipNumber"></label>
-                                </div>
-                                <div class="col-9">
-                                    <input asp-for="@Model.CustomerCitizenshipNumber" class="form-control" disabled/>
-                                    <span asp-validation-for="@Model.CustomerCitizenshipNumber" class="text-danger" disabled></span>
-                                </div>
-                            </div>
-                        }
-                        <div class="col-12 col-lg-5 offset-lg-1">
-                            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-info">Order Summary</span>
-                            </h4>
-                            <ul class="list-group mb-3">
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>
-                                        <input asp-for="@Model.VehicleId" class="form-control" hidden/>
-                                        <h6 class="my-1">Name: @Model.VehicleName</h6>
-                                        <h6 class="my-1">Desc: @Model.VehicleDescription</h6>
-                                        <h6 class="my-1">Features: @Model.VehicleFeatures</h6>
-                                        <small class="text-muted">Actual Price: @Model.ActualPrice</small>
-                                    </div>
-                                    @if (User.IsInRole(Constants.Staff) || User.IsInRole(Constants.Admin))
-                                    {
-                                        <span class="text-muted">Price for you: @Model.PriceForRegularAndStaffs</span>
-                                    }
-                                </li>
-                            </ul>
+                        <div class="col-9">
+                            <input id="from-date" asp-for="@Model.StartDate" class="form-control" value="2023-04-01T12:00:00.000"/>
+                            <span asp-validation-for="@Model.StartDate" class="text-danger" ></span>
+                        </div>
+                    </div>
+                        <div class="row mb-3">
+                        <div class="col-3">
+                            <label asp-for="@Model.EndDate">End Date: </label>
+                        </div>
+                        <div class="col-9">
+                            <input id="to-date" asp-for="@Model.EndDate" class="form-control" value="2023-04-01T12:00:00.000"/>
+                            <span asp-validation-for="@Model.EndDate" class="text-danger" ></span>
                         </div>
                     </div>
                 </div>
+                <button type="submit" class="w-100 btn btn-primary mt-3 mb-5">Request</button>
+
             </div>
         </div>
     </div>
-    <button type="submit" class="w-100 btn btn-dark mt-3 mb-5">Request</button>
 </form>
 
+<style>
+    .fa-shopping-cart{
+        font-size:25px;
+    }
+</style>

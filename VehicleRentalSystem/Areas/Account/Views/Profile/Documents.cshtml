@@ -4,38 +4,74 @@
     ViewData["Title"] = "Documents";
 }
 
-<h1>Documents</h1>
 
 <partial name="_Notification" />
 
 <form method="post" enctype="multipart/form-data">
-    <div class="row">
-        <label asp-for="CitizenshipNumber"></label>
-        <input asp-for="CitizenshipNumber" />
+    <div class="container" style=" margin-top:10vh;">
+        <h3 class="mb-4">Documents</h3>
+        <div class="d-flex">
+            <div class="d-flex flex-column " style="width:60%;">
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label asp-for="CitizenshipNumber"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="CitizenshipNumber" class="form-control w-75" />
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-3">
+                        <label class="custom-file-label">Choose your citizenship</label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="CitizenshipNumber" type="file"  name="citizenship" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label asp-for="LicenseNumber"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="LicenseNumber"class=" form-control w-75" />
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-3">
+                        <label class="custom-file-label">Choose your license</label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="LicenseURL" type="file"  name="license" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                     <div class="col-3">
+                        <label asp-for="ExpirationDate"></label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="ExpirationDate" class="form-control w-75"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-9">
+                        <button type="submit" class="w-75 btn btn-green mt-3 mb-5">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column align-items-end" style="width:40%;">
+                @if (Model.LicenseURL != null)
+                {
+                    <a class="btn btn-blue mb-4 w-75" href="@Model.LicenseURL" target="_blank">LicenseURL</a>
+                }
+                @if (Model.CitizenshipURL != null)
+                {
+                <a class="btn btn-blue mb-2 w-75" href="@Model.CitizenshipURL" target="_blank">CitizenshipURL</a>
+                }
+            </div>
+        </div>
+        
+       
     </div>
-    <div class="row">
-        <label asp-for="LicenseNumber"></label>
-        <input asp-for="LicenseNumber" />
-    </div>
-    <div class="row">
-        <label asp-for="ExpirationDate"></label>
-        <input asp-for="ExpirationDate" />
-    </div>
-    <div class="form-group row">
-        <input asp-for="LicenseURL" type="file"  name="license" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
-        <label class="custom-file-label">Choose your license</label>
-    </div>
-    <div class="form-group row">
-        <input asp-for="CitizenshipNumber" type="file"  name="citizenship" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
-        <label class="custom-file-label">Choose your citizenship</label>
-    </div>
-    <button type="submit" class="w-100 btn btn-dark mt-3 mb-5">Save</button>
-    @if(Model.LicenseURL != null)
-    {
-            <a class="btn btn-outline-primary mb-2 w-100" href="@Model.LicenseURL" target="_blank">LicenseURL</a>
-    }
-    @if (Model.CitizenshipURL != null)
-    {
-        <a class="btn btn-outline-primary mb-2 w-100" href="@Model.CitizenshipURL" target="_blank">CitizenshipURL</a>
-    }
 </form>

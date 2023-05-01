@@ -3,65 +3,98 @@
     ViewData["Title"] = "Accepted History";
 }
 
-<h1>Accepted History</h1>
 
 <partial name="_Notification" />
 
-<div class="row">
+<div class="row" style="margin-top:10vh;">
+	<h3 class="mx-5 mb-4">Accepted History</h3>
+
 	<form method="post">
 		@foreach (var item in Model)
 		{
-			<div class="card">
+			<div class="card mb-5 mx-5">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-4">
-							@foreach(var image in item.VehicleImages)
+							@*@foreach(var image in item.VehicleImages)
 							{
 								<div class="row mb-2">
-									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@image.ImageURL">
+									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(@image.ProfileImage))">
 								</div>
-							}
+							}*@
+							<img src="~/images/system/suv2.jpg" style="width:350px;height:250px; object-fit:cover; margin:auto" />
+
 						</div>
 						<div class="col-8">
 							<div class="row">
 								<input asp-for="@item.Id" hidden/>
 							</div>
-							<div class="row">
-								Vehicle Name: @item.VehicleName
+							
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Vehicle Name:
+								</div>
+								<div class="col-9">
+									@item.VehicleName
+								</div>
 							</div>
-							<div class="row">
-								Requested Date: @item.RequestedDate
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Requested Date:
+								</div>
+								<div class="col-9">
+									@item.RequestedDate
+								</div>
 							</div>
-							<div class="row">
-								Start Date: @item.StartDate
+							<div class="row mb-1">
+								<div class="d-flex w-full">
+									<div class="d-flex w-50">
+										<div class="col-6 fw-bold">
+											Start Date:
+										</div>
+										<div class="col-4" style="margin-left:6px;">
+											@item.StartDate
+										</div>
+									</div>
+									<div class="d-flex w-50">
+
+										<div class="col-4 fw-bold">
+											End Date:
+										</div>
+										<div class="col-8">
+											@item.EndDate
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="row">
-								End Date: @item.EndDate
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Total Amount:
+								</div>
+								<div class="col-9">
+									@item.TotalAmount
+								</div>
 							</div>
-							<div class="row">
-								Total Amount: @item.TotalAmount
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Accepted Date:
+								</div>
+								<div class="col-9">
+									@item.ActionDate
+								</div>
 							</div>
-							<div class="row">
-								Accepted Date: @item.ActionDate
-							</div>
-							<div class="row">
-								Accepted By: @item.ActionBy
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Accepted By:
+								</div>
+								<div class="col-9">
+									@item.ActionBy
+								</div>
 							</div>
 							
-							@if(!item.IsDamaged){
-								<div class="row">
-									<button class="form-control" type="submit" asp-action="Accepted" asp-route-rentalId="@item.Id">Cancel</button>
-								</div>
-								<div class="row">
-									<a class="form-control btn btn-outline-dark" asp-action="DamageRequest" asp-route-rentalId="@item.Id">Fill Damage Form</a>
-								</div>
-							}
-							else
-							{
-								<div class="row">
-									<a class="form-control btn btn-outline-dark" asp-action="DamageDetails" asp-route-rentalId="@item.Id">Damage Details</a>
-								</div>
-							}
+							<div class="d-flex w-full justify-content-end position-absolute" style="bottom:15px; right:15px;">
+									<button type="submit"  asp-route-rentalId="@item.Id" class="btn btn-danger px-4">Cancel</button>
+							</div>
 						</div>
 					</div>
 				</div>

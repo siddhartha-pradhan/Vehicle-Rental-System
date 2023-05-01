@@ -5,66 +5,118 @@
 ViewData["Title"] = "Requested Rents";
 }
 
-<h1>Requested Rents</h1>
-
 <partial name="_Notification" />
 
-<div class="row">
+<div class="row" style=" margin-top:10vh;">
+	<h3 class="mx-5 mb-4">Requested Rents</h3>
 	<form method="post">
 		@foreach (var item in Model)
 	{
-		<div class="card">
+		<div class="card mb-5 mx-5">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-4">
-						@foreach(var image in item.VehicleImages)
-						{
-							<div class="row mb-2">
-								<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@image.ImageURL">
-							</div>
-						}
+					<div class="col-4 d-flex ">
+						@*@for(int i = 0; i < 2; i++)
+                        {
+                            <div class="row mb-2">
+                                <img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@item.VehicleImages[i].ImageURL">
+                            </div>
+                        }*@
+							<img src="~/images/system/suv2.jpg" style="width:350px;height:250px; object-fit:cover; margin:auto" />
 					</div>
 					<div class="col-8">
 						<div class="row">
 							<input asp-for="@item.Id" hidden/>
 						</div>
-							<div class="row">
-								Customer Name: @item.UserName
+						<div class="row mb-1">
+							<div class="col-3 fw-bold">
+								Customer Name:
 							</div>
-								<div class="row">
-								Phone Number: @item.PhoneNumber
+							<div class="col-9">
+								@item.UserName
 							</div>
-							@if(item.LicenseURL != null)
-							{
-								<div class="row">
-									License Number: @item.LicenseNumber
+						</div>
+						<div class="row mb-1">
+							<div class="col-3 fw-bold">
+								Phone Number:
+							</div>
+							<div class="col-9">
+								@item.PhoneNumber
+							</div>
+							 
+						</div>
+						@if(item.LicenseURL != null)
+						{
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									License Number:
 								</div>
-								<div class="row">
-									Citizenship Number: @item.CitizenshipNumber
+								<div class="col-9">
+									@item.LicenseNumber
 								</div>
-							}
+							</div>
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Citizenship Number:
+								</div>
+								<div class="col-9">
+									@item.CitizenshipNumber
+								</div>
+							</div>
+						}
 							
-						<div class="row">
-							Vehicle Name: @item.VehicleName
+						<div class="row mb-1">
+							<div class="col-3 fw-bold">
+								Vehicle Name:
+							</div>
+							<div class="col-9">
+								@item.VehicleName
+							</div>
 						</div>
-						<div class="row">
-							Requested Date: @item.RequestedDate
+						<div class="row mb-1">
+							<div class="col-3 fw-bold">
+								Requested Date:
+							</div>
+							<div class="col-9">
+								@item.RequestedDate
+							</div>
 						</div>
-						<div class="row">
-							Start Date: @item.StartDate
+						<div class="row mb-1">
+							<div class="d-flex w-full">
+								<div class="d-flex w-50">
+									<div class="col-6 fw-bold">
+										Start Date:
+									</div>
+									<div class="col-4" style="margin-left:6px;">
+										@item.StartDate
+									</div>
+								</div>
+								<div class="d-flex w-50">
+
+									<div class="col-4 fw-bold">
+										End Date:
+									</div>
+									<div class="col-8">
+										@item.EndDate
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="row">
-							End Date: @item.EndDate
+
+						<div class="row mb-3">
+							<div class="col-3 fw-bold">
+								Total Amount:
+							</div>
+							<div class="col-9">
+								@item.TotalAmount
+							</div>
 						</div>
-						<div class="row">
-							Total Amount: @item.TotalAmount
+
+						<div class="d-flex w-full justify-content-end">
+								<button type="submit" asp-area="Admin" asp-controller="Rental" asp-action="AcceptRent" asp-route-rentalId="@item.Id" type="submit" class="btn btn-green px-4" style="margin-right:10px;">Approve</button>
+								<button type="submit" asp-area="Admin" asp-controller="Rental" asp-action="RejectRent" asp-route-rentalId="@item.Id" type="submit" class="btn btn-danger px-4">Reject</button>
 						</div>
-						<div class="row">
-							<button type="submit" asp-area="Admin" asp-controller="Rental" asp-action="AcceptRent" asp-route-rentalId="@item.Id" type="submit">Approve</button>
-						</div>
-						<div class="row">
-							<button type="submit" asp-area="Admin" asp-controller="Rental" asp-action="RejectRent" asp-route-rentalId="@item.Id" type="submit">Reject</button>
-						</div>
+						
 					</div>
 				</div>
 			</div>
