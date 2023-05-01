@@ -6,36 +6,78 @@
     ViewData["Title"] = "Detail";
 }
 
-<h1>Offer Detail</h1>
-
-<div class="row">
-    <label asp-for="Name"></label>
-    <input asp-for="Name" disabled/>
-</div>
-<div class="row">
-    <label asp-for="StartDate"></label>
-    <input asp-for="StartDate" disabled/>
-</div>
-<div class="row">
-    <label asp-for="EndDate"></label>
-    <input asp-for="EndDate" disabled/>
-</div>
-<div class="row">
-    <label asp-for="Discount"></label>
-    <input asp-for="Discount" disabled/>
-</div>
-<div class="row">
-    <label asp-for="Description"></label>
-    <input asp-for="Description" disabled/>
-</div>
-
-<br />
-Offered Vehicles
-@foreach(var item in Model.Vehicles)
-{
-    <div class="row">
-        <label asp-for="@item.Model"></label>
-        <input asp-for="@item.Model" disabled/>
+<div class="container" style=" margin-top:10vh;"> 
+    <div class="col-6 px-3">
+        <h3>Offer Summary</h3>
     </div>
-}
+    <div class="d-flex w-100 justify-content-between">
+        <div class=" p-3 w-50" >
+            <div>
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-info">Offer Detail: </span>
+                </h4>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <label asp-for="Name" class="fw-bold">Name:</label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="Name" disabled class="form-control w-75"/>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-3 mb-3">
+                        <label asp-for="StartDate" class="fw-bold">Start Date: </label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="StartDate" disabled class="form-control w-75"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 mb-3">
+                        <label asp-for="EndDate" class="fw-bold">End Date: </label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="EndDate" disabled class="form-control w-75"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 mb-3">
+                        <label asp-for="Discount" class="fw-bold">Discount: </label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="Discount" disabled class="form-control w-75"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 mb-3">
+                        <label asp-for="Description" class="fw-bold">Description: </label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="Description" disabled class="form-control w-75"/>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+        <div class="p-3 w-50">
+            <div>
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-info">Offered Vehicles: </span>
+                </h4>
+                @foreach (var item in Model.Vehicles)
+                {
+                    <div class="row mb-3">
+                        <div class="col-3 mb-3">
+                            <label asp-for="@item.Model" class="fw-bold">Model: </label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="@item.Model" disabled class="form-control w-75"/>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
