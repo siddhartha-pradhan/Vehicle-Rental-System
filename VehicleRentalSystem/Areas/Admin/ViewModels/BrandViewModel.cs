@@ -13,7 +13,10 @@ public class BrandViewModel
 
     public byte[] Image { get; set; }
 
-    [Display(Name = "Activation Status")]
+	public string ImageURL { get; set; }
+
+
+	[Display(Name = "Activation Status")]
     public bool IsActive { get; set; } = true;
 
     [Display(Name = "Date of Creation")]

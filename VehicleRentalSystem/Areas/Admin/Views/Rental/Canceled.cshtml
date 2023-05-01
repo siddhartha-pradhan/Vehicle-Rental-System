@@ -20,7 +20,7 @@
 							@foreach(var image in item.VehicleImages)
 							{
 								<div class="row mb-2">
-									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(@image.ProfileImage))">
+									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@image.ImageURL">
 								</div>
 							}
 						</div>
@@ -29,10 +29,10 @@
 								<input asp-for="@item.Id" hidden/>
 							</div>
 							<div class="row">
-								Customer Name: @item.VehicleName
+								Customer Name: @item.UserId
 							</div>
 								<div class="row">
-								Phone Number: @item.VehicleName
+								Phone Number: @item.PhoneNumber
 							</div>
 							<div class="row">
 								Vehicle Name: @item.VehicleName

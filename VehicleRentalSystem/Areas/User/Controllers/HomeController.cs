@@ -42,7 +42,8 @@ public class HomeController : Controller
                             Id = vehicle.Id,
                             Name = $"{vehicle.Model} {_brandService.GetBrand(vehicle.BrandId).Name}",
                             Image = image.ProfileImage,
-                            PricePerDay = $"Rs {vehicle.PricePerDay}/day"
+							ImageURL = image.ImageURL,
+							PricePerDay = $"Rs {vehicle.PricePerDay}/day"
                         }).DistinctBy(x => x.Id).ToList();
 
         var details = new HomeViewModel()

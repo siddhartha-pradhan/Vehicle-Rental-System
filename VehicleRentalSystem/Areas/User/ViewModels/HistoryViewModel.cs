@@ -27,4 +27,6 @@ public class HistoryViewModel
     public string TotalAmount { get; set; }
     
     public List<Image> VehicleImages { get; set; }
+
+    public bool IsDamaged { get; set; }
 }

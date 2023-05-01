@@ -27,6 +27,8 @@ public class Rental
 
     public DateTime? ActionDate { get; set; }
 
+    public bool IsDamaged { get; set; } = false;
+
     public bool IsApproved { get; set; } = false;
 
     public bool IsReturned { get; set; } = false;

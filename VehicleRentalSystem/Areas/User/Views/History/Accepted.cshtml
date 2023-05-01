@@ -18,7 +18,7 @@
 							@foreach(var image in item.VehicleImages)
 							{
 								<div class="row mb-2">
-									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(@image.ProfileImage))">
+									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@image.ImageURL">
 								</div>
 							}
 						</div>
@@ -47,9 +47,21 @@
 							<div class="row">
 								Accepted By: @item.ActionBy
 							</div>
-							<div class="row">
-								<button type="submit">Cancel</button>
-							</div>
+							
+							@if(!item.IsDamaged){
+								<div class="row">
+									<button class="form-control" type="submit" asp-action="Accepted" asp-route-rentalId="@item.Id">Cancel</button>
+								</div>
+								<div class="row">
+									<a class="form-control btn btn-outline-dark" asp-action="DamageRequest" asp-route-rentalId="@item.Id">Fill Damage Form</a>
+								</div>
+							}
+							else
+							{
+								<div class="row">
+									<a class="form-control btn btn-outline-dark" asp-action="DamageDetails" asp-route-rentalId="@item.Id">Damage Details</a>
+								</div>
+							}
 						</div>
 					</div>
 				</div>

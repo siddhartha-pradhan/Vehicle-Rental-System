@@ -70,6 +70,12 @@ public class RentalController : Controller
         {
             var customer = _customerService.GetUser(user.Id);
 
+            if (!customer.IsActive)
+            {
+                TempData["Delete"] = "You haven't paid the due amount of your damage request. Can't process further on.";
+                return RedirectToAction("Index", "Home");
+            }
+
             rent.CustomerCitizenshipNumber = customer.CitizenshipNumber == null ? "No citizenship found" : customer.CitizenshipNumber;
             rent.CustomerLicenseNumber = customer.LicenseNumber == null ? "No license found" : customer.LicenseNumber;
         }
