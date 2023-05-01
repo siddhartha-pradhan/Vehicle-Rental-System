@@ -68,7 +68,6 @@ public class HomeController : Controller
             Description = vehicle.Description,
             Features = vehicle.Features,
             Color = vehicle.Color,
-            PlateNumber = vehicle.PlateNumber
         };
 
         return View(result);

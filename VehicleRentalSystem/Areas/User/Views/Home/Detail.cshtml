@@ -33,10 +33,7 @@
                     <label asp-for="PricePerDay" class="fw-bold">Price: </label>
                     <input asp-for="PricePerDay" disabled />
                 </div>
-                <div class="form-group mb-3">
-                    <label asp-for="PlateNumber" class="fw-bold">Plate Number: </label>
-                    <input asp-for="PlateNumber" disabled />
-                </div>
+               
                  <div class="form-group mb-4">
                     <label asp-for="Color" class="fw-bold">Color: </label>
                     <input asp-for="Color" disabled />
@@ -52,7 +49,7 @@
                 
             </div>
             <div class="w-25">
-                <a class="nav-link btn-primary text-center rounded" asp-area="User" asp-controller="Rental" asp-action="Rental">Rent this vehicle</a>
+                <a class="nav-link btn-primary text-center rounded" asp-area="User" asp-controller="Rental" asp-action="Rental" asp-route-vehicleId="@Model.Id">Rent this vehicle</a>
             </div>
         </div>
     </div>

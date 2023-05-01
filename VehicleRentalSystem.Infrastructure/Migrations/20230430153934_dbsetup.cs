@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
-    public partial class DbSetup : Migration
+    public partial class dbsetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -317,16 +317,18 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RequestedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ActionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     IsReturned = table.Column<bool>(type: "bit", nullable: false),
-                    IsCancelled = table.Column<bool>(type: "bit", nullable: false),
                     RentalStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApprovedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ActionBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalAmount = table.Column<float>(type: "real", nullable: false),
+                    ApprovedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
