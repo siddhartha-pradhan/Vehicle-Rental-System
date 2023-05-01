@@ -6,6 +6,8 @@ public interface IOfferService
 {
     Offer GetOffer(Guid Id);
 
+    Offer RetrieveOffer(Guid? Id);
+
     List<Offer> GetAllOffers();
 
     void AddOffer(Offer offer);

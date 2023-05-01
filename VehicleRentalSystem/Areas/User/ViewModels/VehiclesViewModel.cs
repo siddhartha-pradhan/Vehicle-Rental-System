@@ -9,6 +9,8 @@
         public string ImageURL { get; set; }
 
         public string Name { get; set; }
+        
+        public string? Offer { get; set; }
 
         public string PricePerDay { get; set; } 
     }
