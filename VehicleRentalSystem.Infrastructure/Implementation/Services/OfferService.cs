@@ -40,6 +40,11 @@ public class OfferService : IOfferService
         return _unitOfWork.Offer.Get(Id);
     }
 
+    public Offer RetrieveOffer(Guid? Id)
+    {
+        return _unitOfWork.Offer.GetItem(Id);
+    }
+
     public void UpdateOffer(Offer offer)
     {
         _unitOfWork.Offer.Update(offer);

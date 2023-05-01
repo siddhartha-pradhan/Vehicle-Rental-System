@@ -1,4 +1,5 @@
-﻿@model List<HistoryViewModel>
+﻿@using VehicleRentalSystem.Domain.Constants;
+@model List<HistoryViewModel>
 @{
     ViewData["Title"] = "Accepted History";
 }
@@ -96,8 +97,10 @@
 								@if (!item.IsDamaged)
 								{
 									<button type="submit" asp-action="Accepted" asp-route-rentalId="@item.Id" class="btn btn-danger px-4">Cancel</button>
-
-											<a class="form-control btn btn-blue" asp-action="DamageRequest" asp-route-rentalId="@item.Id"  style="margin-left:15px;">Fill Damage Form</a>
+									@if (User.IsInRole(Constants.User))
+									{
+										<a class="form-control btn btn-blue" asp-action="DamageRequest" asp-route-rentalId="@item.Id"  style="margin-left:15px;">Fill Damage Form</a>
+									}
 								}
 								else
 								{
