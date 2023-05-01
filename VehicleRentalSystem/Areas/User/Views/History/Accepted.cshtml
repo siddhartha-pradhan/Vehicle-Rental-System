@@ -91,9 +91,18 @@
 									@item.ActionBy
 								</div>
 							</div>
-							
 							<div class="d-flex w-full justify-content-end position-absolute" style="bottom:15px; right:15px;">
-									<button type="submit"  asp-route-rentalId="@item.Id" class="btn btn-danger px-4">Cancel</button>
+
+								@if (!item.IsDamaged)
+								{
+									<button type="submit" asp-action="Accepted" asp-route-rentalId="@item.Id" class="btn btn-danger px-4">Cancel</button>
+
+											<a class="form-control btn btn-blue" asp-action="DamageRequest" asp-route-rentalId="@item.Id"  style="margin-left:15px;">Fill Damage Form</a>
+								}
+								else
+								{
+									<a class="form-control btn btn-blue" asp-action="DamageDetails" asp-route-rentalId="@item.Id" style="margin-left:15px;">Damage Details</a>
+								}
 							</div>
 						</div>
 					</div>
