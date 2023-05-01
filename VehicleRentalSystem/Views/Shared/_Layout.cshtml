@@ -31,24 +31,19 @@
                             <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Privacy">Policy</a>
                         </li>
-                        @if (User.IsInRole(Constants.Admin))
+                        @if (User.IsInRole(Constants.Admin) || User.IsInRole(Constants.Staff))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Brand" asp-action="Index">Brands</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Vehicle" asp-action="Index">Vehicles</a>
-                            </li> 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Offer" asp-action="Index">Offers</a>
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="" asp-action="">Sales</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Store</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Customer">Customers</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Staff">Staffs</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Brand" asp-action="Index">Brands</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Vehicle" asp-action="Index">Vehicles</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Offer" asp-action="Index">Offers</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -59,11 +54,14 @@
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Rental" asp-action="Returned">Returned Rents History</a>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="DamageRequest" asp-action="Index">Damage Requests</a>
+                            </li>
                         }
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Rents</a>
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My History</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" asp-area="User" asp-controller="History" asp-action="Requested">Requested Rents</a>
                                     <a class="dropdown-item" asp-area="User" asp-controller="History" asp-action="Accepted">Currently Rented</a>
@@ -71,8 +69,17 @@
                                 </div>
                             </li>
                         }
+                        @if (User.IsInRole(Constants.Admin))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Customer">Customers</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Staff">Staffs</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
-
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -83,13 +90,6 @@
             @RenderBody()
         </main>
     </div>
-
-   @* <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            &copy; 2023 - Hajur ko Rental Store - <a asp-area="User" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
