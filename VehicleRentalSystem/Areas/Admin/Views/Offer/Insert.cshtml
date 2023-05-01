@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-8 mb-4">
                         <select asp-for="VehicleList" asp-items="@Model.Vehicles" class="form-control multiple">
-                            <option disabled selected>Select a vehicle to offer</option>
+                            <option disabled selected style="background-color:#f3edfe; color:#7d43a3;">Select a vehicle to offer</option>
                         </select>
                     </div>
                 </div>
@@ -90,6 +90,12 @@
         </div>
     </form>
 </div>
+
+<style>
+
+
+}
+</style>
 
 @section Scripts{
 
