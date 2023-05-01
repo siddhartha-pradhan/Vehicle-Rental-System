@@ -4,46 +4,80 @@
     ViewData["Title"] = "Requested History";
 }
 
-<h1>Requested History</h1>
 
 <partial name="_Notification" />
 
-<div class="row">
+<div class="row" style="margin-top:10vh;">
+	<h3 class="mx-5 mb-4">Requested History</h3>
+
 	<form method="post">
 		@foreach (var item in Model)
 		{
-			<div class="card">
+			<div class="card mb-5 mx-5">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-4">
-							@foreach(var image in item.VehicleImages)
+							<img src="~/images/system/suv2.jpg" style="width:350px;height:250px; object-fit:cover; margin:auto" />
+
+							@*@foreach(var image in item.VehicleImages)
 							{
 								<div class="row mb-2">
 									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(@image.ProfileImage))">
 								</div>
-							}
+							}*@
 						</div>
 						<div class="col-8">
 							<div class="row">
 								<input asp-for="@item.Id" hidden/>
 							</div>
-							<div class="row">
-								Vehicle Name: @item.VehicleName
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Vehicle Name:
+								</div>
+								<div class="col-9">
+									@item.VehicleName
+								</div>
 							</div>
-							<div class="row">
-								Requested Date: @item.RequestedDate
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Requested Date:
+								</div>
+								<div class="col-9">
+									@item.RequestedDate
+								</div>
 							</div>
-							<div class="row">
-								Start Date: @item.StartDate
+							
+							<div class="row mb-1">
+								<div class="d-flex w-full">
+									<div class="d-flex w-50">
+										<div class="col-6 fw-bold">
+											Start Date:
+										</div>
+										<div class="col-4" style="margin-left:6px;">
+										@item.StartDate
+										</div>
+									</div>
+									<div class="d-flex w-50">
+
+										<div class="col-4 fw-bold">
+											End Date:
+										</div>
+										<div class="col-8">
+										@item.EndDate
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="row">
-								End Date: @item.EndDate
+							<div class="row mb-1">
+								<div class="col-3 fw-bold">
+									Total Amount:
+								</div>
+								<div class="col-9">
+									@item.TotalAmount
+								</div>
 							</div>
-							<div class="row">
-								Total Amount: @item.TotalAmount
-							</div>
-							<div class="row">
-								<button asp-route-rentalId="@item.Id" type="submit">Cancel</button>
+							<div class="d-flex w-full justify-content-end position-absolute" style="bottom:15px; right:15px;">
+									<button asp-route-rentalId="@item.Id" type="submit" class="btn btn-danger px-4" >Cancel</button>
 							</div>
 						</div>
 					</div>
