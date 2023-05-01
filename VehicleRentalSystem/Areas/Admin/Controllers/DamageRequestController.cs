@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using VehicleRentalSystem.Application.Interfaces.Repositories;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Domain.Constants;
@@ -123,15 +124,19 @@ public class DamageRequestController : Controller
     [HttpPost]
     public IActionResult Details(DamageViewModel damage)
     {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
         var request = _damageRequestService.DamageRequest(damage.DamageId);
         var rental = _rentalService.GetRental(request.RentalId);
         var user = _appUserService.GetUser(rental.UserId);
         var vehicle = _vehicleService.GetVehicle(rental.VehicleId);
         var brand = _brandService.GetBrand(vehicle.BrandId);
         request.RepairCost = damage.RepairCost;
-        request.IsPaid = damage.PaymentStatus == "true " ? true : false;
+        request.IsPaid = damage.PaymentStatus == "true" ? true : false;
         request.IsApproved = true;
-
+        request.ActionDate = DateTime.Now;
+        request.ApprovedBy = claim.Value;
         _unitOfWork.Save();
 
 
@@ -139,7 +144,7 @@ public class DamageRequestController : Controller
         {
             rental.IsReturned = true;
             rental.ReturnedDate = DateTime.Now;
-            _customerService.GetUser(rental.UserId).IsApproved = true;
+            _customerService.GetUser(rental.UserId).IsActive = true;
 
             _unitOfWork.Save();
 
