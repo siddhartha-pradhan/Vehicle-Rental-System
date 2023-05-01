@@ -12,8 +12,8 @@ using VehicleRentalSystem.Infrastructure.Persistence;
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230430082703_DbSetup")]
-    partial class DbSetup
+    [Migration("20230430153934_dbsetup")]
+    partial class dbsetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -456,6 +456,12 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ActionBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ActionDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ApprovedBy")
                         .HasColumnType("nvarchar(450)");
 
@@ -468,9 +474,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsCancelled")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsReturned")
                         .HasColumnType("bit");
 
@@ -481,6 +484,9 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<string>("RentalStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ReturnedDate")
                         .HasColumnType("datetime2");
