@@ -2,7 +2,7 @@
 @model List<RentalDetailsViewModel>
 
 @{
-    ViewData["Title"] = "Requested Rents";
+    ViewData["Title"] = "Current Rents";
 }
 
 
@@ -10,7 +10,7 @@
 <partial name="_Notification" />
 
 <div class="row" style="margin-top:10vh;">
-	<h3 class="mx-5 mb-4">Requested Rents</h3>
+	<h3 class="mx-5 mb-4">Current Rents</h3>
 	<form method="post">
 		@foreach (var item in Model)
 		{
@@ -108,8 +108,8 @@
 									@item.ActionBy
 								</div>
 							</div>
-							<div class="row">
-								<button type="submit" class="form-control" asp-route-rentalId="@item.Id">Return</button>
+							<div class="d-flex w-full justify-content-end">
+								<button type="submit" class="px-4 btn btn-blue" asp-route-rentalId="@item.Id">Return</button>
 							</div>
 						</div>
 					</div>
