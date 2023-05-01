@@ -1,0 +1,94 @@
+﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+
+@model DamageViewModel
+
+@{
+ViewData["Title"] = "Damage Requests Details";
+}
+
+<h1>Damage Request Details</h1>
+
+	<div class="row">
+    <div class="card">
+        <div class="col">
+            <img id="previewImage" src="@Model.DamageImage" style="width: 300px; height: auto;  margin: auto;" />
+        </div>
+        <div class="col">
+            
+            <div class="col-3">
+                <label asp-for="@Model.VehicleName"></label>
+            </div>
+            <div class="col-9">
+                @Model.VehicleName 
+            </div>
+            <div class="col-3">
+                <label asp-for="@Model.RequestDate">Damage Request Date</label>
+            </div>
+            <div class="col-9">
+                @Model.RequestDate
+            </div>
+            <div class="col-3">
+                <label asp-for="@Model.ApprovedDate">Vehicle Approved Date</label>
+            </div>
+            <div class="col-9">
+                @Model.ApprovedDate
+            </div>
+            <div class="col-3">
+                <label asp-for="@Model.CustomerName"></label>
+            </div>
+            <div class="col-9">
+                @Model.CustomerName
+            </div>
+            <div class="col-3">
+                <label asp-for="@Model.CustomerPhone"></label>
+            </div>
+            <div class="col-9">
+                @Model.CustomerPhone
+            </div>
+            <div class="col-3">
+                <label asp-for="@Model.ApproverName"></label>
+            </div>
+            <div class="col-9">
+                @Model.ApproverName
+            </div>
+            <div class="col-3">
+                <label asp-for="@Model.PaymentStatus"></label>
+            </div>
+            <div class="col-9">
+                @Model.PaymentStatus
+            </div>
+            <div class="col-3">
+                <label asp-for="@Model.RepairCost"></label>
+            </div>
+            <div class="col-9">
+                @Model.Cost
+            </div>
+        </div>
+
+        @if(Model.PaymentStatus != "Paid"){
+            <form method="post">
+                <input asp-for="@Model.DamageId" hidden>
+                <div class="row">
+                    Staff Remarks
+                </div>
+                <div class="col-3">
+                    <label> Update Repair Cost?</label>
+                    <input asp-for="RepairCost">
+                </div>
+                <div class="col-3">
+                    <label> Is it paid?</label>
+                    <select asp-for="PaymentStatus" class="form-control" aria-required="true" placeholder="Select a color" >
+                        <option disabled selected>Select a status</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-outline-info">Update</button>
+                </div>
+            </form>
+        }
+        
+    </div>
+</div>
+

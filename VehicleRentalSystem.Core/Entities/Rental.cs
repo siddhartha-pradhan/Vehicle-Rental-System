@@ -51,6 +51,6 @@ public class Rental
     public Vehicle? Vehicle { get; set; }
 
     [ValidateNever]
-    [ForeignKey("ApprovedBy")]
+    [ForeignKey("ActionBy")]
     public AppUser? ApproverUser { get; set; }
 }
