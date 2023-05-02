@@ -21,6 +21,7 @@
                     <th class="text-center">Phone Number</th>
                     <th class="text-center">Total Rents</th>
                     <th class="text-center">Last Rented Date</th>
+                    <th class="text-center">Activation Status</th>
                     <th class="text-center">Options</th>
                 </tr>
             </thead>
@@ -34,6 +35,7 @@
                         <td>@item.PhoneNumber</td>
                         <td>@item.TotalRents</td>
                         <td>@item.LastRentedDate</td>
+                        <td>@item.ActivationStatus</td>
                         <td class="text-center">
                             <a href="@Url.Action("Details", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
                             <a href="@Url.Action("Delete", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa fa-trash text-danger"></i></a> 

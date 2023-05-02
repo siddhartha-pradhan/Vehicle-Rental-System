@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
-    public partial class DbSetup : Migration
+    public partial class dbsetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -116,6 +116,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OfferId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -291,26 +293,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfileImage = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Images_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rentals",
                 columns: table => new
                 {
@@ -405,11 +387,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 column: "RentalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_VehicleId",
-                table: "Images",
-                column: "VehicleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LoginAttempts_UserId",
                 table: "LoginAttempts",
                 column: "UserId");
@@ -488,9 +465,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DamageRequests");
-
-            migrationBuilder.DropTable(
-                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "LoginAttempts");
