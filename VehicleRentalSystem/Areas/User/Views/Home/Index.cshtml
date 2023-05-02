@@ -4,10 +4,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="pt-2 ml-4 pl-3">
-    <h1>Home Index</h1>
-</div>
-
 <partial name="_Notification" />
 
 <div class="container"  style=" margin-top:10vh;">
@@ -21,30 +17,35 @@
             </div>
         }
     </div>*@
-    <div class="row container">
-
-    </div>
     <div class="row" style="display:flex; justify-content: space-around;">
+        <div class="d-flex mb-5" style="height:350px">
+            <div class="w-50 d-flex flex-column justify-content-end">
+                <img src="~/images/system/home.png" style="height:275px; width: auto;" />
+            </div>
+            <div class="w-50 d-flex justify-content-end align-items-end mb-0">
+                <p class="text-align-right" style="font-size:100px; text-align:right;">Find Your Drive.</p>
+            </div>
+        </div>
+        <div class=" d-flex mt-3 flex-column mb-5 justify-content-center" style="height:200px; background-color:rgba(116, 72, 145, 5%) !important">
+            <p class="text-align-right" style="font-size:70px; text-align:center;">Experience the car sharing market place.</p>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between mt-5">
         @foreach (var item in Model.Vehicle)
         {
-            <div class="col-md-6" style="width:26.5%; margin-bottom:55px;">
+            <div class="col-md-6" style="width:22.5%; margin-bottom:55px;">
                 <div class="row p-2">
                     <div class="col-12 p-1 bg-white" style=" border-radius: 5px;">
-                        <div class="container-item" style="padding:20px;" >
+                        <div class="container-item d-flex justify-content-end" style="padding:20px;" >
                             @if (item.Offer != "No offer")
                             {
-                                <p class="card-title h4 text-dark text-right position-absolute " style="z-index:11;">@item.Offer</p>
+                                <p class="card-title h4 text-danger text-right position-absolute px-3 oy-1" style="z-index:11; background-color:rgba(255, 255, 255, 0.76) ;">@item.Offer</p>
                             }
-                            <img id="profilePicture" class="position-relative" style="width:100% ;height:200px; object-fit:cover" src="@item.ImageURL">
+                            <img id="profilePicture" class="position-relative" style="width:100% ;height:165px; object-fit:cover" src="@item.ImageURL">
                         </div>
                         <div class="col" style="padding: 0 20px 20px 20px;">
                             <div class="row pl-2 ">
                                 <p class="card-title h4 text-dark">@item.Name</p>
                             </div>
-                            @*@if(item.Offer != "No offer")
-                            {
-                                <p class="card-title h4 text-dark">@item.Offer</p>
-                            }*@
                             <div class="row">
                                 <b>@item.PricePerDay</b>
                             </div>
@@ -58,5 +59,27 @@
                 </div>
             </div>
         }
+        </div>
+        <div class="d-flex my-5 justify-content-center align-items-center flex-row absolute" style="height:400px;">
+            @*<img src="~/images/system/home-bg.png" />*@
+            <div class="w-50 flex-column mr-5" style="margin-right:50px;">
+                <div class="h-50 d-flex  flex-column justify-content-end align-items-end w-100">
+                    <h2 style="padding:65px 50px">Log In</h2>
+                </div>
+                <div class="h-50 w-100 d-flex justify-content-end">
+                    <img src="~/images/system/renter.png" style="width:250px; height:auto"/>
+                </div>
+            </div>
+            <div class="w-50 d-flex flex-column ml-5" style="margin-left:50px">
+                <div class="h-50 w-100 d-flex justify-content-start">
+                    <img src="~/images/system/vehicle.png" style="width:250px; height:auto"/>
+                </div>
+                <div class="h-50 flex  flex-column justify-content-start align-items-center w-100">
+                    <h2 style="padding:65px 50px">Register user</h2>
+                </div>
+                
+            </div>
+            
+        </div>
     </div>
 </div>

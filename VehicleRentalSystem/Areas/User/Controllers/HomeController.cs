@@ -47,7 +47,7 @@ public class HomeController : Controller
                             Image = image.ProfileImage,
 							ImageURL = image.ImageURL,
                             Offer = vehicle.OfferId != null ? $"{_offerService.RetrieveOffer(vehicle.OfferId).Discount}% Offer" : "No offer",
-							PricePerDay = $"Rs {vehicle.PricePerDay}/day"
+							PricePerDay = $"Rs. {vehicle.PricePerDay}/day"
                         }).DistinctBy(x => x.Id).ToList();
 
         var details = new HomeViewModel()
