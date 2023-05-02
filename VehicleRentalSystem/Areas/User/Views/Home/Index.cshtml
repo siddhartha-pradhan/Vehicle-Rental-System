@@ -20,7 +20,6 @@
             <p class="text-align-right" style="font-size:60px; text-align:center;">Experience the car sharing market place.</p>
         </div>
         <h3 class="mt-5">Find your car match</h3>
-
         <div class="d-flex flex-wrap justify-content-between mt-3">
             @foreach (var item in Model.Vehicle)
             {
@@ -28,17 +27,10 @@
                     <div class="row p-2">
                         <div class="col-12 p-1 bg-white" style=" border-radius: 5px;">
                             <div class="container-item d-flex justify-content-end" style="padding:20px;" >
-<<<<<<< HEAD
                                 @if (item.Offer != "No offer")
                                 {
                                     <p class="card-title h4 text-danger text-right position-absolute px-3 oy-1" style="z-index:11; background-color:rgba(255, 255, 255, 0.76) ;">@item.Offer</p>
                                 }
-=======
-                            @if (item.Offer != "No offer")
-                            {
-                                <p class="card-title h4 text-danger text-right position-absolute px-3 oy-1" style="z-index:11; background-color:rgba(255, 255, 255, 0.76) ;">@item.Offer</p>
-                            }
->>>>>>> 72f611b0545d3422bbc718322e3139f766a4d497
                                 <img id="profilePicture" class="position-relative" style="width:100% ;height:165px; object-fit:cover" src="@item.ImageURL">
                             </div>
                             <div class="col" style="padding: 0 20px 20px 20px;">
@@ -54,66 +46,6 @@
                                     Details
                                 </a>
                             </div>
-<<<<<<< HEAD
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="row mt-5 mb-5 ">
-            <div class="col-12 mt-5"  style="background: url('images/system/bg.jpg'); background-repeat: no-repeat; background-size: contain;">
-                <div class="row justify-content-center">
-                    <div class="col-6">
-                        <h1 class="text-center text-white mt-5 pt-5">Our Services</h1>
-                        <h2 class="text-center text-white mt-4 px-5" >Best services for Car Rental</h2>
-                        <p class="text-center text-light mt-3">Our car rental services offer a convenient and hassle-free way for travelers to explore their destination. </p>
-                    </div>
-                    <div class="container mt-5">
-                        <div class="row justify-content-center">
-                            <div class="col-11 d-flex justify-content-between">
-                                <div class="card rounded-1" style="width: 16rem;">
-                                    <div class="d-flex justify-content-center align-items-center pt-5">
-                                        <img src="~/images/system/choice.png" style="width:75px; height:75px; object-fit:cover;"/>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="mt-3">Quality Choice</h4>
-                                        <p class="card-text text-secondary">Find your perfect rental car from Hajurko Rental selection with ease and elavate your travel journey today.</p>
-                                    </div>
-                                </div>
-                                <div class="card rounded-1" style="width: 16rem;">
-                                    <div class="d-flex justify-content-center align-items-center pt-5">
-                                        <img src="~/images/system/service.png" style="width:75px; height:75px; object-fit:cover;"/>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="mt-3">Exclusive Service</h4>
-                                        <p class="card-text text-secondary">Whether you need a car for city driving or a long road trip, we have got you covered.</p>
-                                    </div>
-                                </div>
-                                <div class="card rounded-1" style="width: 16rem;">
-                                    <div class="d-flex justify-content-center align-items-center pt-5">
-                                        <img src="~/images/system/free.png" style="width:75px; height:60px; object-fit:cover;"/>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="mt-3" >Free Cancellation</h4>
-                                        <p class="card-text text-secondary">Cancel Before the booked dates and have no money charged for the booking.</p>
-                                    </div>
-                                </div>
-                                <div class="card rounded-1" style="width: 16rem;">
-                                   <div class="d-flex justify-content-center align-items-center pt-5">
-                                        <img src="~/images/system/offer.png" style="width:75px; height:75px; object-fit:cover;"/>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="mt-3" >Eye-Catching Offers</h4>
-                                        <p class="card-text text-secondary">Look out for various offers on the rents provided from time to time.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-=======
                         </div>
                     </div>
                 </div>
@@ -170,7 +102,6 @@
                         </div>
                     </div>
                 </div>
->>>>>>> 72f611b0545d3422bbc718322e3139f766a4d497
             </div>
         </div>
     </div>

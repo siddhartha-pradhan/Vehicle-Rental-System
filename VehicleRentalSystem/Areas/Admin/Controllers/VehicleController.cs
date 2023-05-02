@@ -114,7 +114,7 @@ public class VehicleController : Controller
                          RentedDays = (rent.EndDate - rent.StartDate).TotalDays,
                          ReturnedDate = rent.ReturnedDate != null ? rent.ReturnedDate?.ToString("dd/MM/yyyy") : "Not returned yet",
                          ApprovedStaff = staff.FullName,
-                         TotalAmount = $"Rs {_rentalService.GetRental(rent.Id)}"
+                         TotalAmount = $"Rs {_rentalService.GetRental(rent.Id).TotalAmount}"
                      }).ToList();
 
         var detail = new VehicleDetailViewModel()
