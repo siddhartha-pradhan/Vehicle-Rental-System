@@ -5,6 +5,7 @@
 }
 
 <form method="post">
+<<<<<<< HEAD
 
 	<div class="container" style=" margin-top:8vh;">
 		<div class="slideshow-container">
@@ -55,6 +56,69 @@
 
 	.mySlides {display: none}
 	img {vertical-align: middle;}
+=======
+    
+    <div class="container" style=" margin-top:8vh;">
+        <div class="slideshow-container">
+            
+            @foreach (var item in Model.Images)
+            {
+                <div class="container justify-content-center d-flex mySlides fade">
+                    <img id="profilePicture" style="width:500px;height:270px; object-fit:cover" asp-append-version="true" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
+                </div>
+            }
+            @if (Model.Images.Count > 1)
+            {
+                <a class="prev text-decoration-none" onclick="plusSlides(-1)">❮</a>
+                <a class="next text-decoration-none" onclick="plusSlides(1)">❯</a>   
+            }
+            
+        </div>
+        <div class="container d-flex w-75 mt-5">
+            <div class="w-75 ">
+                <input asp-for="Id" hidden />
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="fw-bold">Name:</label>
+                    <input asp-for="Name" disabled />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="PricePerDay" class="fw-bold">Price: </label>
+                    <input asp-for="PricePerDay" disabled />
+                </div>
+               
+                 <div class="form-group mb-4">
+                    <label asp-for="Color" class="fw-bold">Color: </label>
+                    <input asp-for="Color" disabled />
+                </div>
+                <div class="form-group mb-4 d-flex flex-column">
+                    <label asp-for="Description" class="fw-bold">Description: </label>
+                    <div class="mt-1">
+                        @Model.Description
+                    </div>
+                </div>
+                <div class="form-group d-flex flex-column">
+                    <label asp-for="Features" class="fw-bold">Features: </label>
+                    <div class="mt-1">
+                        @Model.Features
+                    </div>
+                </div>
+                
+            </div>
+            <div class="w-25">
+                <a class="nav-link btn-primary text-center rounded" asp-area="User" asp-controller="Rental" asp-action="Rental" asp-route-vehicleId="@Model.Id">Rent this vehicle</a>
+            </div>
+        </div>
+    </div>
+</form>
+<style>
+    input:disabled 
+    {
+        background-color: transparent;
+        border-color: transparent;
+        color: black;
+    }
+    * {box-sizing: border-box}
+>>>>>>> 0cf5edb22dd422f9314977f15e8d4d622662c859
 
 	.slideshow-container {
 	  position: relative;
@@ -118,5 +182,11 @@
 	  slides[slideIndex-1].style.cssText = 'display:block !important';  
 	  slides[slideIndex-1].style.cssText = 'text-align:center !important';  
 
+<<<<<<< HEAD
 	}
+=======
+    }
+
+    
+>>>>>>> 0cf5edb22dd422f9314977f15e8d4d622662c859
 </script>
