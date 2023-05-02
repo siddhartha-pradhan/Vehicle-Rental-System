@@ -32,7 +32,7 @@
                 {
                     <tr>
                         <td>@item.Name</td>
-                        <td>@item.IsActive</td>
+                        <td class="text-primary fw-bold">@item.IsActive</td>
                         <td class="text-center">
                             <a href="@Url.Action("Details", "Brand", new { id = item.Id })" class="btn  btn-sm"><i class="fa-solid fa-circle-info"></i></a>
                                 <a href="@Url.Action("Upsert", "Brand", new { id = item.Id })" class="btn  btn-sm"><i class="fa fa-cogs" style="color:#2eb82d;"></i></a>
