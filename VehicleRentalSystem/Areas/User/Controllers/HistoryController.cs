@@ -203,7 +203,11 @@ public class HistoryController : Controller
         var brand = _brandService.GetBrand(vehicle.BrandId);
         var user = _appUserService.GetUser(rental.UserId);
         var customer = _customerService.GetUser(user.Id);
-        customer.IsActive = false;
+        if(customer != null)
+        {
+            customer.IsActive = false;
+        }
+
         var file = _fileService.FilePath(image, Constants.Damages.ToLower(), $"{user.FullName}'s {vehicle.Model} - {brand.Name}", "");
 
         var damage = new DamageRequest()
