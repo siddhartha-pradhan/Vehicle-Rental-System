@@ -143,12 +143,18 @@ public class DamageRequestController : Controller
         request.ApprovedBy = claim.Value;
         _unitOfWork.Save();
 
-
         if (request.IsPaid == true)
         {
             rental.IsReturned = true;
+
             rental.ReturnedDate = DateTime.Now;
-            _customerService.GetUser(rental.UserId).IsActive = true;
+
+            var customer = _customerService.GetUser(rental.UserId);
+            
+            if (customer != null)
+            {
+                customer.IsActive = true;
+            }
 
             _unitOfWork.Save();
 
