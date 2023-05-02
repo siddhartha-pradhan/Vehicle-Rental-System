@@ -6,6 +6,8 @@ using VehicleRentalSystem.Domain.Constants;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+using Microsoft.CodeAnalysis.Operations;
+using VehicleRentalSystem.Application.Interfaces.Repositories;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
@@ -26,6 +28,7 @@ public class UserController : Controller
     private readonly IRentalService _rentalService;
     private readonly IVehicleService _vehicleService;
     private readonly IBrandService _brandService;
+    private readonly IUnitOfWork _unitOfWork;
 
     public UserController(UserManager<IdentityUser> userManager, 
         RoleManager<IdentityRole> roleManager, IEmailSender emailSender, 
@@ -36,7 +39,8 @@ public class UserController : Controller
         ICustomerService customerService,
         IRentalService rentalService,
         IVehicleService vehicleService,
-        IBrandService brandService)
+        IBrandService brandService,
+        IUnitOfWork unitOfWork)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -50,6 +54,7 @@ public class UserController : Controller
         _rentalService = rentalService;
         _vehicleService = vehicleService;
         _brandService = brandService;
+        _unitOfWork = unitOfWork;
     }
     #endregion
 
@@ -225,6 +230,22 @@ public class UserController : Controller
 
         return RedirectToAction("Staff");
 
+    }
+
+    [HttpPost]
+    public IActionResult Deactivate(string id)
+    {
+        var user = _appUserService.GetUser(id);
+
+        user.LockoutEnabled = true;
+
+        user.LockoutEnd = DateTime.Now.AddDays(1);
+
+        _unitOfWork.Save();
+
+        TempData["Danger"] = "User successfully deactivated";
+
+        return RedirectToAction("Customer");
     }
     #endregion
 }

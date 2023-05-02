@@ -39,7 +39,7 @@
                             <td>@item.PhoneNumber</td>
                             <td class="text-center">
                                 <a href="@Url.Action("Details", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
-                                <a href="@Url.Action("Delete", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa fa-trash text-danger"></i></a> 
+                                <a href="@Url.Action("Deactivate", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa-regular fa-circle-xmark text-danger"></i></a> 
                             </td>
                         </tr>
                 }
