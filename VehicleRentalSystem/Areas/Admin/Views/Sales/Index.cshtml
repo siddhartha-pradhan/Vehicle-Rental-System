@@ -78,7 +78,18 @@
 {
     <div class="row">
         <div class="card">
-        @item.Brand: @item.Count 
+            @item.Brand: @item.Count 
+        </div>
+    </div>
+}
+
+<h1>InActive Customers</h1>
+
+@foreach (var item in Model.InactiveUserCount)
+{
+    <div class="row">
+        <div class="card">
+            @item.CustomerName: @item.LastRentedDate
         </div>
     </div>
 }
