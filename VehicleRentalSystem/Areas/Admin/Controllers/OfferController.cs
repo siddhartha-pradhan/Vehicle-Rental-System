@@ -125,8 +125,18 @@ public class OfferController : Controller
     {
         var offer = _offerService.GetOffer(id);
 
+
         if (offer != null)
         {
+            var vehicles = _vehicleService.GetAllVehicles().Where(x => x.OfferId == offer.Id).ToList();
+
+            foreach(var vehicle in vehicles)
+            {
+                vehicle.OfferId = null;
+                
+                _unitOfWork.Save();
+            }
+
             _offerService.DeleteOffer(offer.Id);
 
             TempData["Delete"] = "Offer successfully deleted";

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 using VehicleRentalSystem.Domain.Entities;
+using VehicleRentalSystem.Infrastructure.Implementation.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
@@ -22,6 +24,9 @@ public class UserController : Controller
     private readonly IRoleService _roleService;
     private readonly IUserRoleService _userRoleService;
     private readonly ICustomerService _customerService;
+    private readonly IRentalService _rentalService;
+    private readonly IVehicleService _vehicleService;
+    private readonly IBrandService _brandService;
 
     public UserController(UserManager<IdentityUser> userManager, 
         RoleManager<IdentityRole> roleManager, IEmailSender emailSender, 
@@ -29,7 +34,10 @@ public class UserController : Controller
         IAppUserService appUserService, 
         IRoleService roleService, 
         IUserRoleService userRoleService,
-        ICustomerService customerService)
+        ICustomerService customerService,
+        IRentalService rentalService,
+        IVehicleService vehicleService,
+        IBrandService brandService)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -40,6 +48,9 @@ public class UserController : Controller
         _roleService = roleService;
         _userRoleService = userRoleService;
         _customerService = customerService;
+        _rentalService = rentalService;
+        _vehicleService = vehicleService;
+        _brandService = brandService;
     }
 
     #region Razor Views
@@ -48,19 +59,54 @@ public class UserController : Controller
     {
         var users = _appUserService.GetAllUsers();
         var customers = _customerService.GetAllCustomers();
+        var rentals = _rentalService.GetAllRentals();
 
-        var result = (from user in users
-                      join customer in customers
-                        on user.Id equals customer.UserId
+        var result = (from customer in customers
+                      join user in users
+                        on customer.UserId equals user.Id
+                      join rental in rentals
+                        on user.Id equals rental.UserId into userRentals
+                      from userRental in userRentals.DefaultIfEmpty()
+                      group userRental by user into rentalGroup
                       select new UserViewModel
                       {
-                          UserId = user.Id,
-                          Name = user.FullName,
-                          Email = user.Email,
-                          Address = user.Address,
-                          State = user.State,
-                          PhoneNumber = user.PhoneNumber,
-                      }).ToList();
+                          UserId = rentalGroup.Key.Id,
+                          Name = rentalGroup.Key.FullName,
+                          Email = rentalGroup.Key.Email,
+                          Address = rentalGroup.Key.Address,
+                          State = rentalGroup.Key.State,
+                          PhoneNumber = rentalGroup.Key.PhoneNumber,
+                          TotalRents = rentalGroup.Count(x => x != null),
+                          LastRentedDate = rentalGroup.Max(x => x != null ? x.RequestedDate.ToString("dd/MM/yyyy") : "Not rented yet")
+                      }).DistinctBy(x => x.UserId).ToList();
+
+        return View(result);
+    }
+
+    [HttpGet]
+    public IActionResult Details(string id)
+    {
+        var user = _appUserService.GetUser(id);
+
+        var rents = (from rent in _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.UserId == id)
+                     join vehicle in _vehicleService.GetAllVehicles()
+                        on rent.VehicleId equals vehicle.Id
+                     join staff in _appUserService.GetAllUsers()
+                        on rent.ActionBy equals staff.Id
+                     select new CustomerDetailRentViewModel()
+                     {
+                         VehicleName = $"{_vehicleService.GetVehicle(vehicle.Id).Model} - {_brandService.GetBrand(vehicle.BrandId).Name}",
+                         RentedDays = (rent.EndDate - rent.StartDate).TotalDays,
+                         ReturnedDate = rent.ReturnedDate != null ? rent.ReturnedDate?.ToString("dd/MM/yyyy") : "Not returned yet",
+                         ApprovedStaff = staff.FullName,
+                         TotalAmount = $"Rs {_rentalService.GetRental(rent.Id).TotalAmount}"
+                     }).ToList();
+
+        var result = new CustomerRentDetails()
+        {
+            Customer = user,
+            CustomerRent = rents
+        };
 
         return View(result);
     }

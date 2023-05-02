@@ -41,6 +41,7 @@ public class Vehicle : BaseEntity
 
     public Guid? OfferId { get; set; }
 
+    [Display(Name = "Availability Status")]
     public bool IsAvailable { get; set; } = true;
 
     public List<Image> Images { get; set; }

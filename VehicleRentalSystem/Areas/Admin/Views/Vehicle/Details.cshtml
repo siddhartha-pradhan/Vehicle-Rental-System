@@ -1,9 +1,9 @@
 ﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
-@model VehicleImageViewModel
+@model VehicleDetailViewModel
 
 @{
-    ViewData["Title"] = "Vehicle";
+    ViewData["Title"] = "Vehicle Detail";
     var title = "Vehicle Details";
 }
 
@@ -15,7 +15,7 @@
                 <h3 class="text-dark">@title</h3>
             </div>
             <div class="col-8 pt-4">
-                @foreach(var item in Model.Images)
+                @foreach (var item in Model.VehicleImageViewModel.Images)
                 {
                     <div class="form-group row mb-4">
                         <div class="col-4">
@@ -28,80 +28,76 @@
                     </div>
                 }
                 <div class="form-group row">
-                    <input asp-for="Id" class="form-control" type="hidden"/>
+                    <input asp-for="VehicleImageViewModel.Id" class="form-control" type="hidden"/>
                     <div class="col-4">
-                        <label asp-for="Model"></label>
+                        <label asp-for="VehicleImageViewModel.Model"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="Model" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <input asp-for="Id" class="form-control" type="hidden"/>
-                    <div class="col-4">
-                        <label asp-for="Brand"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="Brand" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <input asp-for="Id" class="form-control" type="hidden"/>
-                    <div class="col-4">
-                        <label asp-for="Color"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="Color" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <input asp-for="Id" class="form-control" type="hidden"/>
-                    <div class="col-4">
-                        <label asp-for="PlateNumber"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="PlateNumber" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <input asp-for="Id" class="form-control" type="hidden"/>
-                    <div class="col-4">
-                        <label asp-for="PricePerDay"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="PricePerDay" class="form-control" disabled/>
+                        <input asp-for="VehicleImageViewModel.Model" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Description"></label>
+                        <label asp-for="VehicleImageViewModel.Brand"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="Description" class="form-control" disabled/>
+                        <input asp-for="VehicleImageViewModel.Brand" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Features"></label>
+                        <label asp-for="VehicleImageViewModel.Color"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="Features" class="form-control" disabled/>
+                        <input asp-for="VehicleImageViewModel.Color" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="CreatedBy"></label>
+                        <label asp-for="VehicleImageViewModel.PlateNumber"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="CreatedBy" class="form-control" disabled/>
+                        <input asp-for="VehicleImageViewModel.PlateNumber" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="CreatedDate"></label>
+                        <label asp-for="VehicleImageViewModel.PricePerDay"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="CreatedDate" class="form-control" disabled/>
+                        <input asp-for="VehicleImageViewModel.PricePerDay" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="VehicleImageViewModel.Description"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="VehicleImageViewModel.Description" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="VehicleImageViewModel.Features"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="VehicleImageViewModel.Features" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="VehicleImageViewModel.CreatedBy"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="VehicleImageViewModel.CreatedBy" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="VehicleImageViewModel.CreatedDate"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="VehicleImageViewModel.CreatedDate" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -116,4 +112,37 @@
             </div>
         </div>
     </form>
+    @if (Model.RentailDetails.Count > 0)
+    {
+        <div class="row">
+            <table id="tableData" class="table table-striped table-bordered" style="width:100%">
+                <thead class="mt-2">
+                    <tr class="table-info">
+                        <th class="text-center">Customer Name</th>
+                        <th class="text-center">Rented Days</th>
+                        <th class="text-center">Return Date</th>
+                        <th class="text-center">Total Amount</th>
+                        <th class="text-center">Approved Staff</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.RentailDetails)
+                    {
+                        <tr>
+                            <td>@item.CustomerName</td>
+                            <td>@item.RentedDays</td>
+                            <td>@item.ReturnedDate</td>
+                            <td>@item.TotalAmount</td>
+                            <td>@item.ApprovedStaff</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h2>The vehicle hasnt been rented yet</h2>
+    }
 </div>
+

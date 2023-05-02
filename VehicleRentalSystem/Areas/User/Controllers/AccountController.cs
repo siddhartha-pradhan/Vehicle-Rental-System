@@ -144,22 +144,30 @@ public class AccountController : Controller
             };
 
             _customerService.AddCustomer(customer);
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+            var callbackUrl = Url.Action(
+                "EmailConfirmation",
+                "Account",
+                new { Area = "User", userId = user.Id, code = code },
+                protocol: HttpContext.Request.Scheme);
+
+            await _emailSender.SendEmailAsync(model.Email, "Email Confirmation",
+                        $"Dear {user.FullName},<br><br>You have been registered to our system as a customer. <br>To confirm your email address, please continue by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.<br><br>Regards,<br>Hajur ko Car Rental");
+
+            TempData["Success"] = "Email Successfully Sent";
+
+            return RedirectToAction("RegisterConfirmation", new { email = model.Email, returnUrl = returnUrl });
         }
-
-        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-
-        var callbackUrl = Url.Action(
-            "EmailConfirmation", 
-            "Account", 
-            new { Area = "User", userId = user.Id, code = code }, 
-            protocol: HttpContext.Request.Scheme);
-
-        await _emailSender.SendEmailAsync(model.Email, "Email Confirmation",
-                    $"Dear {user.FullName},<br><br>You have been registered to our system as a customer. <br>To confirm your email address, please continue by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.<br><br>Regards,<br>Hajur ko Car Rental");
-
-        return RedirectToAction("RegisterConfirmation", new { email = model.Email, returnUrl = returnUrl });
+        else 
+        {
+            TempData["Delete"] = result.Errors.FirstOrDefault().Description;
+            return View(model);
+        }
+        
 
     }
 
@@ -176,10 +184,12 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
+            TempData["Success"] = "Successfully logged in.";
             return LocalRedirect(returnUrl);
         }
         else
         {
+            TempData["Delete"] = "Invalid email or password";
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return View(model);
         }

@@ -19,13 +19,15 @@ public class VehicleController : Controller
     private readonly IOfferService _offerService;
     private readonly IImageService _imageService;
     private readonly IVehicleService _vehicleService;
+    private readonly IRentalService _rentalService;
 
     public VehicleController(IBrandService brandService, 
         IAppUserService appUserService, 
         IFileTransferService fileService, 
         IOfferService offerService, 
         IImageService imageService,
-        IVehicleService vehicleService)
+        IVehicleService vehicleService,
+        IRentalService rentalService)
     {
         _brandService = brandService;
         _appUserService = appUserService;
@@ -33,6 +35,7 @@ public class VehicleController : Controller
         _offerService = offerService;
         _imageService = imageService;
         _vehicleService = vehicleService;
+        _rentalService = rentalService;
     }
 
 
@@ -59,6 +62,7 @@ public class VehicleController : Controller
                           Model = vehicle.Model,
                           PlateNumber = vehicle.PlateNumber,
                           PricePerDay = $"Rs {vehicle.PricePerDay} /-",
+                          TotalRents = _rentalService.GetAllRentals().Where(x => x.VehicleId == vehicle.Id).Count(),
                           Availablility = vehicle.IsAvailable ? "Yes" : "No",
                           Offer = offer != null ? "Yes" : "No"
                       }).ToList();
@@ -120,7 +124,27 @@ public class VehicleController : Controller
                           CreatedDate = grouped.First().result.CreatedDate
                       }).FirstOrDefault();
 
-        return View(output);
+        var rents = (from rent in _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.VehicleId == id)
+                     join user in _appUserService.GetAllUsers()
+                        on rent.UserId equals user.Id
+                     join staff in _appUserService.GetAllUsers()
+                        on rent.ActionBy equals staff.Id
+                     select new VehicleDetailRentViewModel()
+                     {
+                         CustomerName = user.FullName,
+                         RentedDays = (rent.EndDate - rent.StartDate).TotalDays,
+                         ReturnedDate = rent.ReturnedDate != null ? rent.ReturnedDate?.ToString("dd/MM/yyyy") : "Not returned yet",
+                         ApprovedStaff = staff.FullName,
+                         TotalAmount = $"Rs {_rentalService.GetRental(rent.Id)}"
+                     }).ToList();
+
+        var detail = new VehicleDetailViewModel()
+        {
+            VehicleImageViewModel = output,
+            RentailDetails = rents
+        };
+
+        return View(detail);
     }
 
     [HttpGet]
@@ -173,10 +197,10 @@ public class VehicleController : Controller
 
         var images = Request.Form.Files;
 
-        var vehicleId = Guid.NewGuid();
-
         if(vehicle.Id == Guid.Empty)
         {
+            var vehicleId = Guid.NewGuid();
+
             var item = new Vehicle()
             {
                 Id = vehicleId,
@@ -210,7 +234,7 @@ public class VehicleController : Controller
         {
             var item = new Vehicle()
             {
-                Id = vehicleId,
+                Id = vehicle.Id,
                 Model = vehicle.Model,
                 Color = vehicle.Color,
                 PlateNumber = vehicle.PlateNumber,
@@ -219,6 +243,7 @@ public class VehicleController : Controller
                 Features = vehicle.Features.Replace("<p>", "").Replace("</p>", ""),
                 BrandId = vehicle.BrandId,
                 LastModifiedBy = claim.Value,
+                IsAvailable = vehicle.IsAvailable,
             };
 
             _vehicleService.UpdateVehicle(item);
