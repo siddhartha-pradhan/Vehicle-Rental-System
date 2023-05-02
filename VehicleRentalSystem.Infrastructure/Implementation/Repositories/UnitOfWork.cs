@@ -15,7 +15,6 @@ public class UnitOfWork : IUnitOfWork
         Brand = new BrandRepository(_dbContext);
         Customer = new CustomerRepository(_dbContext);
         DamageRequest = new DamageRequestRepository(_dbContext);
-        Image = new ImageRepository(_dbContext);
         Offer = new OfferRepository(_dbContext);
         Role = new RoleRepository(_dbContext);  
         Rental = new RentalRepository(_dbContext);
@@ -31,8 +30,6 @@ public class UnitOfWork : IUnitOfWork
     public ICustomerRepository Customer { get; set; }
 
     public IDamageRequestRepository DamageRequest { get; set; }
-
-    public IImageRepository Image { get; set; }
 
     public IOfferRepository Offer { get; set; }
 

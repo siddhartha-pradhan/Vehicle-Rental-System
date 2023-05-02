@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using VehicleRentalSystem.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Constants;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.Account.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Account.Controllers;
@@ -13,6 +13,7 @@ namespace VehicleRentalSystem.Presentation.Areas.Account.Controllers;
 [Area("Account")]
 public class ProfileController : Controller
 {
+    #region Service Injection
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly IAppUserService _appUserService;
@@ -37,7 +38,10 @@ public class ProfileController : Controller
         _emailSender = emailSender;
         _fileService = fileService;
     }
+    #endregion
 
+    #region Razor Views
+    [HttpGet]
     public IActionResult Profile()
     {
         var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -59,6 +63,7 @@ public class ProfileController : Controller
         return View(profile);
     }
 
+    [HttpGet]
     public IActionResult Documents()
     {
         var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -80,13 +85,16 @@ public class ProfileController : Controller
 
     }
 
+    [HttpGet]
     public IActionResult Password()
     {
         var passwordViewModel = new PasswordViewModel();
 
         return View(passwordViewModel);
     }
+    #endregion
 
+    #region API Calls
     [HttpPost]
     public async Task<IActionResult> Profile(ProfileViewModel profile)
     {
@@ -169,4 +177,5 @@ public class ProfileController : Controller
 
         return RedirectToAction("Profile");
     }
+    #endregion
 }

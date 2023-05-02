@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using VehicleRentalSystem.Domain.Entities;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
@@ -40,5 +38,7 @@ public class VehicleImageViewModel
     [Display(Name = "Modifier User")]
     public string? LastModifiedBy { get; set; }
 
-    public List<Image> Images { get; set; }
+    public byte[] Image { get; set; }
+
+    public string ImageURL { get; set; }
 }

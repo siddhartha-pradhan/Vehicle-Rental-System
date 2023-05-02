@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
+﻿using System.Text;
 using System.Text.Encodings.Web;
-using VehicleRentalSystem.Application.Interfaces.Services;
-using VehicleRentalSystem.Domain.Constants;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Entities;
+using VehicleRentalSystem.Domain.Constants;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.User.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.User.Controllers;
@@ -15,6 +15,7 @@ namespace VehicleRentalSystem.Presentation.Areas.User.Controllers;
 [Area("User")]
 public class AccountController : Controller
 {
+    #region Service Injection
     private readonly UserManager<IdentityUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<IdentityUser> _signInManager;
@@ -39,6 +40,7 @@ public class AccountController : Controller
         _staffService = staffService;
         _fileService = fileService;
     }
+    #endregion
 
     #region Razor Views
     [HttpGet]
@@ -167,8 +169,6 @@ public class AccountController : Controller
             TempData["Delete"] = result.Errors.FirstOrDefault().Description;
             return View(model);
         }
-        
-
     }
 
     [HttpPost]

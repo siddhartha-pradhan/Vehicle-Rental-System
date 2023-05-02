@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using VehicleRentalSystem.Domain.Entities;
 using VehicleRentalSystem.Domain.Constants;
 using VehicleRentalSystem.Application.Interfaces.Services;
-using VehicleRentalSystem.Domain.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using VehicleRentalSystem.Infrastructure.Implementation.Services;
-using System.Security.Claims;
-using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 using VehicleRentalSystem.Application.Interfaces.Repositories;
+using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
@@ -15,6 +14,7 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 [Authorize(Roles = Constants.Admin)]
 public class OfferController : Controller
 {
+    #region Service Injection
     private readonly IOfferService _offerService;
     private readonly IVehicleService _vehicleService;
     private readonly IUnitOfWork _unitOfWork;
@@ -27,8 +27,7 @@ public class OfferController : Controller
         _vehicleService = vehicleService;
         _unitOfWork = unitOfWork;
     }
-
-
+    #endregion
 
     #region Razor Views
     [HttpGet]

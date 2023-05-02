@@ -21,8 +21,6 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<DamageRequest> DamageRequests { get; set; }
 
-    public DbSet<Image> Images { get; set; }
-
     public DbSet<Offer> Offers { get; set; }
 
     public DbSet<Role> Roles { get; set; }

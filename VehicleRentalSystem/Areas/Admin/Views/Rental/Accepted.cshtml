@@ -5,8 +5,6 @@
     ViewData["Title"] = "Current Rents";
 }
 
-
-
 <partial name="_Notification" />
 
 <div class="row" style="margin-top:10vh;">
@@ -18,14 +16,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-4">
-							<img src="~/images/system/suv2.jpg" style="width:350px;height:250px; object-fit:cover; margin:auto" />
-
-							@*@foreach(var image in item.VehicleImages)
-							{
-								<div class="row mb-2">
-									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@image.ImageURL">
-								</div>
-							}*@
+							<img src="@item.ImageURL" style="width:350px;height:250px; object-fit:cover; margin:auto" />
 						</div>
 						<div class="col-8">
 							<div class="row">

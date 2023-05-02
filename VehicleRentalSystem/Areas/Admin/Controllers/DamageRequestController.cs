@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using VehicleRentalSystem.Application.Interfaces.Repositories;
-using VehicleRentalSystem.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Constants;
-using VehicleRentalSystem.Domain.Entities;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using VehicleRentalSystem.Application.Interfaces.Services;
+using VehicleRentalSystem.Application.Interfaces.Repositories;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
@@ -14,6 +13,7 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 [Authorize(Roles = $"{Constants.Admin}, {Constants.Staff}")]
 public class DamageRequestController : Controller
 {
+    #region Service Injection
     private readonly IDamageRequestService _damageRequestService;
     private readonly IVehicleService _vehicleService;
     private readonly ICustomerService _customerService;
@@ -41,7 +41,9 @@ public class DamageRequestController : Controller
         _unitOfWork = unitOfWork;
         _emailSender = emailSender;
     }
+    #endregion
 
+    #region Razor Views
     [HttpGet]
     public IActionResult Index()
     {
@@ -120,7 +122,9 @@ public class DamageRequestController : Controller
 
         return View(result);
     }
+    #endregion
 
+    #region API Calls
     [HttpPost]
     public IActionResult Details(DamageViewModel damage)
     {
@@ -168,4 +172,5 @@ public class DamageRequestController : Controller
         return RedirectToAction("Index");
 
     }
+    #endregion
 }

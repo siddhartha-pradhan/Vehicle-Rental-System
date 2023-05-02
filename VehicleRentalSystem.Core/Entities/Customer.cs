@@ -21,6 +21,8 @@ public class Customer
 
     public bool IsActive { get; set; } = true;
 
+    public bool IsRegulat { get; set; } = false;
+
     [ValidateNever]
     [ForeignKey("UserId")]
     public AppUser? AppUser { get; set; }
