@@ -32,6 +32,5 @@ public class DamageViewModel
 
     public double RepairCost { get; set; }
 
-
     public string DamageImage { get; set; }
 }
