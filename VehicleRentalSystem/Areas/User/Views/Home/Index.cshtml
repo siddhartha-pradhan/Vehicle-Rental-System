@@ -7,19 +7,6 @@
 <partial name="_Notification" />
 
 <div class="container"  style=" margin-top:10vh;">
-<<<<<<< HEAD
-=======
-    @*<div class="row">
-        @foreach(var item in Model.Brand)
-        {
-            <div class="col-lg-3 col-md-6">
-                <div class="row p-2">
-                    <img id="profilePicture" style="width:100px;height:100px; object-fit:cover" src="@item.Image">
-                </div>
-            </div>
-        }
-    </div>*@
->>>>>>> 0cf5edb22dd422f9314977f15e8d4d622662c859
     <div class="row" style="display:flex; justify-content: space-around;">
         <div class="d-flex mb-5" style="height:350px">
             <div class="w-50 d-flex flex-column justify-content-end">
@@ -30,59 +17,93 @@
             </div>
         </div>
         <div class=" d-flex mt-3 flex-column mb-5 justify-content-center" style="height:200px; background-color:rgba(116, 72, 145, 5%) !important">
-            <p class="text-align-right" style="font-size:70px; text-align:center;">Experience the car sharing market place.</p>
+            <p class="text-align-right" style="font-size:60px; text-align:center;">Experience the car sharing market place.</p>
         </div>
-        <div class="d-flex flex-wrap justify-content-between mt-5">
-        @foreach (var item in Model.Vehicle)
-        {
-            <div class="col-md-6" style="width:22.5%; margin-bottom:55px;">
-                <div class="row p-2">
-                    <div class="col-12 p-1 bg-white" style=" border-radius: 5px;">
-                        <div class="container-item d-flex justify-content-end" style="padding:20px;" >
+        <h3 class="mt-5">Find your car match</h3>
+
+        <div class="d-flex flex-wrap justify-content-between mt-3">
+            @foreach (var item in Model.Vehicle)
+            {
+                <div class="col-md-6" style="width:22.5%; margin-bottom:55px;">
+                    <div class="row p-2">
+                        <div class="col-12 p-1 bg-white" style=" border-radius: 5px;">
+                            <div class="container-item d-flex justify-content-end" style="padding:20px;" >
                             @if (item.Offer != "No offer")
                             {
                                 <p class="card-title h4 text-danger text-right position-absolute px-3 oy-1" style="z-index:11; background-color:rgba(255, 255, 255, 0.76) ;">@item.Offer</p>
                             }
-                            <img id="profilePicture" class="position-relative" style="width:100% ;height:165px; object-fit:cover" src="@item.ImageURL">
-                        </div>
-                        <div class="col" style="padding: 0 20px 20px 20px;">
-                            <div class="row pl-2 ">
-                                <p class="card-title h4 text-dark">@item.Name</p>
+                                <img id="profilePicture" class="position-relative" style="width:100% ;height:165px; object-fit:cover" src="@item.ImageURL">
                             </div>
-                            <div class="row">
-                                <b>@item.PricePerDay</b>
+                            <div class="col" style="padding: 0 20px 20px 20px;">
+                                <div class="row pl-2 ">
+                                    <p class="card-title h4 text-dark">@item.Name</p>
+                                </div>
+                                <div class="row">
+                                    <b>@item.PricePerDay</b>
+                                </div>
+                            </div>
+                            <div style="padding: 0 20px 20px 20px;">
+                                <a asp-action="Detail" class="btn btn-primary form-control" asp-route-id="@item.Id">
+                                    Details
+                                </a>
                             </div>
                         </div>
-                        <div style="padding: 0 20px 20px 20px;">
-                            <a asp-action="Detail" class="btn btn-primary form-control" asp-route-id="@item.Id">
-                                Details
-                            </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row mt-5 mb-5 ">
+            <div class="col-12 mt-5"  style="background: url('images/system/bg.jpg'); background-repeat: no-repeat; background-size: contain;">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <h1 class="text-center text-white mt-5 pt-5">Our Services</h1>
+                        <h2 class="text-center text-white mt-4 px-5" >Best services for Car Rental</h2>
+                        <p class="text-center text-light mt-3">Our car rental services offer a convenient and hassle-free way for travelers to explore their destination. </p>
+                    </div>
+                    <div class="container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-11 d-flex justify-content-between">
+                                <div class="card rounded-1" style="width: 16rem;">
+                                    <div class="d-flex justify-content-center align-items-center pt-5">
+                                        <img src="~/images/system/choice.png" style="width:75px; height:75px; object-fit:cover;"/>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="mt-3">Quality Choice</h4>
+                                        <p class="card-text text-secondary">Find your perfect rental car from Hajurko Rental selection with ease and elavate your travel journey today.</p>
+                                    </div>
+                                </div>
+                                <div class="card rounded-1" style="width: 16rem;">
+                                    <div class="d-flex justify-content-center align-items-center pt-5">
+                                        <img src="~/images/system/service.png" style="width:75px; height:75px; object-fit:cover;"/>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="mt-3">Exclusive Service</h4>
+                                        <p class="card-text text-secondary">Whether you need a car for city driving or a long road trip, we have got you covered.</p>
+                                    </div>
+                                </div>
+                                <div class="card rounded-1" style="width: 16rem;">
+                                    <div class="d-flex justify-content-center align-items-center pt-5">
+                                        <img src="~/images/system/free.png" style="width:75px; height:60px; object-fit:cover;"/>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="mt-3" >Free Cancellation</h4>
+                                        <p class="card-text text-secondary">Cancel Before the booked dates and have no money charged for the booking.</p>
+                                    </div>
+                                </div>
+                                <div class="card rounded-1" style="width: 16rem;">
+                                   <div class="d-flex justify-content-center align-items-center pt-5">
+                                        <img src="~/images/system/offer.png" style="width:75px; height:75px; object-fit:cover;"/>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="mt-3" >Eye-Catching Offers</h4>
+                                        <p class="card-text text-secondary">Look out for various offers on the rents provided from time to time.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        }
-        </div>
-        <div class="d-flex my-5 justify-content-center align-items-center flex-row absolute" style="height:400px;">
-            @*<img src="~/images/system/home-bg.png" />*@
-            <div class="w-50 flex-column mr-5" style="margin-right:50px;">
-                <div class="h-50 d-flex  flex-column justify-content-end align-items-end w-100">
-                    <h2 style="padding:65px 50px">Log In</h2>
-                </div>
-                <div class="h-50 w-100 d-flex justify-content-end">
-                    <img src="~/images/system/renter.png" style="width:250px; height:auto"/>
-                </div>
-            </div>
-            <div class="w-50 d-flex flex-column ml-5" style="margin-left:50px">
-                <div class="h-50 w-100 d-flex justify-content-start">
-                    <img src="~/images/system/vehicle.png" style="width:250px; height:auto"/>
-                </div>
-                <div class="h-50 flex  flex-column justify-content-start align-items-center w-100">
-                    <h2 style="padding:65px 50px">Register user</h2>
-                </div>
-                
-            </div>
-            
         </div>
     </div>
 </div>
