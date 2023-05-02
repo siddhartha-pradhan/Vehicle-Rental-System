@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using VehicleRentalSystem.Application.Interfaces.Services;
-using VehicleRentalSystem.Domain.Constants;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Entities;
+using VehicleRentalSystem.Domain.Constants;
+using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.User.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.User.Controllers;
@@ -13,31 +13,31 @@ namespace VehicleRentalSystem.Presentation.Areas.User.Controllers;
 [Area("User")]
 public class RentalController : Controller
 {
+    #region Service Injection
+    private readonly UserManager<IdentityUser> _userManager;
     private readonly IAppUserService _appUserService;
     private readonly ICustomerService _customerService;
     private readonly IVehicleService _vehicleService;
     private readonly IRentalService _rentalService;
-    private readonly IImageService _imageService;
     private readonly IBrandService _brandService;
-    private readonly UserManager<IdentityUser> _userManager;
 
-    public RentalController(IAppUserService appUserService, 
+    public RentalController(UserManager<IdentityUser> userManager,
+        IAppUserService appUserService, 
         ICustomerService customerService, 
         IVehicleService vehicleService, 
         IRentalService rentalService, 
-        IImageService imageService, 
-        IBrandService brandService,
-        UserManager<IdentityUser> userManager)
+        IBrandService brandService)
     {
         _appUserService = appUserService;
         _customerService = customerService;
         _vehicleService = vehicleService;
         _rentalService = rentalService;
-        _imageService = imageService;
         _brandService = brandService;
         _userManager = userManager;
     }
+    #endregion
 
+    #region Razor Views
     public IActionResult Rental(Guid vehicleId)
     {
         var vehicle = _vehicleService.GetVehicle(vehicleId);
@@ -73,6 +73,7 @@ public class RentalController : Controller
             if (!customer.IsActive)
             {
                 TempData["Delete"] = "You haven't paid the due amount of your damage request. Can't process further on.";
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -82,7 +83,9 @@ public class RentalController : Controller
 
         return View(rent);
     }
+    #endregion
 
+    #region API Calls
     [HttpPost]
     public IActionResult Rental(RentalViewModel model)
     {
@@ -129,4 +132,5 @@ public class RentalController : Controller
         TempData["Success"] = "Your rental request has been notified.";
         return RedirectToAction("Index", "Home");
     }
+    #endregion
 }

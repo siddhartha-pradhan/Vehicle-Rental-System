@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using VehicleRentalSystem.Application.Interfaces.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Constants;
+using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
@@ -10,6 +10,7 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 [Authorize(Roles = $"{Constants.Admin}, {Constants.Staff}")]
 public class SalesController : Controller
 {
+    #region Service Injection
     private readonly IAppUserService _appUserService;
     private readonly ICustomerService _customerService;
     private readonly IRentalService _rentalService;
@@ -31,9 +32,10 @@ public class SalesController : Controller
         _vehicleService = vehicleService;
         _brandService = brandService;
     }
+    #endregion
 
-
-
+    #region Razor Views
+    [HttpGet]
     public IActionResult Index()
     {
         var customers = _customerService.GetAllCustomers().Count();
@@ -89,4 +91,5 @@ public class SalesController : Controller
 
         return View(result);
     }
+    #endregion
 }

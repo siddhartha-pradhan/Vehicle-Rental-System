@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using VehicleRentalSystem.Domain.Shared;
 using System.ComponentModel.DataAnnotations;
-using VehicleRentalSystem.Domain.Shared;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace VehicleRentalSystem.Domain.Entities;
 

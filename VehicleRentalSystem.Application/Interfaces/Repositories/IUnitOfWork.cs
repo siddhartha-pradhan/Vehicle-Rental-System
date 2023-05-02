@@ -10,8 +10,6 @@ public interface IUnitOfWork
 
     IDamageRequestRepository DamageRequest { get; set; }
 
-    IImageRepository Image { get; set; }  
-
     IOfferRepository Offer { get; set; }
 
     IRentalRepository Rental { get; set; }

@@ -2,7 +2,7 @@
 
 public class VehicleDetailViewModel
 {
-    public VehicleImageViewModel VehicleImageViewModel { get; set; }  
+    public VehicleViewModel VehicleImageViewModel { get; set; }  
 
     public List<VehicleDetailRentViewModel> RentailDetails { get; set; }    
 }

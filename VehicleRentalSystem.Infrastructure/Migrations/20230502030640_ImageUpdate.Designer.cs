@@ -12,8 +12,8 @@ using VehicleRentalSystem.Infrastructure.Persistence;
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230501040948_DbSetup")]
-    partial class DbSetup
+    [Migration("20230502030640_ImageUpdate")]
+    partial class ImageUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -307,10 +307,10 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsApproved")
+                    b.Property<bool>("IsRegulat")
                         .HasColumnType("bit");
 
                     b.Property<string>("LicenseNumber")
@@ -336,12 +336,18 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime?>("ActionDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ApprovedBy")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DamageDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DamageRequestDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ImageURL")
                         .IsRequired()
@@ -356,7 +362,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<Guid>("RentalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("RepairCost")
+                    b.Property<double?>("RepairCost")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -366,30 +372,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.HasIndex("RentalId");
 
                     b.ToTable("DamageRequests");
-                });
-
-            modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("ProfileImage")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<Guid>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Offer", b =>
@@ -454,13 +436,10 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ActionBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActionDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ApprovedBy")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -469,6 +448,9 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDamaged")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsReturned")
@@ -503,7 +485,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApprovedBy");
+                    b.HasIndex("ActionBy");
 
                     b.HasIndex("CustomerId");
 
@@ -567,6 +549,14 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -725,22 +715,11 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Navigation("Rental");
                 });
 
-            modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Image", b =>
-                {
-                    b.HasOne("VehicleRentalSystem.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("Images")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Rental", b =>
                 {
                     b.HasOne("VehicleRentalSystem.Domain.Entities.AppUser", "ApproverUser")
                         .WithMany()
-                        .HasForeignKey("ApprovedBy");
+                        .HasForeignKey("ActionBy");
 
                     b.HasOne("VehicleRentalSystem.Domain.Entities.Customer", null)
                         .WithMany("Rental")
@@ -810,8 +789,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Vehicle", b =>
                 {
-                    b.Navigation("Images");
-
                     b.Navigation("Rental");
                 });
 #pragma warning restore 612, 618

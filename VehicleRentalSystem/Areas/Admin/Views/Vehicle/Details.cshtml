@@ -15,18 +15,15 @@
                 <h3 class="text-dark">@title</h3>
             </div>
             <div class="col-8 pt-4">
-                @foreach (var item in Model.VehicleImageViewModel.Images)
-                {
-                    <div class="form-group row mb-4">
-                        <div class="col-4">
-                        </div>
-                        <div class="col-8 ">
-                                <div class="row border-purple  mt-4 ml-4" style="min-height: auto; width: 300px; margin-left:0px;">
-                                <img id="previewImage" src="@item.ImageURL" style="width: 300px; height: auto; margin:auto;" />
-                            </div>
+                <div class="form-group row mb-4">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8 ">
+                            <div class="row border-purple  mt-4 ml-4" style="min-height: auto; width: 300px; margin-left:0px;">
+                            <img id="profilePicture" src="@Model.VehicleImageViewModel.ImageURL" style="width: 300px; height: auto; margin:auto; object-fit:cover " />
                         </div>
                     </div>
-                }
+                </div>
                 <div class="form-group row">
                     <input asp-for="VehicleImageViewModel.Id" class="form-control" type="hidden"/>
                     <div class="col-4">

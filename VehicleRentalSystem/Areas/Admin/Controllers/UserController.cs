@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using VehicleRentalSystem.Domain.Constants;
-using VehicleRentalSystem.Application.Interfaces.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
-using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Entities;
-using VehicleRentalSystem.Infrastructure.Implementation.Services;
-using Microsoft.EntityFrameworkCore;
+using VehicleRentalSystem.Domain.Constants;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using VehicleRentalSystem.Application.Interfaces.Services;
+using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
@@ -15,6 +13,7 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 [Authorize(Roles = Constants.Admin)]
 public class UserController : Controller
 {
+    #region Service Injection
     private readonly UserManager<IdentityUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IEmailSender _emailSender;
@@ -52,6 +51,7 @@ public class UserController : Controller
         _vehicleService = vehicleService;
         _brandService = brandService;
     }
+    #endregion
 
     #region Razor Views
     [HttpGet]
