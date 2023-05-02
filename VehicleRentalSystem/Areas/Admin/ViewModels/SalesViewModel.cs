@@ -16,4 +16,6 @@ public class SalesViewModel
 
     public List<UserRentViewModel> UserRentCount { get; set; }
 
+    public List<InActiveCustomerViewModel> InactiveUserCount { get; set; }
+
 }

@@ -78,6 +78,19 @@ public class SalesController : Controller
                              User = g.Key.FullName
                          }).ToList();
 
+        var inactiveCustomers = (from customer in _customerService.GetAllCustomers()
+                                 join user in _appUserService.GetAllUsers()
+                                     on customer.UserId equals user.Id
+                                 join rental in _rentalService.GetAllRentals()
+                                     on user.Id equals rental.UserId into rentalGroup
+                                 where !rentalGroup.Any(x => x.RequestedDate >= DateTime.Now.AddMonths(-3))
+                                 select new InActiveCustomerViewModel()
+                                 {
+                                     CustomerId = customer.Id,
+                                     CustomerName = user.FullName,
+                                     LastRentedDate = rentalGroup.OrderByDescending(x => x.RequestedDate).Select(x => x.RequestedDate).FirstOrDefault().ToString("dd/MM/yyyy")
+                                 }).ToList();
+
         var result = new SalesViewModel()
         {
             CustomersCount = customers,
@@ -86,7 +99,8 @@ public class SalesController : Controller
             TotalSales = sales,
             BrandVehicleCount = brandCounts,
             UserRentCount = userRents,
-            VehicleRentCount = vehicleRents
+            VehicleRentCount = vehicleRents,
+            InactiveUserCount = inactiveCustomers
         };
 
         return View(result);
