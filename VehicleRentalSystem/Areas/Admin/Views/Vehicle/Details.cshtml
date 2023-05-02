@@ -7,104 +7,114 @@
     var title = "Vehicle Details";
 }
 
-<div class="container-fluid" style=" margin-top:10vh;">
+<div class="row" style=" margin-top:10vh;">
     <form method="post">
         <div class="row mb-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-6">
-                <h3 class="text-dark">@title</h3>
+                <h3 class="text-dark mb-4">@title</h3>
             </div>
-            <div class="col-8 pt-4">
-                @foreach (var item in Model.VehicleImageViewModel.Images)
-                {
-                    <div class="form-group row mb-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
                         <div class="col-4">
+                            <img src="~/images/system/suv2.jpg" style="width:350px;height:250px; object-fit:cover; margin:auto" />
+
+                            @*@foreach (var item in Model.VehicleImageViewModel.Images)
+                            {
+                                <div class="form-group row mb-3">
+                                    <div class="col-4">
+                                    </div>
+                                    <div class="col-8 ">
+                                            <div class="row border-purple  mt-4 ml-4" style="min-height: auto; width: 300px; margin-left:0px;">
+                                            <img id="previewImage" src="@item.ImageURL" style="width: 300px; height: auto; margin:auto;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }*@
                         </div>
-                        <div class="col-8 ">
-                                <div class="row border-purple  mt-4 ml-4" style="min-height: auto; width: 300px; margin-left:0px;">
-                                <img id="previewImage" src="@item.ImageURL" style="width: 300px; height: auto; margin:auto;" />
+                        <div class="col-8">
+                            <div class="form-group row">
+                                <input asp-for="VehicleImageViewModel.Id" class="form-control" type="hidden"/>
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.Model" class="fw-bold">Model: </label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.Model
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                }
-                <div class="form-group row">
-                    <input asp-for="VehicleImageViewModel.Id" class="form-control" type="hidden"/>
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.Model"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.Model" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.Brand"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.Brand" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.Color"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.Color" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.PlateNumber"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.PlateNumber" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.PricePerDay"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.PricePerDay" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.Description"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.Description" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.Features"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.Features" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.CreatedBy"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.CreatedBy" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="VehicleImageViewModel.CreatedDate"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="VehicleImageViewModel.CreatedDate" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-8 offset-4">
-                        <div class="row">
-                            <div class="col">
-                                <a asp-action="Index" class="btn btn-blue form-control">Back to List</a>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.Brand" class="fw-bold">Brand: </label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.Brand
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.Color" class="fw-bold">Color:</label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.Color
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.PlateNumber" class="fw-bold">Plate Number:</label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.PlateNumber
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.PricePerDay" class="fw-bold">Price Per Day:</label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.PricePerDay
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.Description" class="fw-bold">Description:</label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.Description
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.Features" class="fw-bold">Features: </label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.Features
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.CreatedBy" class="fw-bold">Created By:</label>
+                                </div>
+                                <div class="col-8 mb-3">
+                                    @Model.VehicleImageViewModel.CreatedBy
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="VehicleImageViewModel.CreatedDate" class="fw-bold"> Created Date: </label>
+                                </div>
+                                <div class="col-8 mb-4">
+                                    @Model.VehicleImageViewModel.CreatedDate
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <a asp-action="Index" class="btn btn-blue form-control">Back to List</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +124,7 @@
     </form>
     @if (Model.RentailDetails.Count > 0)
     {
-        <div class="row">
+            <div class="row">
             <table id="tableData" class="table table-striped table-bordered" style="width:100%">
                 <thead class="mt-2">
                     <tr class="table-info">
@@ -142,7 +152,7 @@
     }
     else
     {
-        <h2>The vehicle hasnt been rented yet</h2>
+        <h2>The vehicle has not been rented yet.</h2>
     }
 </div>
 
