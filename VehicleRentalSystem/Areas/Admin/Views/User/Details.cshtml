@@ -1,0 +1,115 @@
+﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+
+@model CustomerRentDetails
+
+@{
+    ViewData["Title"] = "Customer Detail";
+    var title = "Customer Details";
+}
+
+<h1>Customer Details</h1>
+
+<div class="container-fluid" style=" margin-top:10vh;">
+    <form method="post">
+        <div class="row mb-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-6">
+                <h3 class="text-dark">@title</h3>
+            </div>
+            <div class="col-8 pt-4">
+                <div class="form-group row mb-4">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8 ">
+                        <div class="row border-purple  mt-4 ml-4" style="min-height: auto; width: 300px; margin-left:0px;">
+                            <img id="profilePicture" style="width:485px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Customer.Image))">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <input asp-for="Customer.Id" class="form-control" type="hidden"/>
+                    <div class="col-4">
+                        <label asp-for="Customer.FullName"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Customer.FullName" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Customer.Email"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Customer.Email" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Customer.PhoneNumber"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Customer.PhoneNumber" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Customer.Address"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Customer.Address" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Customer.State"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Customer.State" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4">
+                        <div class="row">
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-blue form-control">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @if (Model.CustomerRent.Count > 0)
+    {
+        <div class="row">
+            <table id="tableData" class="table table-striped table-bordered" style="width:100%">
+                <thead class="mt-2">
+                    <tr class="table-info">
+                        <th class="text-center">Vehicle Name</th>
+                        <th class="text-center">Rented Days</th>
+                        <th class="text-center">Return Date</th>
+                        <th class="text-center">Total Amount</th>
+                        <th class="text-center">Approved Staff</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CustomerRent)
+                    {
+                        <tr>
+                            <td>@item.VehicleName</td>
+                            <td>@item.RentedDays</td>
+                            <td>@item.ReturnedDate</td>
+                            <td>@item.TotalAmount</td>
+                            <td>@item.ApprovedStaff</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h2>The customer hasnt rented anything yet</h2>
+    }
+</div>
+

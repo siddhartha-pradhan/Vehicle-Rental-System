@@ -5,6 +5,7 @@ using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Domain.Entities;
 using System.Security.Claims;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+using VehicleRentalSystem.Application.Interfaces.Repositories;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
@@ -13,16 +14,22 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 public class BrandController : Controller
 {
     private readonly IBrandService _brandService;
+    private readonly IVehicleService _vehicleService;
     private readonly IAppUserService _appUserService;
     private readonly IFileTransferService _fileService;
+    private readonly IUnitOfWork _unitOfWork;
 
     public BrandController(IBrandService brandService,
         IAppUserService appUserService,
-        IFileTransferService fileService)
+        IFileTransferService fileService,
+        IVehicleService vehicleService,
+        IUnitOfWork unitOfWork)
     {
         _brandService = brandService;
         _appUserService = appUserService;
         _fileService = fileService;
+        _vehicleService = vehicleService;
+        _unitOfWork = unitOfWork;
     }
 
     #region Razor Views
@@ -149,6 +156,15 @@ public class BrandController : Controller
 
         if (brand != null)
         {
+            var vehicles = _vehicleService.GetAllVehicles().Where(x => x.BrandId == brand.Id).ToList();
+
+            foreach(var vehicle in vehicles) 
+            {
+                vehicle.BrandId = Guid.Empty;
+                
+                _unitOfWork.Save();
+            }
+
             _brandService.DeleteBrand(brand.Id);
 
             TempData["Delete"] = "Brand successfully deleted";

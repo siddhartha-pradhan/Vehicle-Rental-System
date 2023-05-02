@@ -1,0 +1,84 @@
+﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+@model SalesViewModel
+@{
+    ViewData["Title"] = "Sales & Stats";
+}
+
+<h1>Sales & Stats</h1>
+
+<h1>Customers</h1>
+
+<div class="row">
+    <div class="card">
+        Total Customers: @Model.CustomersCount
+    </div>
+</div>
+
+<br />
+
+<h1>Total Rents</h1>
+
+<div class="row">
+    <div class="card">
+        Total Rents: @Model.TotalRentalCounts
+    </div>
+</div>
+
+<br />
+
+<h1>Pending Rental Requests</h1>
+
+<div class="row">
+    <div class="card">
+        Pending Requests: @Model.PendingRequestsCount
+    </div>
+</div>
+
+<br />
+
+<h1>Total Sales</h1>
+
+<div class="row">
+    <div class="card">
+        Total Sales: @Model.TotalSales
+    </div>
+</div>
+
+<br />
+
+<h1>All Users Rents</h1>
+
+@foreach (var item in Model.UserRentCount)
+{
+    <div class="row">
+        <div class="card">
+            @item.User: @item.Count 
+        </div>
+    </div>
+}
+
+<br />
+
+<h1>All Vehicles Rent Count</h1>
+
+@foreach (var item in Model.VehicleRentCount)
+{
+    <div class="row">
+        <div class="card">
+        @item.Vehicle: @item.Count 
+        </div>
+    </div>
+}
+
+<br />
+
+<h1>All Brands Vehicles</h1>
+
+@foreach (var item in Model.BrandVehicleCount)
+{
+    <div class="row">
+        <div class="card">
+        @item.Brand: @item.Count 
+        </div>
+    </div>
+}

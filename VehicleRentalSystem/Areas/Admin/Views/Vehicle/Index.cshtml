@@ -22,11 +22,12 @@
         <table id="tableData" class="table table-striped table-bordered" style="width:100%">
             <thead class="mt-2">
                 <tr class="table-info">
-                    <th class="text-center">Model</th>
-                    <th class="text-center">Brand</th>
+                    <th class="text-center">Vehicle Name</th>
                     <th class="text-center">Color</th>
                     <th class="text-center">Price per Day</th>
+                    <th class="text-center">Total Rents</th>
                     <th class="text-center">Availability</th>
+                    <th class="text-center">Rented</th>
                     <th class="text-center">Offer</th>
                     <th class="text-center">Options</th>
                 </tr>
@@ -35,15 +36,16 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.Model</td>
-                        <td>@item.Brand</td>
+                        <td>@item.Model @item.Brand</td>
                         <td>@item.Color</td>
                         <td>@item.PricePerDay</td>
+                        <td>@item.TotalRents</td>
                         <td>@item.Availablility</td>
+                        <td>@item.Rented</td>
                         <td>@item.Offer</td>
                         <td class="text-center">
-                                <a href="@Url.Action("Details", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
-                                <a href="@Url.Action("Upsert", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa fa-cogs"  style="color:#2eb82d;"></i></a>
+                            <a href="@Url.Action("Details", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
+                            <a href="@Url.Action("Upsert", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa fa-cogs"  style="color:#2eb82d;"></i></a>
                             <a href="@Url.Action("Delete", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa fa-trash text-danger"></i></a> 
                         </td>
                     </tr>

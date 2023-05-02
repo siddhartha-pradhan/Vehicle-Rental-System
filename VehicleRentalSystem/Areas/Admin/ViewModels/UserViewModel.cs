@@ -18,6 +18,10 @@
 
         public string Role { get; set; }
 
+        public int TotalRents { get; set; }
+
+        public string LastRentedDate { get; set; }
+
         public byte[] Image { get; set; }
     }
 }

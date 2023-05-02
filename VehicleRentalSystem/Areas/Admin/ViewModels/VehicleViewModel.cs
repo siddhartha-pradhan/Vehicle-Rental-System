@@ -29,6 +29,10 @@ public class VehicleViewModel
 
     public string Availablility { get; set; }
 
+    public string Rented { get; set; }
+
+    public int TotalRents { get; set; }
+
     [Display(Name = "Creator User")]
     public string CreatedBy { get; set; }
 

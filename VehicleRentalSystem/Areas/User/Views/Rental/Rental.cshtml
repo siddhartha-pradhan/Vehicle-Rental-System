@@ -102,7 +102,7 @@
                             <label asp-for="@Model.StartDate"> Start Date:</label>
                         </div>
                         <div class="col-9">
-                            <input id="from-date" asp-for="@Model.StartDate" class="form-control" value="2023-04-01T12:00:00.000"/>
+                            <input id="from-date" id="rentDate" asp-for="@Model.StartDate" class="form-control" value="2023-04-01T12:00:00.000"/>
                             <span asp-validation-for="@Model.StartDate" class="text-danger" ></span>
                         </div>
                     </div>
@@ -116,8 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="w-100 btn btn-primary mt-3 mb-5">Request</button>
-
+                <button onclick="return ValidateInput()" type="submit" class="w-100 btn btn-primary mt-3 mb-5">Request</button>
             </div>
         </div>
     </div>
@@ -127,4 +126,11 @@
     .fa-shopping-cart{
         font-size:25px;
     }
+    
 </style>
+@section Scripts{
+    <script>
+        
+    </script>
+}
+

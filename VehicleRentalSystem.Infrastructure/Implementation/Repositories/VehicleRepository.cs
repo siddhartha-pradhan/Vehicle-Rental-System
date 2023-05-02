@@ -44,6 +44,7 @@ public class VehicleRepository : Repository<Vehicle>, IVehicleRepository
             item.PricePerDay = vehicle.PricePerDay;
             item.Description = vehicle.Description;
             item.PlateNumber = vehicle.PlateNumber;
+            item.IsAvailable = vehicle.IsAvailable;
             
             item.LastModifiedBy = vehicle.LastModifiedBy;
             item.LastModifiedDate = DateTime.Now;

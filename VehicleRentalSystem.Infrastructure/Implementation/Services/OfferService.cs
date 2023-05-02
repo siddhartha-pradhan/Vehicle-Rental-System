@@ -25,7 +25,8 @@ public class OfferService : IOfferService
 
         if (offer != null)
         {
-            _unitOfWork.Offer.Remove(offer);
+            _unitOfWork.Offer.Delete(offer);
+
             _unitOfWork.Save();
         }
     }
