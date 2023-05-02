@@ -88,7 +88,13 @@
 								@if (!item.IsDamaged)
 								{
 									<button type="submit" asp-action="Accepted" asp-route-rentalId="@item.Id" class="btn btn-danger px-4">Cancel</button>
+<<<<<<< HEAD
+									
 									<a class="form-control btn btn-blue" asp-action="DamageRequest" asp-route-rentalId="@item.Id"  style="margin-left:15px;">Fill Damage Form</a>
+									
+=======
+									<a class="form-control btn btn-blue" asp-action="DamageRequest" asp-route-rentalId="@item.Id"  style="margin-left:15px;">Fill Damage Form</a>
+>>>>>>> 72f611b0545d3422bbc718322e3139f766a4d497
 								}
 								else
 								{
