@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Constants;
-using VehicleRentalSystem.Application.Interfaces.Services;
-using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
-using System.Security.Claims;
-using VehicleRentalSystem.Application.Interfaces.Repositories;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using VehicleRentalSystem.Domain.Entities;
-using System.Xml.Linq;
-using VehicleRentalSystem.Infrastructure.Implementation.Repositories;
+using VehicleRentalSystem.Application.Interfaces.Services;
+using VehicleRentalSystem.Application.Interfaces.Repositories;
+using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
@@ -16,7 +13,8 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 [Authorize(Roles = $"{Constants.Admin}, {Constants.Staff}")]
 public class RentalController : Controller
 {
-	private readonly IRentalService _rentalService;
+    #region Service Injection
+    private readonly IRentalService _rentalService;
 	private readonly IAppUserService _appUserService;
 	private readonly IVehicleService _vehicleService;
 	private readonly IBrandService _brandService;
@@ -24,6 +22,7 @@ public class RentalController : Controller
 	private readonly ICustomerService _customerService;
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IEmailSender _emailSender;
+	
 	public RentalController(IRentalService rentalService, 
 		IAppUserService appUserService, 
 		IVehicleService vehicleService, 
@@ -42,8 +41,10 @@ public class RentalController : Controller
 		_customerService = customerService;
 		_emailSender = emailSender;
 	}
+    #endregion
 
-	[HttpGet]
+    #region Razor Views
+    [HttpGet]
 	public IActionResult Requested()
 	{
 		var vehicles = _vehicleService.GetAllVehicles();
@@ -132,8 +133,10 @@ public class RentalController : Controller
 
 		return View(result);
 	}
+    #endregion
 
-	[HttpPost]
+    #region API Calls
+    [HttpPost]
 	public IActionResult AcceptRent(Guid rentalId)
 	{
 		var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -165,9 +168,6 @@ public class RentalController : Controller
 	[HttpPost]
 	public IActionResult RejectRent(Guid rentalId)
 	{
-		var claimsIdentity = (ClaimsIdentity)User.Identity;
-		var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
 		var rent = _rentalService.GetRental(rentalId);
 
 		var user = _appUserService.GetUser(rent.UserId);
@@ -213,4 +213,5 @@ public class RentalController : Controller
 
 		return RedirectToAction("Accepted");
 	}
+    #endregion
 }

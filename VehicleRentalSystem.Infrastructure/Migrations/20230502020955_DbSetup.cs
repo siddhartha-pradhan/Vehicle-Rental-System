@@ -172,8 +172,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     LicenseURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsRegulat = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -322,13 +322,13 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDamaged = table.Column<bool>(type: "bit", nullable: false),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     IsReturned = table.Column<bool>(type: "bit", nullable: false),
                     RentalStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ActionBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ActionBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     TotalAmount = table.Column<float>(type: "real", nullable: false),
-                    ApprovedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -340,8 +340,8 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         principalTable: "Customers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Rentals_Users_ApprovedBy",
-                        column: x => x.ApprovedBy,
+                        name: "FK_Rentals_Users_ActionBy",
+                        column: x => x.ActionBy,
                         principalTable: "Users",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -364,10 +364,12 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RentalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RepairCost = table.Column<double>(type: "float", nullable: false),
+                    RepairCost = table.Column<double>(type: "float", nullable: true),
                     DamageDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
+                    DamageRequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ApprovedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ActionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -413,9 +415,9 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rentals_ApprovedBy",
+                name: "IX_Rentals_ActionBy",
                 table: "Rentals",
-                column: "ApprovedBy");
+                column: "ActionBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rentals_CustomerId",

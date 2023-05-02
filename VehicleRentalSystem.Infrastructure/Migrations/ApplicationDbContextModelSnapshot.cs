@@ -308,7 +308,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsApproved")
+                    b.Property<bool>("IsRegulat")
                         .HasColumnType("bit");
 
                     b.Property<string>("LicenseNumber")
@@ -458,13 +458,10 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ActionBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActionDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ApprovedBy")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -510,7 +507,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApprovedBy");
+                    b.HasIndex("ActionBy");
 
                     b.HasIndex("CustomerId");
 
@@ -747,7 +744,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                 {
                     b.HasOne("VehicleRentalSystem.Domain.Entities.AppUser", "ApproverUser")
                         .WithMany()
-                        .HasForeignKey("ApprovedBy");
+                        .HasForeignKey("ActionBy");
 
                     b.HasOne("VehicleRentalSystem.Domain.Entities.Customer", null)
                         .WithMany("Rental")

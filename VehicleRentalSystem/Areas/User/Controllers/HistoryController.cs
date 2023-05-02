@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using VehicleRentalSystem.Application.Interfaces.Repositories;
-using VehicleRentalSystem.Application.Interfaces.Services;
-using VehicleRentalSystem.Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Entities;
+using VehicleRentalSystem.Domain.Constants;
+using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.User.ViewModels;
+using VehicleRentalSystem.Application.Interfaces.Repositories;
 
 namespace VehicleRentalSystem.Presentation.Areas.User.Controllers;
 
-[Area("User")]
 [Authorize]
-
+[Area("User")]
 public class HistoryController : Controller
 {
+    #region Service Injection
     private readonly IRentalService _rentalService;
     private readonly IAppUserService _appUserService;
     private readonly IVehicleService _vehicleService;
@@ -44,7 +44,9 @@ public class HistoryController : Controller
         _damageRequestService = damageRequestService;
         _unitOfWork = unitOfWork;
 	}
+    #endregion
 
+    #region Razor Views
     [HttpGet]
     public IActionResult Requested()
     {
@@ -135,25 +137,29 @@ public class HistoryController : Controller
         return View(result);
     }
 
-    [HttpPost]
-    public IActionResult Requested(Guid rentalId)
+    [HttpGet]
+    public IActionResult DamageDetails(Guid rentalId)
     {
-        _rentalService.CancelRent(rentalId);
-        TempData["Success"] = "Rent successfully canceled";
-        return RedirectToAction("Requested");
+        var rental = _rentalService.GetRental(rentalId);
+
+        var vehicle = _vehicleService.GetVehicle(rental.VehicleId);
+
+        var brand = _brandService.GetBrand(vehicle.BrandId);
+
+        var damage = _damageRequestService.GetAllDamageRequests().Where(x => x.RentalId == rental.Id).FirstOrDefault();
+
+        var request = new DamageRequestViewModel()
+        {
+            VehicleName = $"{vehicle.Model} - {brand.Name}",
+            DamageRequest = damage,
+        };
+
+        return View(request);
     }
 
-	[HttpPost]
-	public IActionResult Accepted(Guid rentalId)
-	{
-		_rentalService.CancelRent(rentalId);
-		TempData["Success"] = "Rent successfully canceled";
-		return RedirectToAction("Accepted");
-	}
-
-	[HttpGet]
-	public IActionResult DamageRequest(Guid rentalId)
-	{
+    [HttpGet]
+    public IActionResult DamageRequest(Guid rentalId)
+    {
         var rental = _rentalService.GetRental(rentalId);
 
         var vehicle = _vehicleService.GetVehicle(rental.VehicleId);
@@ -170,6 +176,24 @@ public class HistoryController : Controller
         };
 
         return View(damageRequest);
+    }
+    #endregion
+
+    #region API Calls
+    [HttpPost]
+    public IActionResult Requested(Guid rentalId)
+    {
+        _rentalService.CancelRent(rentalId);
+        TempData["Success"] = "Rent successfully canceled";
+        return RedirectToAction("Requested");
+    }
+
+	[HttpPost]
+	public IActionResult Accepted(Guid rentalId)
+	{
+		_rentalService.CancelRent(rentalId);
+		TempData["Success"] = "Rent successfully canceled";
+		return RedirectToAction("Accepted");
 	}
 
     [HttpPost]
@@ -199,24 +223,5 @@ public class HistoryController : Controller
         TempData["Success"] = "Damage Request successfully notified";
         return RedirectToAction("Accepted");
     }
-
-    [HttpGet]
-    public IActionResult DamageDetails(Guid rentalId)
-    {
-        var rental = _rentalService.GetRental(rentalId);
-
-        var vehicle = _vehicleService.GetVehicle(rental.VehicleId);
-
-        var brand = _brandService.GetBrand(vehicle.BrandId);
-
-        var damage = _damageRequestService.GetAllDamageRequests().Where(x => x.RentalId == rental.Id).FirstOrDefault();
-
-        var request = new DamageRequestViewModel()
-        {
-            VehicleName = $"{vehicle.Model} - {brand.Name}",
-            DamageRequest = damage,
-        };
-
-        return View(request);
-    }
+    #endregion
 }

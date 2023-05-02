@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using VehicleRentalSystem.Domain.Entities;
 using VehicleRentalSystem.Domain.Constants;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
-using VehicleRentalSystem.Domain.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Security.Claims;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 
@@ -13,6 +13,7 @@ namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
 [Authorize(Roles = Constants.Admin)]
 public class VehicleController : Controller
 {
+    #region Service Injection
     private readonly IBrandService _brandService;
     private readonly IAppUserService _appUserService;
     private readonly IFileTransferService _fileService;
@@ -37,8 +38,7 @@ public class VehicleController : Controller
         _vehicleService = vehicleService;
         _rentalService = rentalService;
     }
-
-
+    #endregion
 
     #region Razor Views
     [HttpGet]
