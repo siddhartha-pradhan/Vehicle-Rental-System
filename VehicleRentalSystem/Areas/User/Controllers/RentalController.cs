@@ -19,7 +19,6 @@ public class RentalController : Controller
     private readonly ICustomerService _customerService;
     private readonly IVehicleService _vehicleService;
     private readonly IRentalService _rentalService;
-    private readonly IImageService _imageService;
     private readonly IBrandService _brandService;
 
     public RentalController(UserManager<IdentityUser> userManager,
@@ -27,14 +26,12 @@ public class RentalController : Controller
         ICustomerService customerService, 
         IVehicleService vehicleService, 
         IRentalService rentalService, 
-        IImageService imageService, 
         IBrandService brandService)
     {
         _appUserService = appUserService;
         _customerService = customerService;
         _vehicleService = vehicleService;
         _rentalService = rentalService;
-        _imageService = imageService;
         _brandService = brandService;
         _userManager = userManager;
     }

@@ -44,7 +44,9 @@ public class Vehicle : BaseEntity
     [Display(Name = "Availability Status")]
     public bool IsAvailable { get; set; } = true;
 
-    public List<Image> Images { get; set; }
+    public byte[] Image { get; set; }
+
+    public string ImageURL { get; set; }
 
     [ForeignKey("BrandId")]
     public Brand? Brand { get; set; }

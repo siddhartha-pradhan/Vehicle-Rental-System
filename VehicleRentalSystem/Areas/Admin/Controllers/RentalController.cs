@@ -18,7 +18,6 @@ public class RentalController : Controller
 	private readonly IAppUserService _appUserService;
 	private readonly IVehicleService _vehicleService;
 	private readonly IBrandService _brandService;
-	private readonly IImageService _imageService;
 	private readonly ICustomerService _customerService;
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IEmailSender _emailSender;
@@ -27,7 +26,6 @@ public class RentalController : Controller
 		IAppUserService appUserService, 
 		IVehicleService vehicleService, 
 		IBrandService brandService, 
-		IImageService imageService, 
 		ICustomerService customerService,
 		IUnitOfWork unitOfWork,
 		IEmailSender emailSender)
@@ -36,7 +34,6 @@ public class RentalController : Controller
 		_appUserService = appUserService;
 		_vehicleService = vehicleService;
 		_brandService = brandService;
-		_imageService = imageService;
 		_unitOfWork = unitOfWork;
 		_customerService = customerService;
 		_emailSender = emailSender;
@@ -49,7 +46,6 @@ public class RentalController : Controller
 	{
 		var vehicles = _vehicleService.GetAllVehicles();
 		var brands = _brandService.GetAllBrands();
-		var images = _imageService.GetAllImages();
 
 		var rentals = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Requested).ToList();
 
@@ -69,7 +65,8 @@ public class RentalController : Controller
 			StartDate = x.StartDate.ToString("dd/MM/yyyy"),
 			EndDate = x.EndDate.ToString("dd/MM/yyyy"),
 			TotalAmount = $"Rs {x.TotalAmount}",
-			VehicleImages = _imageService.GetVehicleImages(x.VehicleId),
+			Image = _vehicleService.GetVehicle(x.VehicleId).Image,
+			ImageURL = _vehicleService.GetVehicle(x.VehicleId).ImageURL
 		}).ToList();
 
 		return View(result);
@@ -80,7 +77,6 @@ public class RentalController : Controller
 	{
 		var vehicles = _vehicleService.GetAllVehicles();
 		var brands = _brandService.GetAllBrands();
-		var images = _imageService.GetAllImages();
 
 		var rentals = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.ReturnedDate == null).ToList();
 
@@ -98,8 +94,9 @@ public class RentalController : Controller
 			TotalAmount = $"Rs {x.TotalAmount}",
 			ActionBy = _appUserService.GetUser(x.ActionBy).FullName,
 			ActionDate = x.ActionDate?.ToString("dd/MM/yyyy"),
-			VehicleImages = _imageService.GetVehicleImages(x.VehicleId),
-		}).ToList();
+            Image = _vehicleService.GetVehicle(x.VehicleId).Image,
+            ImageURL = _vehicleService.GetVehicle(x.VehicleId).ImageURL
+        }).ToList();
 
 		return View(result);
 	}
@@ -109,7 +106,6 @@ public class RentalController : Controller
 	{
 		var vehicles = _vehicleService.GetAllVehicles();
 		var brands = _brandService.GetAllBrands();
-		var images = _imageService.GetAllImages();
 
 		var rentals = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.ReturnedDate != null).ToList();
 
@@ -128,8 +124,9 @@ public class RentalController : Controller
 			TotalAmount = $"Rs {x.TotalAmount}",
 			ActionBy = _appUserService.GetUser(x.ActionBy).FullName,
 			ActionDate = x.ActionDate?.ToString("dd/MM/yyyy"),
-			VehicleImages = _imageService.GetVehicleImages(x.VehicleId),
-		}).ToList();
+            Image = _vehicleService.GetVehicle(x.VehicleId).Image,
+            ImageURL = _vehicleService.GetVehicle(x.VehicleId).ImageURL
+        }).ToList();
 
 		return View(result);
 	}

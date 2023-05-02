@@ -38,5 +38,7 @@ public class RentalDetailsViewModel
 
 	public string TotalAmount { get; set; }
 
-	public List<Image> VehicleImages { get; set; }
+    public byte[] Image { get; set; }
+
+    public string ImageURL { get; set; }
 }

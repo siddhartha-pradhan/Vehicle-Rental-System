@@ -18,7 +18,6 @@ public class HistoryController : Controller
     private readonly IAppUserService _appUserService;
     private readonly IVehicleService _vehicleService;
     private readonly IBrandService _brandService;
-    private readonly IImageService _imageService;
     private readonly ICustomerService _customerService;
     private readonly IFileTransferService _fileService;
     private readonly IDamageRequestService _damageRequestService;
@@ -27,7 +26,6 @@ public class HistoryController : Controller
     public HistoryController(IRentalService rentalService,
         IAppUserService appUserService,
         IVehicleService vehicleService,
-        IImageService imageService,
         IBrandService brandService,
         ICustomerService customerService,
         IFileTransferService fileService,
@@ -38,7 +36,6 @@ public class HistoryController : Controller
         _appUserService = appUserService;
         _vehicleService = vehicleService;
         _brandService = brandService;
-        _imageService = imageService;
         _customerService = customerService;
         _fileService = fileService;
         _damageRequestService = damageRequestService;
@@ -55,7 +52,6 @@ public class HistoryController : Controller
         var userId = claim.Value;
         var vehicles = _vehicleService.GetAllVehicles();
         var brands = _brandService.GetAllBrands();
-        var images = _imageService.GetAllImages();
 
         var rentals = _rentalService.GetAllRentals().Where(x => x.UserId == userId && x.RentalStatus == Constants.Requested).ToList();
 
@@ -69,7 +65,8 @@ public class HistoryController : Controller
             StartDate = x.StartDate.ToString("dd/MM/yyyy"),
             EndDate = x.EndDate.ToString("dd/MM/yyyy"),
             TotalAmount = $"Rs {x.TotalAmount}",
-            VehicleImages = _imageService.GetVehicleImages(x.VehicleId),
+            Image = _vehicleService.GetVehicle(x.VehicleId).Image,
+            ImageURL = _vehicleService.GetVehicle(x.VehicleId).ImageURL,
         }).ToList();
 
         return View(result);
@@ -83,7 +80,6 @@ public class HistoryController : Controller
         var userId = claim.Value;
         var vehicles = _vehicleService.GetAllVehicles();
         var brands = _brandService.GetAllBrands();
-        var images = _imageService.GetAllImages();
 
         var rentals = _rentalService.GetAllRentals().Where(x => x.UserId == userId && x.RentalStatus == Constants.Approved && x.ReturnedDate == null).ToList();
 
@@ -99,7 +95,8 @@ public class HistoryController : Controller
             TotalAmount = $"Rs {x.TotalAmount}",
             ActionBy = _appUserService.GetUser(x.ActionBy).FullName,
             ActionDate = x.ActionDate?.ToString("dd/MM/yyyy"),
-            VehicleImages = _imageService.GetVehicleImages(x.VehicleId),
+            Image = _vehicleService.GetVehicle(x.VehicleId).Image,
+            ImageURL = _vehicleService.GetVehicle(x.VehicleId).ImageURL,
             IsDamaged = x.IsDamaged,
         }).ToList();
 
@@ -114,7 +111,6 @@ public class HistoryController : Controller
         var userId = claim.Value;
         var vehicles = _vehicleService.GetAllVehicles();
         var brands = _brandService.GetAllBrands();
-        var images = _imageService.GetAllImages();
 
         var rentals = _rentalService.GetAllRentals().Where(x => x.UserId == userId && x.RentalStatus == Constants.Approved && x.ReturnedDate != null).ToList();
 
@@ -131,7 +127,8 @@ public class HistoryController : Controller
             TotalAmount = $"Rs {x.TotalAmount}",
             ActionBy = _appUserService.GetUser(x.ActionBy).FullName,
             ActionDate = x.ActionDate?.ToString("dd/MM/yyyy"),
-            VehicleImages = _imageService.GetVehicleImages(x.VehicleId),
+            Image = _vehicleService.GetVehicle(x.VehicleId).Image,
+            ImageURL = _vehicleService.GetVehicle(x.VehicleId).ImageURL,
         }).ToList();
 
         return View(result);

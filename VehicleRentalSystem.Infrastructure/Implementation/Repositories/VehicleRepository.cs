@@ -39,7 +39,6 @@ public class VehicleRepository : Repository<Vehicle>, IVehicleRepository
             item.Model = vehicle.Model;
             item.Brand = vehicle.Brand;
             item.Color = vehicle.Color;
-            item.Images = vehicle.Images;
             item.Features = vehicle.Features;
             item.PricePerDay = vehicle.PricePerDay;
             item.Description = vehicle.Description;

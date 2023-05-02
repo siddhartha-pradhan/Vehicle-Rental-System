@@ -18,7 +18,6 @@ public class VehicleController : Controller
     private readonly IAppUserService _appUserService;
     private readonly IFileTransferService _fileService;
     private readonly IOfferService _offerService;
-    private readonly IImageService _imageService;
     private readonly IVehicleService _vehicleService;
     private readonly IRentalService _rentalService;
 
@@ -26,7 +25,6 @@ public class VehicleController : Controller
         IAppUserService appUserService, 
         IFileTransferService fileService, 
         IOfferService offerService, 
-        IImageService imageService,
         IVehicleService vehicleService,
         IRentalService rentalService)
     {
@@ -34,7 +32,6 @@ public class VehicleController : Controller
         _appUserService = appUserService;
         _fileService = fileService;
         _offerService = offerService;
-        _imageService = imageService;
         _vehicleService = vehicleService;
         _rentalService = rentalService;
     }
@@ -57,6 +54,8 @@ public class VehicleController : Controller
                       select new VehicleViewModel
                       {
                           Id = vehicle.Id,
+                          Image = vehicle.Image,
+                          ImageURL = vehicle.ImageURL,
                           Brand = brand.Name,
                           Color = vehicle.Color,
                           Model = vehicle.Model,
@@ -76,7 +75,6 @@ public class VehicleController : Controller
         var brands = _brandService.GetAllBrands();
         var vehicles = _vehicleService.GetAllVehicles().Where(x => x.Id == id).ToList();
         var offers = _offerService.GetAllOffers();
-        var images = _imageService.GetAllImages();
         var users = _appUserService.GetAllUsers();
 
         var results = (from brand in brands
@@ -94,35 +92,16 @@ public class VehicleController : Controller
                            Color = vehicle.Color,
                            Model = vehicle.Model,
                            Description = vehicle.Description,
-                           Fetures = vehicle.Features,
+                           Features = vehicle.Features,
                            PlateNumber = vehicle.PlateNumber,
                            PricePerDay = $"Rs {vehicle.PricePerDay} /-",
                            Availablility = vehicle.IsAvailable ? "Yes" : "No",
                            Offer = offer != null ? "Yes" : "No",
                            CreatedBy = user.FullName,
-                           CreatedDate = vehicle.CreatedDate.ToString("dd/MM/yyyy")
-                       }).ToList();
-
-        var output = (from result in results
-                      join image in images
-                         on result.Id equals image.VehicleId into vehicleImages
-                      group new { result, vehicleImages } by result.Id into grouped
-                      select new VehicleImageViewModel()
-                      {
-                          Id = grouped.Key,
-                          Brand = grouped.First().result.Brand,
-                          Description = grouped.First().result.Description,
-                          Features = grouped.First().result.Fetures,
-                          Color = grouped.First().result.Color,
-                          Model = grouped.First().result.Model,
-                          PlateNumber = grouped.First().result.PlateNumber,
-                          PricePerDay = grouped.First().result.PricePerDay,
-                          Availablility = grouped.First().result.Availablility,
-                          Offer = grouped.First().result.Offer,
-                          Images = grouped.SelectMany(x => x.vehicleImages).ToList(),
-                          CreatedBy = grouped.First().result.CreatedBy,
-                          CreatedDate = grouped.First().result.CreatedDate
-                      }).FirstOrDefault();
+                           CreatedDate = vehicle.CreatedDate.ToString("dd/MM/yyyy"),
+                           Image = vehicle.Image,
+                           ImageURL = vehicle.ImageURL,
+                       }).FirstOrDefault();
 
         var rents = (from rent in _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.VehicleId == id)
                      join user in _appUserService.GetAllUsers()
@@ -140,7 +119,7 @@ public class VehicleController : Controller
 
         var detail = new VehicleDetailViewModel()
         {
-            VehicleImageViewModel = output,
+            VehicleImageViewModel = results,
             RentailDetails = rents
         };
 
@@ -195,7 +174,7 @@ public class VehicleController : Controller
 
         var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-        var images = Request.Form.Files;
+        var image = Request.Form.Files.FirstOrDefault();
 
         if(vehicle.Id == Guid.Empty)
         {
@@ -212,21 +191,11 @@ public class VehicleController : Controller
                 Features = vehicle.Features.Replace("<p>", "").Replace("</p>", ""),
                 BrandId = vehicle.BrandId,
                 CreatedBy = claim.Value,
+                Image = _fileService.ImageByte(image),
+                ImageURL = _fileService.FilePath(image, Constants.Vehicle, $"{vehicle.Model}", "")
             };
 
             _vehicleService.AddVehicle(item);
-
-            for(var i = 0; i < images.Count; i++)
-            {
-                var image = new Image()
-                {
-                    VehicleId = vehicleId,
-                    ProfileImage = _fileService.ImageByte(images[i]),
-                    ImageURL = _fileService.FilePath(images[i], Constants.Vehicle, $"{item.Model}", ""),
-                };
-
-                _imageService.AddImage(image);
-            }
 
             TempData["Success"] = "Vehicle successfully added";
         }
