@@ -12,16 +12,19 @@ public class DamageRequest
     [Required]
     public Guid RentalId { get; set; }
 
+    [Display(Name = "Repair Cost")]
     public double? RepairCost { get; set; }
 
-    [Required]
+	[Required]
+    [Display(Name = "Damage Description")]
     public string DamageDescription { get; set; }
 
     public bool IsPaid { get; set; } = false;
 
+    [Display(Name = "Damage Requested Date")]
     public DateTime DamageRequestDate { get; set; } = DateTime.Now;
 
-    public string? ApprovedBy { get; set; }
+	public string? ApprovedBy { get; set; }
 	
     public DateTime? ActionDate { get; set; }
 
