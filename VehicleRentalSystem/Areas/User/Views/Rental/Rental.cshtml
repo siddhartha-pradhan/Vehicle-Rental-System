@@ -85,7 +85,11 @@
                             <hr>
 
                             <div class="mt-2 d-flex w-full justify-content-between">
-                                <small class="text-muted">Actual Price: @Model.ActualPrice</small>
+                                <small class="text-muted">Actual Price: @Model.StartingPrice</small>
+                                @if(Model.HasOffer == "Yes")
+                                {
+                                    <small class="text-muted">Offer Price: @Model.ActualPrice</small>
+                                }
                                 @if (Model.PriceForRegularAndStaffs != 0.0)
                                 {
                                     <span class="text-muted">Price for you: @Model.PriceForRegularAndStaffs</span>

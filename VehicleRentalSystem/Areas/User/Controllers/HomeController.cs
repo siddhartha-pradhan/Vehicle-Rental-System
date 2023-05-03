@@ -42,7 +42,7 @@ public class HomeController : Controller
                             Name = $"{vehicle.Model} {_brandService.GetBrand(vehicle.BrandId).Name}",
                             Image = vehicle.Image,
 							ImageURL = vehicle.ImageURL,
-                            Offer = vehicle.OfferId != null ? $"{_offerService.RetrieveOffer(vehicle.OfferId).Discount}% Offer" : "No offer",
+                            Offer = vehicle.OfferId != null ? (_offerService.RetrieveOffer(vehicle.OfferId).EndDate > DateTime.Now ? $"{_offerService.RetrieveOffer(vehicle.OfferId).Discount}% Offer" : "No offer") : "No offer",
 							PricePerDay = $"Rs. {vehicle.PricePerDay}/day"
                         }).DistinctBy(x => x.Id).ToList();
 

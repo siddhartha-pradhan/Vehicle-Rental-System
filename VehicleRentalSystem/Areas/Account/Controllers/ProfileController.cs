@@ -41,6 +41,9 @@ public class ProfileController : Controller
     #endregion
 
     #region Razor Views
+    /// <summary>
+    /// Defining a method to view the logged in user's profile
+    /// </summary>
     [HttpGet]
     public IActionResult Profile()
     {
@@ -63,6 +66,9 @@ public class ProfileController : Controller
         return View(profile);
     }
 
+    /// <summary>
+    /// Defining a view to display the logged in user's documents page
+    /// </summary>
     [HttpGet]
     public IActionResult Documents()
     {
@@ -85,6 +91,9 @@ public class ProfileController : Controller
 
     }
 
+    /// <summary>
+    /// Defining a view for users to be able to change their passwords
+    /// </summary>
     [HttpGet]
     public IActionResult Password()
     {
@@ -95,6 +104,9 @@ public class ProfileController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for users to be able to update their profiles
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Profile(ProfileViewModel profile)
     {
@@ -128,6 +140,9 @@ public class ProfileController : Controller
         return RedirectToAction("Profile");
     }
 
+    /// <summary>
+    /// Defining a post action for users to be able to change their profile passwords
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Password(PasswordViewModel passwordViewModel)
     {
@@ -149,6 +164,9 @@ public class ProfileController : Controller
 
     }
 
+    /// <summary>
+    /// Defining a post action for users to be able to upload their documents in the form of form file of license and citizenship
+    /// </summary>
     [HttpPost]
     public IActionResult Documents(DetailViewModel model, IFormFile license, IFormFile citizenship)
     {

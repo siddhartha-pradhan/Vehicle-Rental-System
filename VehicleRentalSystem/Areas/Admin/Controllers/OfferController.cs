@@ -84,6 +84,9 @@ public class OfferController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for admin to add a new offer to the system and so on addition of offers to the selective vehicles
+    /// </summary>
     [HttpPost]
     public IActionResult Insert(OfferViewModel offerViewModel)
     {

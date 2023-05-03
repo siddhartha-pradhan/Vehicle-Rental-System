@@ -59,6 +59,9 @@ public class UserController : Controller
     #endregion
 
     #region Razor Views
+    /// <summary>
+    /// Defining a view action for admin to view an index of all customers
+    /// </summary>
     [HttpGet]
     public IActionResult Customer()
     {
@@ -89,6 +92,9 @@ public class UserController : Controller
         return View(result);
     }
 
+    /// <summary>
+    /// Defining a view action for admin to view a detailed index of a selective customers
+    /// </summary>
     [HttpGet]
     public IActionResult Details(string id)
     {
@@ -185,6 +191,9 @@ public class UserController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for admin to register a new staff to the system
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Register(UserViewModel staff)
     {
