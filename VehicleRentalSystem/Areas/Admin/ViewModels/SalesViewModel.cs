@@ -10,12 +10,5 @@ public class SalesViewModel
 
     public double TotalSales { get; set; }
 
-    public List<BrandVehicleViewModel> BrandVehicleCount { get; set; }  
-
-    public List<VehicleRentViewModel> VehicleRentCount { get; set; }
-
-    public List<UserRentViewModel> UserRentCount { get; set; }
-
     public List<InActiveCustomerViewModel> InactiveUserCount { get; set; }
-
 }
