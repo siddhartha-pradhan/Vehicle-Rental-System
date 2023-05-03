@@ -93,3 +93,52 @@
         </div>
     </div>
 }
+
+<h4><b>Line Chart</b></h4>
+
+<canvas id="lineChart" style="max-width: 400px; max-height: 430px"></canvas>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Sales/BrandVehicles",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccessResult,
+                error: OnError
+            });
+
+            function OnSuccessResult(data){
+                console.log(data);
+                var _data = data;
+                var _chartLabels = _data[0];
+                var _chartData = _data[1];
+                console.log(_chartData)
+                console.log(_chartLabels)
+                var barColors = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+                new Chart("lineChart",
+                {
+                    type: "bar",
+                    data: {
+                        labels: _chartLabels,
+                        datasets: [{
+                            backgroundColor: ["red", "blue", "green", "blue", "red", "blue"], 
+                            data: _chartLabels
+                        }]
+                    }
+                })
+            }
+
+            function OnError(data){
+                console.log(data)
+            }
+
+        });
+    </script>
+}
+        

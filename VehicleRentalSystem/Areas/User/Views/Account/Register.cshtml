@@ -95,11 +95,11 @@
             <div class="form-group row">
                 <div class="form col-12 mb-2">
                     <label class="mb-1">Profile Image</label>
-                    <input asp-for="Image" type="file"  placeholder="Profile Image" class="form-control" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                    <input asp-for="Image" id="uploadImage" type="file"  placeholder="Profile Image" class="form-control" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" />
                 </div>
             </div>
             <div class="mt-2">
-                <button id="registerSubmit" type="submit" class="w-100 mt-3 btn btn-primary">Register</button>
+                <button id="registerSubmit" onclick="return ValidateInput()" type="submit" class="w-100 mt-3 btn btn-primary">Register</button>
             </div>
         </form>
     </div>
@@ -107,6 +107,20 @@
 </div>
 
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function ValidateInput() {
+            if ($("#uploadImage").val() == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Picture not uploaded',
+                    text: 'Please input an image of the Book before continuing'
+                })
+                return false;
+            }
+            return true;
+        }
+    </script>
 }
 

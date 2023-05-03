@@ -77,6 +77,11 @@ public class RentalController : Controller
                 return RedirectToAction("Index", "Home");
             }
 
+            if (customer.IsRegular)
+            {
+                rent.PriceForRegularAndStaffs = vehicle.PricePerDay - (0.10 * vehicle.PricePerDay);
+            }
+
             rent.CustomerCitizenshipNumber = customer.CitizenshipNumber == null ? "No citizenship found" : customer.CitizenshipNumber;
             rent.CustomerLicenseNumber = customer.LicenseNumber == null ? "No license found" : customer.LicenseNumber;
         }
@@ -107,8 +112,13 @@ public class RentalController : Controller
             var customer = _customerService.GetUser(user.Id);
             
             price = vehicle.PricePerDay;
-            
-            if(customer.LicenseURL == null || customer.CitizenshipURL == null)
+
+            if (customer.IsRegular)
+            {
+                price = vehicle.PricePerDay - (0.10 * vehicle.PricePerDay);
+            }
+
+            if (customer.LicenseURL == null || customer.CitizenshipURL == null)
             {
                 TempData["Delete"] = "Please add your citizenship and license before renting a car";
 

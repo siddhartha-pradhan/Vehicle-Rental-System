@@ -43,16 +43,6 @@ public class SalesController : Controller
         var requests = _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Requested).ToList().Count();
         var sales = _rentalService.GetAllRentals().Sum(x => x.TotalAmount);
 
-        var brandCounts = (from brand in _brandService.GetAllBrands()
-                           join vehicle in _vehicleService.GetAllVehicles()
-                             on brand.Id equals vehicle.BrandId
-                           group vehicle by brand.Name into g
-                           select new BrandVehicleViewModel
-                           {
-                               Count = g.Count(),
-                               Brand = g.Key
-                           }).ToList();
-
         var vehicleRents = (from brand in _brandService.GetAllBrands()
                             join vehicle in _vehicleService.GetAllVehicles()
                                 on brand.Id equals vehicle.BrandId
@@ -91,6 +81,16 @@ public class SalesController : Controller
                                      LastRentedDate = rentalGroup.OrderByDescending(x => x.RequestedDate).Select(x => x.RequestedDate).FirstOrDefault().ToString("dd/MM/yyyy")
                                  }).ToList();
 
+        var brandCounts = (from brand in _brandService.GetAllBrands()
+                           join vehicle in _vehicleService.GetAllVehicles()
+                             on brand.Id equals vehicle.BrandId
+                           group vehicle by brand.Name into g
+                           select new BrandVehicleViewModel
+                           {
+                               Count = g.Count(),
+                               Brand = g.Key
+                           }).ToList();
+
         var result = new SalesViewModel()
         {
             CustomersCount = customers,
@@ -104,6 +104,21 @@ public class SalesController : Controller
         };
 
         return View(result);
+    }
+
+    [HttpPost]
+    public List<BrandVehicleViewModel> BrandVehicles()
+    {
+        var data = (from brand in _brandService.GetAllBrands()
+                    join vehicle in _vehicleService.GetAllVehicles()
+                      on brand.Id equals vehicle.BrandId
+                    group vehicle by brand.Name into g
+                    select new BrandVehicleViewModel
+                    {
+                        Count = g.Count(),
+                        Brand = g.Key
+                    }).ToList();
+        return data;
     }
     #endregion
 }

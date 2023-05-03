@@ -164,10 +164,22 @@ public class ProfileController : Controller
 
         if(license != null)
         {
+            if(license.Length > 1572864)
+            {
+                TempData["Danger"] = "Please enter a file of size less than 1.5MB.";
+                return RedirectToAction("Documents");
+            }
+
             customer.LicenseURL = _fileService.FilePath(license, Constants.Licenses.ToLower(), user.FullName, "");
         }
         if(citizenship != null)
         {
+            if (citizenship.Length > 1572864)
+            {
+                TempData["Danger"] = "Please enter a file of size less than 1.5MB.";
+                return RedirectToAction("Documents");
+            }
+
             customer.CitizenshipURL = _fileService.FilePath(citizenship, Constants.Citizenship.ToLower(), user.FullName, "");
         }
 
