@@ -43,6 +43,9 @@ public class AccountController : Controller
     #endregion
 
     #region Razor Views
+    /// <summary>
+    /// Defining a view action for any anonymous or non-logged in user to view the registrations view
+    /// </summary>
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> Register(string returnUrl = null)
@@ -56,6 +59,9 @@ public class AccountController : Controller
 
     [HttpGet]
     [AllowAnonymous]
+    /// <summary>
+    /// Defining a view action for a registered user to be redirected to after registration procedure
+    /// </summary>
     public async Task<IActionResult> RegisterConfirmation(string email, string role, string returnUrl = null)
     {
         if (email == null)
@@ -75,6 +81,9 @@ public class AccountController : Controller
         return View();
     }
 
+    /// <summary>
+    /// Defining a view action for a registered user to be redirected to after email confirmation procedure
+    /// </summary>
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> EmailConfirmation(string userId, string code)
@@ -111,6 +120,9 @@ public class AccountController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for a new user to be registered with email confirmations
+    /// </summary>
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
@@ -171,6 +183,9 @@ public class AccountController : Controller
         }
     }
 
+    /// <summary>
+    /// Defining a post action for a registered user to be logged in to the system
+    /// </summary>
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]

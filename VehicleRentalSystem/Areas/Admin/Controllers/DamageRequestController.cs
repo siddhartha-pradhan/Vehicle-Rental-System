@@ -44,6 +44,9 @@ public class DamageRequestController : Controller
     #endregion
 
     #region Razor Views
+    /// <summary>
+    /// Defining a index view for admin to list out the summary of all damage requests
+    /// </summary>
     [HttpGet]
     public IActionResult Index()
     {
@@ -83,6 +86,9 @@ public class DamageRequestController : Controller
         return View(result);
     }
 
+    /// <summary>
+    /// Defining a single detailed view for admin to view a descriptive detail of the selected damage request
+    /// </summary>
     [HttpGet]
     public IActionResult Details(Guid id)
     {
@@ -125,6 +131,9 @@ public class DamageRequestController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for admin to update the statuses of each of the selected damage request
+    /// </summary>
     [HttpPost]
     public IActionResult Details(DamageViewModel damage)
     {

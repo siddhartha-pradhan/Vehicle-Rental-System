@@ -41,6 +41,9 @@ public class RentalController : Controller
     #endregion
 
     #region Razor Views
+    /// <summary>
+    /// Defining a view action for admin to view all the pending rental requests
+    /// </summary>
     [HttpGet]
 	public IActionResult Requested()
 	{
@@ -72,7 +75,10 @@ public class RentalController : Controller
 		return View(result);
 	}
 
-	[HttpGet]
+    /// <summary>
+    /// Defining a view action for admin to view all the accepted and currently rented vehicles
+    /// </summary>
+    [HttpGet]
 	public IActionResult Accepted()
 	{
 		var vehicles = _vehicleService.GetAllVehicles();
@@ -101,7 +107,10 @@ public class RentalController : Controller
 		return View(result);
 	}
 
-	[HttpGet]
+    /// <summary>
+    /// Defining a view action for admin to view all the returned vehicles
+    /// </summary>
+    [HttpGet]
 	public IActionResult Returned()
 	{
 		var vehicles = _vehicleService.GetAllVehicles();
@@ -133,6 +142,9 @@ public class RentalController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for admin to accept any incoming rental request
+    /// </summary>
     [HttpPost]
 	public IActionResult AcceptRent(Guid rentalId)
 	{
@@ -162,7 +174,10 @@ public class RentalController : Controller
 		return RedirectToAction("Requested");
 	}
 
-	[HttpPost]
+    /// <summary>
+    /// Defining a post action for admin to reject any incoming rental request
+    /// </summary>
+    [HttpPost]
 	public IActionResult RejectRent(Guid rentalId)
 	{
 		var rent = _rentalService.GetRental(rentalId);
@@ -184,7 +199,10 @@ public class RentalController : Controller
 
 	}
 
-	[HttpPost]
+    /// <summary>
+    /// Defining a post action for admin to return any accepted rental request
+    /// </summary>
+    [HttpPost]
 	public IActionResult Accepted(Guid rentalId)
 	{
 		var rental = _rentalService.GetRental(rentalId);

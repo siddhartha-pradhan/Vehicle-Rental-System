@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleRentalSystem.Presentation", "VehicleRentalSystem\VehicleRentalSystem.Presentation.csproj", "{784B2FD4-FB01-4FB4-8B46-8A2E8C40C954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleRentalSystem.Presentation", "VehicleRentalSystem\VehicleRentalSystem.Presentation.csproj", "{784B2FD4-FB01-4FB4-8B46-8A2E8C40C954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleRentalSystem.Domain", "VehicleRentalSystem.Core\VehicleRentalSystem.Domain.csproj", "{1A25E560-00B3-4A76-99DB-B8C3244315AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleRentalSystem.Domain", "VehicleRentalSystem.Core\VehicleRentalSystem.Domain.csproj", "{1A25E560-00B3-4A76-99DB-B8C3244315AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleRentalSystem.Application", "VehicleRentalSystem.Application\VehicleRentalSystem.Application.csproj", "{9D0C08BB-4710-4259-B113-015FF562B822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleRentalSystem.Application", "VehicleRentalSystem.Application\VehicleRentalSystem.Application.csproj", "{9D0C08BB-4710-4259-B113-015FF562B822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleRentalSystem.Infrastructure", "VehicleRentalSystem.Infrastructure\VehicleRentalSystem.Infrastructure.csproj", "{A10D1C60-4DB5-4C53-AB2D-1AD270E4F38F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleRentalSystem.Infrastructure", "VehicleRentalSystem.Infrastructure\VehicleRentalSystem.Infrastructure.csproj", "{A10D1C60-4DB5-4C53-AB2D-1AD270E4F38F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

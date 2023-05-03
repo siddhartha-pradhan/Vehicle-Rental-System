@@ -44,6 +44,9 @@ public class HistoryController : Controller
     #endregion
 
     #region Razor Views
+    /// <summary>
+    /// Defining a view action for a logged in user to be view all their current requests
+    /// </summary>
     [HttpGet]
     public IActionResult Requested()
     {
@@ -72,6 +75,9 @@ public class HistoryController : Controller
         return View(result);
     }
 
+    /// <summary>
+    /// Defining a view action for a logged in user to be view all their current accepted rents
+    /// </summary>
     [HttpGet]
     public IActionResult Accepted()
     {
@@ -103,6 +109,9 @@ public class HistoryController : Controller
         return View(result);
     }
 
+    /// <summary>
+    /// Defining a view action for a logged in user to be view all their returned rental requests
+    /// </summary>
     [HttpGet]
     public IActionResult Returned()
     {
@@ -134,6 +143,9 @@ public class HistoryController : Controller
         return View(result);
     }
 
+    /// <summary>
+    /// Defining a view action for a logged in user to be view a damage request form for accepted rents
+    /// </summary>
     [HttpGet]
     public IActionResult DamageDetails(Guid rentalId)
     {
@@ -177,6 +189,9 @@ public class HistoryController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for a user to cancel their requested rent
+    /// </summary>
     [HttpPost]
     public IActionResult Requested(Guid rentalId)
     {
@@ -185,7 +200,10 @@ public class HistoryController : Controller
         return RedirectToAction("Requested");
     }
 
-	[HttpPost]
+    /// <summary>
+    /// Defining a post action for a user to cancel their aceepted rent
+    /// </summary>
+    [HttpPost]
 	public IActionResult Accepted(Guid rentalId)
 	{
 		_rentalService.CancelRent(rentalId);
@@ -193,6 +211,9 @@ public class HistoryController : Controller
 		return RedirectToAction("Accepted");
 	}
 
+    /// <summary>
+    /// Defining a post action for a user to submit their damage request form
+    /// </summary>
     [HttpPost]
     public IActionResult DamageRequest(DamageRequestViewModel request, IFormFile image)
     {

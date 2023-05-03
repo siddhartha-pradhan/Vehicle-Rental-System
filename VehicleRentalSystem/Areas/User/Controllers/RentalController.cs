@@ -20,13 +20,15 @@ public class RentalController : Controller
     private readonly IVehicleService _vehicleService;
     private readonly IRentalService _rentalService;
     private readonly IBrandService _brandService;
+    private readonly IOfferService _offerService;
 
     public RentalController(UserManager<IdentityUser> userManager,
         IAppUserService appUserService, 
         ICustomerService customerService, 
         IVehicleService vehicleService, 
         IRentalService rentalService, 
-        IBrandService brandService)
+        IBrandService brandService,
+        IOfferService offerService)
     {
         _appUserService = appUserService;
         _customerService = customerService;
@@ -34,13 +36,22 @@ public class RentalController : Controller
         _rentalService = rentalService;
         _brandService = brandService;
         _userManager = userManager;
+        _offerService = offerService;
     }
     #endregion
 
     #region Razor Views
+    /// <summary>
+    /// Defining a view action for a user to proceed rental details and vehicle information
+    /// </summary>
     public IActionResult Rental(Guid vehicleId)
     {
         var vehicle = _vehicleService.GetVehicle(vehicleId);
+
+        if(vehicle.OfferId != null)
+        {
+            var offer = _offerService.GetAllOffers().FirstOrDefault(x => x.Id == vehicle.OfferId);
+        }
         var brand = _brandService.GetBrand(vehicle.BrandId);
         var claimsIdentity = (ClaimsIdentity)User.Identity;
         var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -59,12 +70,12 @@ public class RentalController : Controller
             CustomerAddress = user.Address,
             CustomerState = user.State,
             PhoneNumber = user.PhoneNumber,
-            ActualPrice = vehicle.PricePerDay,
+            ActualPrice = vehicle.OfferId == null ? vehicle.PricePerDay : (vehicle.PricePerDay - _offerService.GetAllOffers().FirstOrDefault(x => x.Id == vehicle.OfferId).Discount/100 * vehicle.PricePerDay),
         };
 
         if(role == Constants.Admin || role == Constants.Staff)
         {
-            rent.PriceForRegularAndStaffs = vehicle.PricePerDay - (0.25 * vehicle.PricePerDay);
+            rent.PriceForRegularAndStaffs = rent.ActualPrice - (0.25 * rent.ActualPrice);
         } 
         else if(role == Constants.Customer) 
         {
@@ -91,6 +102,9 @@ public class RentalController : Controller
     #endregion
 
     #region API Calls
+    /// <summary>
+    /// Defining a post action for a user to proceed rental details
+    /// </summary>
     [HttpPost]
     public IActionResult Rental(RentalViewModel model)
     {
