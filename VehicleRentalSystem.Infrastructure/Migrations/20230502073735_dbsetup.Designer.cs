@@ -12,8 +12,8 @@ using VehicleRentalSystem.Infrastructure.Persistence;
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230502020955_DbSetup")]
-    partial class DbSetup
+    [Migration("20230502073735_dbsetup")]
+    partial class dbsetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -374,30 +374,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.ToTable("DamageRequests");
                 });
 
-            modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("ProfileImage")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<Guid>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Offer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -574,6 +550,14 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
@@ -731,17 +715,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     b.Navigation("Rental");
                 });
 
-            modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Image", b =>
-                {
-                    b.HasOne("VehicleRentalSystem.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("Images")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Rental", b =>
                 {
                     b.HasOne("VehicleRentalSystem.Domain.Entities.AppUser", "ApproverUser")
@@ -816,8 +789,6 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("VehicleRentalSystem.Domain.Entities.Vehicle", b =>
                 {
-                    b.Navigation("Images");
-
                     b.Navigation("Rental");
                 });
 #pragma warning restore 612, 618

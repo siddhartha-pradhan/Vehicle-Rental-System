@@ -39,8 +39,8 @@
                         <td>@item.Color</td>
                         <td>@item.PricePerDay</td>
                         <td>@item.TotalRents</td>
-                        <td>@item.Availablility</td>
-                        <td>@item.Offer</td>
+                        <td class="fw-bold text-primary">@item.Availablility</td>
+                        <td class="fw-bold text-primary">@item.Offer</td>
                         <td class="text-center">
                             <a href="@Url.Action("Details", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
                             <a href="@Url.Action("Upsert", "Vehicle", new { id = item.Id })" class="btn btn-sm"><i class="fa fa-cogs"  style="color:#2eb82d;"></i></a>

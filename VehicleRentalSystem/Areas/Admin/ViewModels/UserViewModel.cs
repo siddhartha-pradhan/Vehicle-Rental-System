@@ -23,5 +23,7 @@
         public string LastRentedDate { get; set; }
 
         public byte[] Image { get; set; }
+
+        public string ActivationStatus { get; set; }
     }
 }

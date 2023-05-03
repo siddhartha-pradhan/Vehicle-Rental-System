@@ -43,11 +43,11 @@ public class DbInitializer : IDbInitializer
 
         var user = new AppUser
         {
-            FullName = "Anuj Pradhan",
-            Email = "anuj.pradhan.ix+admin@gmail.com",
-            NormalizedEmail = "ANUJ.PRADHAN.IX+ADMIN@GMAIL.COM",
-            UserName = "anuj.pradhan.ix+admin@gmail.com",
-            NormalizedUserName = "ANUJ.PRADHAN.IX+ADMIN@GMAIL.COM",
+            FullName = "Sakshi Gupta",
+            Email = "sakshi.gupta1214+admin@gmail.com",
+            NormalizedEmail = "SAKSHI.GUPTA1214.+ADMIN@GMAIL.COM",
+            UserName = "sakshi.gupta1214+admin@gmail.com",
+            NormalizedUserName = "SAKSHI.GUPTA1214.+ADMIN@GMAIL.COM",
             Address = "Harold Street",
             State = "State Somewhere",
             PhoneNumber = "9803364638",

@@ -72,17 +72,18 @@ public class UserController : Controller
                       join rental in rentals
                         on user.Id equals rental.UserId into userRentals
                       from userRental in userRentals.DefaultIfEmpty()
-                      group userRental by user into rentalGroup
+                      group userRental by new { user,customer } into rentalGroup
                       select new UserViewModel
                       {
-                          UserId = rentalGroup.Key.Id,
-                          Name = rentalGroup.Key.FullName,
-                          Email = rentalGroup.Key.Email,
-                          Address = rentalGroup.Key.Address,
-                          State = rentalGroup.Key.State,
-                          PhoneNumber = rentalGroup.Key.PhoneNumber,
+                          UserId = rentalGroup.Key.user.Id,
+                          Name = rentalGroup.Key.user.FullName,
+                          Email = rentalGroup.Key.user.Email,
+                          Address = rentalGroup.Key.user.Address,
+                          State = rentalGroup.Key.user.State,
+                          PhoneNumber = rentalGroup.Key.user.PhoneNumber,
                           TotalRents = rentalGroup.Count(x => x != null),
-                          LastRentedDate = rentalGroup.Max(x => x != null ? x.RequestedDate.ToString("dd/MM/yyyy") : "Not rented yet")
+                          LastRentedDate = rentalGroup.Max(x => x != null ? x.RequestedDate.ToString("dd/MM/yyyy") : "Not rented yet"),
+                          ActivationStatus = rentalGroup.Key.customer.IsActive == true ? "Active": "Inactive"
                       }).DistinctBy(x => x.UserId).ToList();
 
         return View(result);
