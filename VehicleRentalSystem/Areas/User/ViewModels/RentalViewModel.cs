@@ -29,6 +29,10 @@ public class RentalViewModel
     public DateTime EndDate { get; set; }
 
     public double ActualPrice { get; set; }
-    
+
+    public double StartingPrice { get; set; }
+
+    public string HasOffer { get; set; }
+
     public double PriceForRegularAndStaffs { get; set; }
 }

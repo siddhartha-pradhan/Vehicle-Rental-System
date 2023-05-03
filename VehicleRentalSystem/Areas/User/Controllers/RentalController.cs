@@ -70,7 +70,11 @@ public class RentalController : Controller
             CustomerAddress = user.Address,
             CustomerState = user.State,
             PhoneNumber = user.PhoneNumber,
-            ActualPrice = vehicle.OfferId == null ? vehicle.PricePerDay : (vehicle.PricePerDay - _offerService.GetAllOffers().FirstOrDefault(x => x.Id == vehicle.OfferId).Discount/100 * vehicle.PricePerDay),
+            StartingPrice = vehicle.PricePerDay,
+            HasOffer = vehicle.OfferId != null ? 
+                        (_offerService.RetrieveOffer(vehicle.OfferId).EndDate > DateTime.Now ? "Yes": "No") : "No",
+            ActualPrice = vehicle.OfferId != null ?
+                        (_offerService.RetrieveOffer(vehicle.OfferId).EndDate > DateTime.Now ? (vehicle.PricePerDay - _offerService.GetAllOffers().FirstOrDefault(x => x.Id == vehicle.OfferId).Discount / 100 * vehicle.PricePerDay) : vehicle.PricePerDay) : vehicle.PricePerDay,
         };
 
         if(role == Constants.Admin || role == Constants.Staff)
