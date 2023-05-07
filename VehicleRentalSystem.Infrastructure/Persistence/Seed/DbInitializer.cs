@@ -58,7 +58,7 @@ public class DbInitializer : IDbInitializer
 
         var userManager = _userManager.CreateAsync(user, "@ff!N1ty").GetAwaiter().GetResult();
 
-        var result = _dbContext.Users.FirstOrDefault(u => u.Email == "anuj.pradhan.ix+admin@gmail.com");
+        var result = _dbContext.Users.FirstOrDefault(u => u.Email == "sakshi.gupta1214+admin@gmail.com");
 
         _userManager.AddToRoleAsync(user, Constants.Admin).GetAwaiter().GetResult();
 
