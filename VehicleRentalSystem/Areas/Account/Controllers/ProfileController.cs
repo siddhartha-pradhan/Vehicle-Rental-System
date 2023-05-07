@@ -122,11 +122,9 @@ public class ProfileController : Controller
             appUser.ImageURL = _fileService.FilePath(file, Constants.User, appUser.FullName, role);
         }
 
-
         await _userManager.UpdateAsync(user);
 
         var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
 
         if (profile.PhoneNumber != phoneNumber)
         {

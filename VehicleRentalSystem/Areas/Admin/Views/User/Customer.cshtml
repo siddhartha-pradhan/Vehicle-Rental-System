@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Customers";
 }
-
+<partial name="_Notification" />
 <div class="container-fluid" style=" margin-top:13vh;">
     <div class="row mb-3">
         <div class="col-6">
@@ -17,11 +17,11 @@
                 <tr class="table-info">
                     <th class="text-center">Name of the Customer</th>
                     <th class="text-center">Address</th>
-                    <th class="text-center">State</th>
                     <th class="text-center">Phone Number</th>
                     <th class="text-center">Total Rents</th>
                     <th class="text-center">Last Rented Date</th>
                     <th class="text-center">Activation Status</th>
+                    <th class="text-center">Regular Status</th>
                     <th class="text-center">Options</th>
                 </tr>
             </thead>
@@ -30,15 +30,15 @@
                 {
                     <tr>
                         <td>@item.Name</td>
-                        <td>@item.Address</td>
-                        <td>@item.State</td>
+                        <td>@item.Address, @item.State</td>
                         <td>@item.PhoneNumber</td>
                         <td>@item.TotalRents</td>
                         <td>@item.LastRentedDate</td>
                         <td>@item.ActivationStatus</td>
+                        <td>@item.RegularStatus</td>
                         <td class="text-center">
                             <a href="@Url.Action("Details", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa-solid fa-circle-info"></i></a>
-                            <a href="@Url.Action("Deactivate", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa-regular fa-circle-xmark text-danger"></i></a>
+                            <a href="@Url.Action("Password", "User", new { id = item.UserId })" class="btn btn-sm"><i class="fa-sharp fa-solid fa-key"></i></a>
                         </td>
                     </tr>
                 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using VehicleRentalSystem.Domain.Constants;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
@@ -61,14 +62,14 @@ public class SalesController : Controller
                                  join user in _appUserService.GetAllUsers()
                                      on customer.UserId equals user.Id
                                  join rental in _rentalService.GetAllRentals()
-                                     on user.Id equals rental.UserId into rentalGroup
-                                 where !rentalGroup.Any(x => x.RequestedDate != DateTime.MinValue && x.RequestedDate >= DateTime.Now.AddMonths(-3))
+                                     on user.Id equals rental.UserId 
+                                 where rental.RequestedDate >= DateTime.Now.AddMonths(-3)
                                  select new InActiveCustomerViewModel()
                                  {
                                      CustomerId = customer.Id,
                                      CustomerName = user.FullName,
-                                     LastRentedDate = rentalGroup.OrderByDescending(x => x.RequestedDate).Select(x => x.RequestedDate).FirstOrDefault().ToString("dd/MM/yyyy")
-                                 }).ToList();
+                                     LastRentedDate = rental.RequestedDate.ToString("dd/MM/yyyy")
+                                 }).DistinctBy(x => x.CustomerId).ToList();
 
         var result = new SalesViewModel()
         {

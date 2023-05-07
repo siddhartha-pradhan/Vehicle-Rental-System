@@ -6,7 +6,6 @@ using VehicleRentalSystem.Domain.Constants;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using VehicleRentalSystem.Application.Interfaces.Services;
 using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
-using Microsoft.CodeAnalysis.Operations;
 using VehicleRentalSystem.Application.Interfaces.Repositories;
 
 namespace VehicleRentalSystem.Presentation.Areas.Admin.Controllers;
@@ -86,7 +85,8 @@ public class UserController : Controller
                           PhoneNumber = rentalGroup.Key.user.PhoneNumber,
                           TotalRents = rentalGroup.Count(x => x != null),
                           LastRentedDate = rentalGroup.Max(x => x != null ? x.RequestedDate.ToString("dd/MM/yyyy") : "Not rented yet"),
-                          ActivationStatus = rentalGroup.Key.customer.IsActive == true ? "Active": "Inactive"
+                          ActivationStatus = rentalGroup.Key.customer.IsActive == true ? "Active": "Inactive",
+                          RegularStatus = rentalGroup.Key.customer.IsRegular == true ? "Regular" : "Normal"
                       }).DistinctBy(x => x.UserId).ToList();
 
         return View(result);
@@ -99,6 +99,17 @@ public class UserController : Controller
     public IActionResult Details(string id)
     {
         var user = _appUserService.GetUser(id);
+
+        var customer = _customerService.GetAllCustomers().Where(x => x.UserId == user.Id).FirstOrDefault();
+
+        var role = "Staff";
+        var status = "normal";
+
+        if(customer != null)
+        {
+            role = "Customer";
+            status = customer.IsRegular ? "regular" : "normal";
+        }
 
         var rents = (from rent in _rentalService.GetAllRentals().Where(x => x.RentalStatus == Constants.Approved && x.UserId == id)
                      join vehicle in _vehicleService.GetAllVehicles()
@@ -117,6 +128,8 @@ public class UserController : Controller
         var result = new CustomerRentDetails()
         {
             Customer = user,
+            Role = role,
+            CustomerStatus = status,
             CustomerRent = rents
         };
 
@@ -188,13 +201,28 @@ public class UserController : Controller
 
         return View(staff);
     }
+
+    [HttpGet]
+    public IActionResult Password(string id)
+    {
+        var user = _appUserService.GetUser(id);
+
+        var userModel = new UserPasswordViewModel()
+        {
+            Id = id,
+            UserName = user.FullName,
+            Password = ""
+        };
+
+        return View(userModel);
+    }
     #endregion
 
-    #region API Calls
-    /// <summary>
-    /// Defining a post action for admin to register a new staff to the system
-    /// </summary>
-    [HttpPost]
+        #region API Calls
+        /// <summary>
+        /// Defining a post action for admin to register a new staff to the system
+        /// </summary>
+        [HttpPost]
     public async Task<IActionResult> Register(UserViewModel staff)
     {
         var image = Request.Form.Files.FirstOrDefault();
@@ -256,5 +284,49 @@ public class UserController : Controller
 
         return RedirectToAction("Customer");
     }
-    #endregion
+
+    [HttpPost]
+    public async Task<IActionResult> Password(UserPasswordViewModel model)
+    {
+        var appUser = _appUserService.GetUser(model.Id);
+
+        var user = await _userManager.FindByIdAsync(appUser.Id);
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var result = await _userManager.ResetPasswordAsync(user, token, model.Password);
+
+        if (result.Succeeded)
+        {
+            TempData["Success"] = "Password Successfully Updated";
+
+            return RedirectToAction("Password");
+        }
+
+        TempData["Danger"] = result.Errors.FirstOrDefault().Description;
+
+        return RedirectToAction("Password");
+    }
+
+    [HttpPost]
+    public IActionResult Update(string id)
+    {
+        var user = _appUserService.GetUser(id);
+
+        var customer = _customerService.GetAllCustomers().Where(x => x.UserId == user.Id).FirstOrDefault();
+
+        if (customer.IsRegular)
+        {
+            customer.IsRegular = false;
+            TempData["Success"] = "User's Status Changed to Normal";
+        }
+        else
+        {
+            customer.IsRegular = true;
+            TempData["Success"] = "User's Status Changed to Regular";
+        }
+        _unitOfWork.Save();
+        
+
+        return RedirectToAction("Customer");
+    }
+        #endregion
 }
