@@ -72,9 +72,12 @@ public class RentalController : Controller
             PhoneNumber = user.PhoneNumber,
             StartingPrice = vehicle.PricePerDay,
             HasOffer = vehicle.OfferId != null ? 
-                        (_offerService.RetrieveOffer(vehicle.OfferId).EndDate > DateTime.Now ? "Yes": "No") : "No",
+                        ((_offerService.RetrieveOffer(vehicle.OfferId).EndDate > DateTime.Now && 
+                        _offerService.RetrieveOffer(vehicle.OfferId).StartDate < DateTime.Now) ? "Yes": "No") : "No",
             ActualPrice = vehicle.OfferId != null ?
-                        (_offerService.RetrieveOffer(vehicle.OfferId).EndDate > DateTime.Now ? (vehicle.PricePerDay - _offerService.GetAllOffers().FirstOrDefault(x => x.Id == vehicle.OfferId).Discount / 100 * vehicle.PricePerDay) : vehicle.PricePerDay) : vehicle.PricePerDay,
+                        ((_offerService.RetrieveOffer(vehicle.OfferId).EndDate > DateTime.Now &&
+                        _offerService.RetrieveOffer(vehicle.OfferId).StartDate < DateTime.Now) ? 
+                        (vehicle.PricePerDay - _offerService.GetAllOffers().FirstOrDefault(x => x.Id == vehicle.OfferId).Discount / 100 * vehicle.PricePerDay) : vehicle.PricePerDay) : vehicle.PricePerDay,
         };
 
         if(role == Constants.Admin || role == Constants.Staff)
