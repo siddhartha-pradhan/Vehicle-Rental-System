@@ -25,5 +25,7 @@
         public byte[] Image { get; set; }
 
         public string ActivationStatus { get; set; }
+
+        public string RegularStatus { get; set; }
     }
 }

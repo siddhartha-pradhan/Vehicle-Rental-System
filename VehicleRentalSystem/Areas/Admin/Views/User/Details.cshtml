@@ -1,12 +1,20 @@
-﻿@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
+﻿@using VehicleRentalSystem.Domain.Constants;
+@using VehicleRentalSystem.Presentation.Areas.Admin.ViewModels;
 
 @model CustomerRentDetails
 
 @{
     ViewData["Title"] = "Customer Detail";
+
     var title = "Customer Details";
+
+    if(Model.Role == Constants.Staff)
+    {
+        title = "Staff Details";
+    }
 }
 
+<partial name="_Notification" />
 
 <div class="container-fluid" style=" margin-top:10vh;">
     <form method="post">
@@ -25,7 +33,7 @@
                             <div class="form-group row">
                                 <input asp-for="Customer.Id" class="form-control" type="hidden"/>
                                 <div class="col-4">
-                                    <label asp-for="Customer.FullName" class="fw-bold">Full Name:</label>
+                                    <label asp-for="Customer.FullName" class="fw-bold">Full Name</label>
                                 </div>
                                 <div class="col-8 mb-4">
                                     @Model.Customer.FullName
@@ -33,7 +41,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-4">
-                                    <label asp-for="Customer.Email" class="fw-bold">Email:</label>
+                                    <label asp-for="Customer.Email" class="fw-bold">Email</label>
                                 </div>
                                 <div class="col-8 mb-4">
                                     @Model.Customer.Email
@@ -41,7 +49,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-4">
-                                    <label asp-for="Customer.PhoneNumber" class="fw-bold">Phone Number:</label>
+                                    <label asp-for="Customer.PhoneNumber" class="fw-bold">Phone Number</label>
                                 </div>
                                 <div class="col-8 mb-4">
                                     @Model.Customer.PhoneNumber
@@ -49,7 +57,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-4">
-                                    <label asp-for="Customer.Address" class="fw-bold">Address: </label>
+                                    <label asp-for="Customer.Address" class="fw-bold">Address</label>
                                 </div>
                                 <div class="col-8 mb-4">
                                     @Model.Customer.Address
@@ -57,7 +65,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-4">
-                                    <label asp-for="Customer.State" class="fw-bold">State:</label>
+                                    <label asp-for="Customer.State" class="fw-bold">State</label>
                                 </div>
                                 <div class="col-8 mb-4">
                                     @Model.Customer.State
@@ -66,9 +74,21 @@
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <div class="row">
-                                        <div class="col">
-                                            <a asp-action="Customer" class="btn btn-blue form-control">Back to List</a>
-                                        </div>
+                                        @if(Model.Role == Constants.Customer)
+                                        {
+                                            <div class="col">
+                                                <a asp-action="Customer" class="btn btn-blue form-control">Back to List</a>
+                                            </div>
+                                            <div class="col">
+                                                <button type="submit" asp-action="Update" asp-route-id="@Model.Customer.Id" class="btn btn-outline-info form-control">Update Status</button>
+                                            </div>
+                                        }
+                                        @if(Model.Role == Constants.Staff)
+                                        {
+                                            <div class="col">
+                                                <a asp-action="Staff" class="btn btn-blue form-control">Back to List</a>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

@@ -4,7 +4,6 @@
     ViewData["Title"] = "Documents";
 }
 
-
 <partial name="_Notification" />
 
 <form method="post" enctype="multipart/form-data">
@@ -22,14 +21,14 @@
                 </div>
                 @if (Model.CitizenshipNumber == null)
                 {
-                        <div class="form-group row mb-3">
-                            <div class="col-3">
-                                <label class="custom-file-label">Choose your citizenship</label>
-                            </div>
-                            <div class="col-9">
-                                <input asp-for="CitizenshipNumber" type="file"  name="citizenship" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf, image/png" />
-                            </div>
+                    <div class="form-group row mb-3">
+                        <div class="col-3">
+                            <label class="custom-file-label">Choose your citizenship</label>
                         </div>
+                        <div class="col-9">
+                            <input asp-for="CitizenshipNumber" type="file"  name="citizenship" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf, image/png" />
+                        </div>
+                    </div>
                 }
 
                 <div class="row mb-3">
