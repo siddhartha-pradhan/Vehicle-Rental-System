@@ -63,7 +63,7 @@ public class SalesController : Controller
                                      on customer.UserId equals user.Id
                                  join rental in _rentalService.GetAllRentals()
                                      on user.Id equals rental.UserId 
-                                 where rental.RequestedDate >= DateTime.Now.AddMonths(-3)
+                                 where rental.RequestedDate <= DateTime.Now.AddMonths(-3)
                                  select new InActiveCustomerViewModel()
                                  {
                                      CustomerId = customer.Id,
