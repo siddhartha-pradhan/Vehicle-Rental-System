@@ -71,7 +71,7 @@ public class FileTransferService : IFileTransferService
             file.CopyTo(fileStreams);
         }
 
-        return @$"images\{type.ToLower()}\" + fileName + extension;
+        return @$"\images\{type.ToLower()}\" + fileName + extension;
     }
 
     public byte[] ImageByte(IFormFile file)
