@@ -22,16 +22,9 @@ public class DbInitializer : IDbInitializer
 
     public async Task Initialize()
     {
-        try
+        if ((await _dbContext.Database.GetPendingMigrationsAsync()).Any())
         {
-            if (_dbContext.Database.GetPendingMigrations().Count() > 0)
-            {
-                _dbContext.Database.Migrate();
-            }
-        }
-        catch (Exception)
-        {
-            throw;
+            await _dbContext.Database.MigrateAsync();
         }
 
         if (!_roleManager.RoleExistsAsync(Constants.Admin).GetAwaiter().GetResult())
@@ -43,11 +36,11 @@ public class DbInitializer : IDbInitializer
 
         var user = new AppUser
         {
-            FullName = "Sakshi Gupta",
-            Email = "sakshi.gupta1214+admin@gmail.com",
-            NormalizedEmail = "SAKSHI.GUPTA1214.+ADMIN@GMAIL.COM",
-            UserName = "sakshi.gupta1214+admin@gmail.com",
-            NormalizedUserName = "SAKSHI.GUPTA1214.+ADMIN@GMAIL.COM",
+            FullName = "Affinity IO",
+            Email = "affinity@affinity.io",
+            NormalizedEmail = "AFFINITY@AFFINITY.IO",
+            UserName = "affinity@affinity.io",
+            NormalizedUserName = "AFFINITY@AFFINITY.IO",
             Address = "Harold Street",
             State = "State Somewhere",
             PhoneNumber = "9803364638",
@@ -56,9 +49,7 @@ public class DbInitializer : IDbInitializer
             SecurityStamp = Guid.NewGuid().ToString("D")
         };
 
-        var userManager = _userManager.CreateAsync(user, "@ff!N1ty").GetAwaiter().GetResult();
-
-        var result = _dbContext.Users.FirstOrDefault(u => u.Email == "sakshi.gupta1214+admin@gmail.com");
+        _userManager.CreateAsync(user, "@ff!N1ty").GetAwaiter().GetResult();
 
         _userManager.AddToRoleAsync(user, Constants.Admin).GetAwaiter().GetResult();
 

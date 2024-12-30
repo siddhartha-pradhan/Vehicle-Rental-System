@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VehicleRentalSystem.Infrastructure.Migrations
 {
-    public partial class dbsetup : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -175,7 +175,7 @@ namespace VehicleRentalSystem.Infrastructure.Migrations
                     ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    IsRegulat = table.Column<bool>(type: "bit", nullable: false)
+                    IsRegular = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
