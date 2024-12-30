@@ -137,42 +137,6 @@ public class UserController : Controller
     }
 
     [HttpGet]
-    public IActionResult System()
-    {
-        var users = _appUserService.GetAllUsers();
-        var roles = _roleService.GetAllRoles();
-        var userRoles = _userRoleService.GetAllUserRoles();
-
-        var result = (from user in users
-                      join userRole in userRoles
-                        on user.Id equals userRole.UserId
-                      join role in roles
-                        on userRole.RoleId equals role.Id
-                      select new UserViewModel
-                      {
-                          UserId = user.Id,
-                          RoleId = role.Id,
-                          Name = user.FullName,
-                          Email = user.Email,
-                          Address = user.Address,
-                          State = user.State,
-                          PhoneNumber = user.PhoneNumber,
-                          Role = role.Name
-                      }).ToList();
-
-        return View(result);
-    }
-
-    [HttpGet]
-    public IActionResult Admin()
-    {
-        var adminRole = _roleManager.FindByNameAsync(Constants.Admin);
-        var adminUsers = _userManager.GetUsersInRoleAsync(adminRole.Result.Name);
-
-        return View(adminUsers);
-    }
-
-    [HttpGet]
     public IActionResult Staff()
     {
         var users = _appUserService.GetAllUsers();
